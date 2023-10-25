@@ -1,8 +1,8 @@
-name: GuizhanSlimefunAddon
+name: FastMachines
 version: '${project.version}'
-main: net.guizhanss.guizhanslimefunaddon.GuizhanSlimefunAddon
-api-version: 1.14
+main: net.guizhanss.fastmachines.FastMachines
+api-version: 1.16
 depend: [ Slimefun ]
 softdepend: [ GuizhanLibPlugin ]
 authors: [ ybw0014 ]
-description: A Slimefun Addon
+description: A Slimefun Addon that adds better basic machines.
