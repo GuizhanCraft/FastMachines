@@ -12,10 +12,10 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 
+import net.guizhanss.fastmachines.core.services.LocalizationService;
 import net.guizhanss.fastmachines.setup.Items;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
 import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig;
-import net.guizhanss.guizhanlib.slimefun.addon.SlimefunLocalization;
 import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
 
 import org.bstats.bukkit.Metrics;
@@ -24,7 +24,7 @@ public final class FastMachines extends AbstractAddon {
 
     private static final String DEFAULT_LANG = "en-US";
 
-    private SlimefunLocalization localization;
+    private LocalizationService localization;
     private boolean debugEnabled = false;
 
     public FastMachines() {
@@ -32,7 +32,7 @@ public final class FastMachines extends AbstractAddon {
     }
 
     @Nonnull
-    public static SlimefunLocalization getLocalization() {
+    public static LocalizationService getLocalization() {
         return inst().localization;
     }
 
@@ -65,7 +65,7 @@ public final class FastMachines extends AbstractAddon {
         // localization
         log(Level.INFO, "Loading language...");
         String lang = config.getString("lang", DEFAULT_LANG);
-        localization = new SlimefunLocalization(this);
+        localization = new LocalizationService(this);
         localization.addLanguage(lang);
         if (!lang.equals(DEFAULT_LANG)) {
             localization.addLanguage(DEFAULT_LANG);
