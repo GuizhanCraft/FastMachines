@@ -14,9 +14,9 @@ categories:
 items:
   # gui items
   CHOICE_INDICATOR:
-    name: "&eChosen item"
+    name: "&eSelected item"
     lore:
-      - "&7You have chosen the item below to be made."
+      - "&7You have selected the item below to be crafted."
   SCROLL_UP:
     name: "&eScroll up"
     lore:
@@ -32,7 +32,11 @@ items:
       - "&7all the available outputs will be shown."
       - ""
       - "&7Select an item, then click on 'Craft' below."
-      - "&7The outputs will fill the 4th row."
+      - "&7The outputs will fill the bottom rows."
+      - ""
+      - "&cIf the possible output amount does not satisfy"
+      - "&cthe requested amount, the crafting will provide"
+      - "&cmaximum possible amount of the item."
   CRAFT:
     name: "&aCraft"
     lore:
@@ -42,10 +46,6 @@ items:
       - "&7Right Click: 16 times"
       - "&7Shift + Left Click: 64 times"
       - "&7Shift + Right Click: as many as possible"
-      - ""
-      - "&cIf the possible output amount does not satisfy"
-      - "&cthe requested amount, the crafting will provide"
-      - "&cmaximum possible amount of the item."
   NO_ITEM:
     name: "&cNo Item selected"
     lore: []
@@ -128,7 +128,7 @@ items:
       - "&7Craft without need to put items in order."
 
 lores:
-  per-craft: " per craft"
+  per-craft: " &cper craft"
 
 messages:
   not-enough-energy: "&cNot enough energy!"

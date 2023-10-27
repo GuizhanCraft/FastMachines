@@ -26,6 +26,7 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
@@ -131,7 +132,8 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
 
         ItemStack craftItem = ItemUtil.appendLore(
             getCraftItem(),
-            FastMachines.getLocalization().getString("lores.per-craft")
+            "",
+            LoreBuilder.power(energyPerUse.getValue(), FastMachines.getLocalization().getString("lores.per-craft"))
         );
         preset.addItem(CRAFT_SLOT, craftItem, ChestMenuUtils.getEmptyClickHandler());
     }
