@@ -21,6 +21,7 @@ public final class FastOreWasher extends AbstractFastMachine {
 
     @Override
     protected void registerRecipes() {
+        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.ORE_WASHER.getItemId());
     }
 

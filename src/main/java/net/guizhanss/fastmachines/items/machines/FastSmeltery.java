@@ -21,7 +21,7 @@ public final class FastSmeltery extends AbstractFastMachine {
 
     @Override
     protected void registerRecipes() {
-        FastMachines.debug("Registering recipes for FastSmeltery");
+        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.SMELTERY.getItemId());
     }
 

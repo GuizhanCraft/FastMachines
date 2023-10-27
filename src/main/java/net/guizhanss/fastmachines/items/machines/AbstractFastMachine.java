@@ -11,6 +11,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 
+import net.guizhanss.fastmachines.core.recipes.IRecipe;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -91,7 +93,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         "NO_ITEM", Material.BARRIER);
 
     // outputs map
-    protected static final Map<BlockPosition, Map<StandardRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
+    protected static final Map<BlockPosition, Map<IRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
 
     protected final List<StandardRecipe> recipes = new ArrayList<>();
 
@@ -133,14 +135,14 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     protected void onNewInstance(BlockMenu blockMenu, Block block) {
         BlockPosition pos = new BlockPosition(block);
         blockMenu.addMenuClickHandler(SCROLL_UP_SLOT, (player, i, itemStack, clickAction) -> {
-            int currentPage = BlockStorageUtils.getInt(pos.toLocation(), "page", 1);
-            BlockStorageUtils.setInt(pos.toLocation(), "page", currentPage - 1);
+            int currentPage = BlockStorageUtils.getInt(pos, "page", 1);
+            BlockStorageUtils.setInt(pos, "page", currentPage - 1);
             updateMenu(blockMenu);
             return false;
         });
         blockMenu.addMenuClickHandler(SCROLL_DOWN_SLOT, (player, i, itemStack, clickAction) -> {
-            int currentPage = BlockStorageUtils.getInt(pos.toLocation(), "page", 1);
-            BlockStorageUtils.setInt(pos.toLocation(), "page", currentPage + 1);
+            int currentPage = BlockStorageUtils.getInt(pos, "page", 1);
+            BlockStorageUtils.setInt(pos, "page", currentPage + 1);
             updateMenu(blockMenu);
             return false;
         });
@@ -199,6 +201,14 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         menu.dropItems(l, INPUT_SLOTS);
     }
 
+    @Nonnull
+    protected Map<IRecipe, Integer> getMachineOutputs(@Nonnull BlockMenu menu) {
+        BlockPosition pos = new BlockPosition(menu.getLocation());
+        var outputs = OUTPUTS_MAP.getOrDefault(pos, new LinkedHashMap<>());
+        OUTPUTS_MAP.put(pos, outputs);
+        return outputs;
+    }
+
     /**
      * Find all the available outputs based on the given inputs.
      *
@@ -209,9 +219,8 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     protected void findAvailableOutputs(BlockMenu blockMenu) {
         BlockPosition pos = new BlockPosition(blockMenu.getLocation());
         Map<ItemStack, Integer> machineInputs = MachineUtils.getMachineInputAmount(blockMenu, INPUT_SLOTS);
-        Map<StandardRecipe, Integer> outputs = OUTPUTS_MAP.getOrDefault(pos, new LinkedHashMap<>());
+        var outputs = getMachineOutputs(blockMenu);
         outputs.clear();
-        OUTPUTS_MAP.put(pos, outputs);
 
         if (machineInputs.isEmpty()) {
             return;
@@ -264,25 +273,19 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     @ParametersAreNonnullByDefault
     protected void updateMenu(BlockMenu blockMenu) {
         BlockPosition pos = new BlockPosition(blockMenu.getLocation());
-
-        // this shouldn't happen but just in case
-        if (!OUTPUTS_MAP.containsKey(pos)) {
-            return;
-        }
-
-        // preview section
-        Map<StandardRecipe, Integer> outputs = OUTPUTS_MAP.get(pos);
+        var outputs = getMachineOutputs(blockMenu);
         ItemStack[] outputItems =
-            outputs.keySet().stream().map(StandardRecipe::getOutput).toArray(ItemStack[]::new);
-        int currentPage = BlockStorageUtils.getInt(pos.toLocation(), "page", 1);
+            outputs.keySet().stream().map(recipe -> recipe.getOutput(pos.getWorld())).toArray(ItemStack[]::new);
+        int currentPage = BlockStorageUtils.getInt(pos, "page", 1);
         int totalPages = (int) Math.ceil(outputs.size() * 1.0 / ITEMS_PER_PAGE);
+        // limit the page in range
         if (currentPage < 1) {
             currentPage = 1;
-            BlockStorageUtils.setInt(pos.toLocation(), "page", 1);
+            BlockStorageUtils.setInt(pos, "page", 1);
         }
         if (currentPage > totalPages) {
             currentPage = totalPages;
-            BlockStorageUtils.setInt(pos.toLocation(), "page", totalPages);
+            BlockStorageUtils.setInt(pos, "page", totalPages);
         }
 
         for (int i = 0; i < ITEMS_PER_PAGE; i++) {
@@ -295,7 +298,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
             ItemStack output = outputItems[index].clone();
             blockMenu.replaceExistingItem(PREVIEW_SLOTS[i], output);
             blockMenu.addMenuClickHandler(PREVIEW_SLOTS[i], ((player, slot, itemStack, clickAction) -> {
-                BlockStorageUtils.setInt(pos.toLocation(), KEY_CHOICE, index);
+                BlockStorageUtils.setInt(pos, KEY_CHOICE, index);
                 updateChoice(blockMenu);
                 return false;
             }));
@@ -307,17 +310,11 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     @ParametersAreNonnullByDefault
     protected void updateChoice(BlockMenu blockMenu) {
         BlockPosition pos = new BlockPosition(blockMenu.getLocation());
-
-        // this shouldn't happen but just in case
-        if (!OUTPUTS_MAP.containsKey(pos)) {
-            return;
-        }
-
-        Map<StandardRecipe, Integer> outputs = OUTPUTS_MAP.get(pos);
+        var outputs = getMachineOutputs(blockMenu);
         ItemStack[] outputItems =
-            outputs.keySet().stream().map(StandardRecipe::getOutput).toArray(ItemStack[]::new);
+            outputs.keySet().stream().map(recipe -> recipe.getOutput(pos.getWorld())).toArray(ItemStack[]::new);
 
-        int choice = BlockStorageUtils.getInt(pos.toLocation(), KEY_CHOICE);
+        int choice = BlockStorageUtils.getInt(pos, KEY_CHOICE);
         if (choice >= outputs.size()) {
             blockMenu.replaceExistingItem(CHOICE_SLOT, NO_ITEM);
         } else {
@@ -331,16 +328,11 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         Preconditions.checkArgument(amount > 0, "amount must greater than 0");
 
         BlockPosition pos = new BlockPosition(blockMenu.getLocation());
-
-        // this shouldn't happen but just in case
-        if (!OUTPUTS_MAP.containsKey(pos)) {
-            return;
-        }
-
-        Map<StandardRecipe, Integer> outputs = OUTPUTS_MAP.get(pos);
+        var outputs = getMachineOutputs(blockMenu);
         var outputRecipes = outputs.entrySet().stream().toList();
 
-        int choice = BlockStorageUtils.getInt(pos.toLocation(), KEY_CHOICE);
+        int choice = BlockStorageUtils.getInt(pos, KEY_CHOICE);
+        // invalid choice, due to previous selection not available anymore
         if (choice >= outputs.size()) {
             return;
         }
@@ -373,12 +365,13 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         }
 
         // push the product
-        ItemStack product = recipe.getKey().getOutput().clone();
+        ItemStack product = recipe.getKey().getOutput(pos.getWorld()).clone();
         int remaining = MachineUtils.addItem(blockMenu, OUTPUT_SLOTS, product, amount);
         if (remaining > 0) {
             FastMachines.getLocalization().sendMessage(p, "not-enough-space");
+            // push the remaining to player inventory
             int stacks = product.getMaxStackSize();
-            int reminder = product.getMaxStackSize();
+            int reminder = remaining / product.getMaxStackSize();
             ItemStack[] items = new ItemStack[stacks + (reminder > 0 ? 1 : 0)];
             for (int i = 0; i < stacks; i++) {
                 items[i] = product.clone();

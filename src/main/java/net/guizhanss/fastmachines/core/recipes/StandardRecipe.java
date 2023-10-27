@@ -18,9 +18,9 @@ import lombok.Getter;
  *
  * @author ybw0014
  */
-@Getter
-public class StandardRecipe {
+public class StandardRecipe implements IRecipe {
     private final ItemStack output;
+    @Getter
     private final Map<ItemStack, Integer> input;
 
     public StandardRecipe(ItemStack output, ItemStack... input) {
@@ -62,5 +62,15 @@ public class StandardRecipe {
     public boolean isDisabledInWorld(@Nonnull World world) {
         SlimefunItem sfItem = SlimefunItem.getByItem(output);
         return sfItem != null && sfItem.isDisabledIn(world);
+    }
+
+    @Override
+    public ItemStack[] getAllOutputs() {
+        return new ItemStack[] { output };
+    }
+
+    @Override
+    public ItemStack getOutput(@Nonnull World world) {
+        return output;
     }
 }
