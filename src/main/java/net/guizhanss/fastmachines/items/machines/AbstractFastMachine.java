@@ -183,8 +183,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
 
     @Override
     protected int[] getInputSlots() {
-        // Basic machines should not support cargo access
-        return new int[0];
+        return INPUT_SLOTS;
     }
 
     @Override
