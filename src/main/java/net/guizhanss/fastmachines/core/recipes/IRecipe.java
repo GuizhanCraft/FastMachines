@@ -2,6 +2,8 @@ package net.guizhanss.fastmachines.core.recipes;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,9 +18,14 @@ public interface IRecipe {
      *
      * @return All the possible outputs.
      */
+    @Nonnull
     ItemStack[] getAllOutputs();
 
-    ItemStack getOutput(World world);
+    @Nonnull
+    ItemStack getOutput(@Nonnull World world);
 
+    boolean isDisabledInWorld(@Nonnull World world);
+
+    @Nonnull
     Map<ItemStack, Integer> getInput();
 }

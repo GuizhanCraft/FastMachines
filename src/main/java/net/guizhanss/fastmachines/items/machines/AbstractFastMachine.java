@@ -33,7 +33,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.IRecipe;
-import net.guizhanss.fastmachines.core.recipes.StandardRecipe;
 import net.guizhanss.fastmachines.setup.Groups;
 import net.guizhanss.fastmachines.utils.BlockStorageUtils;
 import net.guizhanss.fastmachines.utils.Heads;
@@ -96,7 +95,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     // outputs map
     protected static final Map<BlockPosition, Map<IRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
 
-    protected final List<StandardRecipe> recipes = new ArrayList<>();
+    protected final List<IRecipe> recipes = new ArrayList<>();
 
     protected final IntRangeSetting energyPerUse = new IntRangeSetting(this, "energy-per-use", 0, 8, Integer.MAX_VALUE);
     protected final IntRangeSetting energyCapacity = new IntRangeSetting(this, "energy-capacity", 0, 1024, Integer.MAX_VALUE);

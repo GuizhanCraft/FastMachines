@@ -22,6 +22,7 @@ import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 
 import net.guizhanss.fastmachines.FastMachines;
+import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.core.recipes.StandardRecipe;
 import net.guizhanss.fastmachines.items.machines.AbstractFastMachine;
 
@@ -71,12 +72,12 @@ public final class RecipeUtils {
      * Register recipes from a {@link MultiBlockMachine}.
      *
      * @param recipes
-     *     The {@link List} instance of {@link StandardRecipe} from a {@link AbstractFastMachine}.
+     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
      * @param id
      *     The id of the {@link MultiBlockMachine}.
      */
     @ParametersAreNonnullByDefault
-    public static void registerMultiblockMachineRecipes(List<StandardRecipe> recipes, String id) {
+    public static void registerMultiblockMachineRecipes(List<IRecipe> recipes, String id) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(id != null, MSG_ID_NULL);
 
@@ -110,12 +111,12 @@ public final class RecipeUtils {
      * Register recipes from a electric machine.
      *
      * @param recipes
-     *     The {@link List} instance of {@link StandardRecipe} from a {@link AbstractFastMachine}.
+     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
      * @param id
      *     The id of the {@link MultiBlockMachine}.
      */
     @ParametersAreNonnullByDefault
-    public static void registerMachineRecipes(List<StandardRecipe> recipes, String id) {
+    public static void registerMachineRecipes(List<IRecipe> recipes, String id) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(id != null, MSG_ID_NULL);
 
@@ -155,16 +156,32 @@ public final class RecipeUtils {
         }
     }
 
+    public static void registerDisplayRecipes(List<IRecipe> recipes, String id) {
+        Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
+        Preconditions.checkArgument(id != null, MSG_ID_NULL);
+
+        SlimefunItem sfItem = SlimefunItem.getById(id);
+        if (sfItem == null) {
+            throw new IllegalArgumentException("The given id is not a valid SlimefunItem: " + id);
+        }
+
+        if (!(sfItem instanceof RecipeDisplayItem recipeDisplayItem)) {
+            throw new IllegalArgumentException("The given item is not a valid RecipeDisplayItem: " + id);
+        }
+
+        registerDisplayRecipes(recipes, recipeDisplayItem.getDisplayRecipes());
+    }
+
     /**
      * Register recipes from display recipes.
      *
      * @param recipes
-     *     The {@link List} instance of {@link StandardRecipe} from a {@link AbstractFastMachine}.
+     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
      * @param displayRecipes
      *     The display recipes from a {@link RecipeDisplayItem}.
      */
     @ParametersAreNonnullByDefault
-    public static void registerDisplayRecipes(List<StandardRecipe> recipes, List<ItemStack> displayRecipes) {
+    public static void registerDisplayRecipes(List<IRecipe> recipes, List<ItemStack> displayRecipes) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(displayRecipes != null, "displayRecipes cannot be null");
 
