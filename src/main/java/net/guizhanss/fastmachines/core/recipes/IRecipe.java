@@ -1,9 +1,11 @@
 package net.guizhanss.fastmachines.core.recipes;
-import net.guizhanss.fastmachines.items.machines.AbstractFastMachine;
+
+import java.util.Map;
+
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
+import net.guizhanss.fastmachines.items.machines.AbstractFastMachine;
 
 /**
  * This interface represents a recipe used by a {@link AbstractFastMachine}.
@@ -11,6 +13,7 @@ import java.util.Map;
 public interface IRecipe {
     /**
      * Get all the possible outputs.
+     *
      * @return All the possible outputs.
      */
     ItemStack[] getAllOutputs();

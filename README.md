@@ -25,7 +25,8 @@ Credit: Final_Root
 
 The following settings are available for each individual Fast Machines:
 
-- `energy-per-use`: The energy cost of each crafting operation. (default: `8`, range: `0` - `33554431`(2^25-1))
+- `energy-per-use`: The energy cost of each crafting operation. (default: `8`, range: `0` - `2,147,483,647` (2^31-1))
+- `energy-capacity`: The energy capacity of the machine. (default: `1024`, range: `0` - `2,147,483,647` (2^31-1))
 
 ## Thanks
 

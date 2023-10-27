@@ -11,8 +11,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 
-import net.guizhanss.fastmachines.core.recipes.IRecipe;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -33,12 +31,14 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 
 import net.guizhanss.fastmachines.FastMachines;
+import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.core.recipes.StandardRecipe;
 import net.guizhanss.fastmachines.setup.Groups;
 import net.guizhanss.fastmachines.utils.BlockStorageUtils;
 import net.guizhanss.fastmachines.utils.Heads;
 import net.guizhanss.fastmachines.utils.MachineUtils;
 import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil;
+import net.guizhanss.guizhanlib.minecraft.utils.ItemUtil;
 import net.guizhanss.guizhanlib.slimefun.machines.TickingMenuBlock;
 
 /**
@@ -97,13 +97,14 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
 
     protected final List<StandardRecipe> recipes = new ArrayList<>();
 
-    // 0 ~ 2^25-1
-    private final IntRangeSetting energyPerUse = new IntRangeSetting(this, "energy-per-use", 0, 8, 33554431);
+    protected final IntRangeSetting energyPerUse = new IntRangeSetting(this, "energy-per-use", 0, 8, Integer.MAX_VALUE);
+    protected final IntRangeSetting energyCapacity = new IntRangeSetting(this, "energy-capacity", 0, 1024, Integer.MAX_VALUE);
 
     protected AbstractFastMachine(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(Groups.MACHINES, item, recipeType, recipe);
 
         addItemSetting(energyPerUse);
+        addItemSetting(energyCapacity);
     }
 
     @Nonnull
@@ -114,7 +115,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
 
     @Override
     public int getCapacity() {
-        return energyPerUse.getValue() * 64;
+        return energyCapacity.getValue();
     }
 
     @Override
@@ -127,7 +128,12 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         preset.addItem(CHOICE_SLOT, NO_ITEM, ChestMenuUtils.getEmptyClickHandler());
         preset.addItem(SCROLL_UP_SLOT, SCROLL_UP_ITEM, ChestMenuUtils.getEmptyClickHandler());
         preset.addItem(SCROLL_DOWN_SLOT, SCROLL_DOWN_ITEM, ChestMenuUtils.getEmptyClickHandler());
-        preset.addItem(CRAFT_SLOT, getCraftItem(), ChestMenuUtils.getEmptyClickHandler());
+
+        ItemStack craftItem = ItemUtil.appendLore(
+            getCraftItem(),
+            FastMachines.getLocalization().getString("lores.per-craft")
+        );
+        preset.addItem(CRAFT_SLOT, craftItem, ChestMenuUtils.getEmptyClickHandler());
     }
 
     @Override

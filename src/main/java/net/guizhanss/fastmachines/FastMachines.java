@@ -14,6 +14,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUp
 
 import net.guizhanss.fastmachines.core.services.LocalizationService;
 import net.guizhanss.fastmachines.setup.Items;
+import net.guizhanss.fastmachines.setup.Researches;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
 import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig;
 import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
@@ -79,7 +80,8 @@ public final class FastMachines extends AbstractAddon {
 
         // researches
         if (config.getBoolean("enable-researches", true)) {
-            // TODO: add researches
+            log(Level.INFO, localization.getString("console.loading-researches"));
+            Researches.setup(this);
         }
 
         setupMetrics();

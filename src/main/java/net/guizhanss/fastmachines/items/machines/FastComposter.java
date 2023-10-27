@@ -10,19 +10,19 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public final class FastOreCrusher extends AbstractFastMachine {
+public final class FastComposter extends AbstractFastMachine {
 
     private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.DISPENSER);
+        "CRAFT", Material.CAULDRON);
 
-    public FastOreCrusher(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public FastComposter(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);
     }
 
     @Override
     protected void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.ORE_CRUSHER.getItemId());
+        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.COMPOSTER.getItemId());
     }
 
     @Override

@@ -1,6 +1,7 @@
 console:
   loaded-language: "Loaded language: {0}"
   loading-items: "Loading items..."
+  loading-researches: "Loading researches..."
 
 categories:
   FAST_MACHINES:
@@ -125,6 +126,9 @@ items:
     lore:
       - "&7More useful Juicer."
       - "&7Craft without need to put items in order."
+
+lores:
+  per-craft: " per craft"
 
 messages:
   not-enough-energy: "&cNot enough energy!"
