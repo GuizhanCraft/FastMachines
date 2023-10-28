@@ -80,7 +80,7 @@ items:
   FAST_COMPRESSOR:
     name: "&aFast Compressor"
     lore:
-      - "&7More useful Grind Stone."
+      - "&7More useful Compressor."
       - "&7Craft without need to put items in order."
   FAST_SMELTERY:
     name: "&aFast Smeltery"
@@ -123,7 +123,7 @@ items:
       - "&7More useful Juicer."
       - "&7Craft without need to put items in order."
 lores:
-  per-craft: " &cper craft"
+  per-craft: " &7per craft"
 messages:
   not-enough-energy: "&cNot enough energy!"
   not-enough-materials: "&cNot enough materials!"
