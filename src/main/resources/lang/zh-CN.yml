@@ -80,7 +80,7 @@ items:
   FAST_COMPRESSOR:
     name: "&a快捷压缩机"
     lore:
-      - "&7More useful Compressor."
+      - "&7更加有用的压缩机。"
       - "&7不需要将物品按序摆放即可合成。"
   FAST_SMELTERY:
     name: "&a快捷冶炼炉"
@@ -123,7 +123,7 @@ items:
       - "&7更加有用的榨汁机。"
       - "&7不需要将物品按序摆放即可合成。"
 lores:
-  per-craft: " &7per craft"
+  per-craft: " &7每次合成"
 messages:
   not-enough-energy: "&c电力不足！"
   not-enough-materials: "&c材料不足！"
