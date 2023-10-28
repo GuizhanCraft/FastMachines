@@ -1,7 +1,7 @@
 console:
-  loaded-language: "Loaded language: {0}"
-  loading-items: "Loading items..."
-  loading-researches: "Loading researches..."
+  loaded-language: "正在加载语言：{0}"
+  loading-items: "正在加载物品..."
+  loading-researches: "正在加载研究..."
 categories:
   FAST_MACHINES:
     name: "&eFast Machines"
