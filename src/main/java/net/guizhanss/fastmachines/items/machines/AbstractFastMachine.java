@@ -354,6 +354,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
                 FastMachines.getLocalization().sendMessage(p, "not-enough-energy");
                 return;
             }
+            setCharge(blockMenu.getLocation(), currentEnergy - energyNeeded);
         }
 
         // remove recipe inputs
