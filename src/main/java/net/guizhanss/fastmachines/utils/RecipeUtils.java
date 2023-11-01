@@ -2,6 +2,9 @@ package net.guizhanss.fastmachines.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,8 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecip
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.IRecipe;
+import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
+import net.guizhanss.fastmachines.core.recipes.RawRecipe;
 import net.guizhanss.fastmachines.core.recipes.StandardRecipe;
 import net.guizhanss.fastmachines.items.machines.AbstractFastMachine;
 
@@ -33,6 +38,16 @@ import lombok.experimental.UtilityClass;
 public final class RecipeUtils {
     private static final String MSG_ID_NULL = "id cannot be null";
     private static final String MSG_RECIPE_NULL = "recipes cannot be null";
+    // This comparator is just used to check if 2 ItemStacks are similar.
+    private static final Comparator<ItemStack> ITEM_COMPARATOR = (aItem, bItem) -> {
+        if (aItem == null && bItem == null) return 0;
+        if (aItem == null) return -1;
+        if (bItem == null) return 1;
+        if (SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true)) return 0;
+        if (aItem.hashCode() != bItem.hashCode()) return aItem.hashCode() - bItem.hashCode();
+        return -1; // hehe, fallback
+    };
+
 
     /**
      * Calculate the amount of each item in the given array.
@@ -69,6 +84,106 @@ public final class RecipeUtils {
     }
 
     /**
+     * Find a {@link RandomRecipe} in all the recipes, with the given {@link ItemStack} input. If such recipe is
+     * found, append output to it, then return true. Otherwise, nothing happens and return false.
+     *
+     * @param recipes
+     *     The {@link List} of {@link IRecipe}.
+     * @param input
+     *     The input {@link ItemStack} which will be used to find.
+     * @param output
+     *     The {@link List} of output {@link ItemStack}s.
+     *
+     * @return Whether there is an existing {@link RandomRecipe}
+     */
+    private static boolean appendRandomRecipe(List<IRecipe> recipes, ItemStack input, List<ItemStack> output) {
+        for (IRecipe recipe : recipes) {
+            if (recipe instanceof RandomRecipe randomRecipe &&
+                SlimefunUtils.isItemSimilar(input, randomRecipe.getRawInput(), false, true, true)
+            ) {
+                FastMachines.debug("existing random recipe found: {0}, adding more items: {1}", randomRecipe,
+                    output);
+                randomRecipe.addOutput(output);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Register recipes.
+     *
+     * @param recipes
+     *     The {@link List} that stores {@link IRecipe}s.
+     * @param pendingRecipes
+     *     The {@link List} of recipes that need to be registered. The first element in pair is input, and the second
+     *     element in pair is output.
+     */
+    public static void registerRecipes(List<IRecipe> recipes, List<RawRecipe> pendingRecipes) {
+        ItemStack[] lastInput = new ItemStack[0];
+        List<ItemStack> storedOutput = new ArrayList<>();
+
+        // put recipes that with same input together
+        pendingRecipes.sort((a, b) -> {
+            int result = Arrays.compare(a.input(), b.input(), ITEM_COMPARATOR);
+            if (result != 0) return result;
+            return Arrays.compare(a.output(), b.output(), ITEM_COMPARATOR);
+        });
+
+        FastMachines.debug("raw recipes: {0}", pendingRecipes);
+
+        // shut up, sonar
+        for (var recipe : pendingRecipes) {
+            ItemStack[] input = recipe.input();
+            ItemStack[] output = recipe.output();
+
+            if (output.length != 1) {
+                FastMachines.log(Level.WARNING, "Unexpected multiple output items from recipe, input: {0}, output: " +
+                    "{1}", input, output);
+                continue;
+            }
+
+            if (SlimefunItemUtils.isDisabled(output[0])) {
+                continue;
+            }
+
+            if (Arrays.equals(input, lastInput, ITEM_COMPARATOR)) {
+                // this recipe still belongs to a random recipe, add current output to stored items
+                storedOutput.add(output[0]);
+            } else if (storedOutput.isEmpty()) {
+                // initial state, store it
+                lastInput = input;
+                storedOutput.add(output[0]);
+            } else {
+                // current input is different with stored input
+                registerRecipeHelper(recipes, lastInput, storedOutput);
+
+                // clear store, put current one in
+                lastInput = input;
+                storedOutput.clear();
+                storedOutput.add(output[0]);
+            }
+        }
+
+        // the last recipe is not processed yet.
+        registerRecipeHelper(recipes, lastInput, storedOutput);
+    }
+
+    private static void registerRecipeHelper(List<IRecipe> recipes, ItemStack[] lastInput, List<ItemStack> storedOutput) {
+        if (!appendRandomRecipe(recipes, lastInput[0], storedOutput)) {
+            IRecipe iRecipe;
+            if (storedOutput.size() > 1) {
+                iRecipe = new RandomRecipe(lastInput[0], storedOutput.toArray(new ItemStack[0]));
+                FastMachines.debug("registering random recipe: {0}", iRecipe);
+            } else {
+                iRecipe = new StandardRecipe(storedOutput.get(0), lastInput);
+                FastMachines.debug("registering standard recipe: {0}", iRecipe);
+            }
+            recipes.add(iRecipe);
+        }
+    }
+
+    /**
      * Register recipes from a {@link MultiBlockMachine}.
      *
      * @param recipes
@@ -94,17 +209,16 @@ public final class RecipeUtils {
         }
 
         FastMachines.debug("Registering recipes from multiblock: {0}", id);
-        FastMachines.debug("Total recipes: {0}", recipeList.size() / 2);
+        FastMachines.debug("Expected total recipes: {0}", recipeList.size() / 2);
+
+        List<RawRecipe> pendingRecipes = new ArrayList<>();
+
         for (int i = 0; i < recipeList.size(); i += 2) {
             ItemStack[] input = recipeList.get(i);
             ItemStack[] output = recipeList.get(i + 1);
-            if (SlimefunItemUtils.isDisabled(output[0])) {
-                continue;
-            }
-            var recipe = new StandardRecipe(output[0], input);
-            FastMachines.debug("registering standard recipe: {0}", recipe);
-            recipes.add(recipe);
+            pendingRecipes.add(new RawRecipe(input, output));
         }
+        registerRecipes(recipes, pendingRecipes);
     }
 
     /**
@@ -133,18 +247,17 @@ public final class RecipeUtils {
                 FastMachines.debug("Retrieved recipes are null, ignoring.");
                 return;
             }
-            for (MachineRecipe machineRecipe : machineRecipes) {
-                if (machineRecipe.getOutput().length > 0) {
-                    ItemStack output = machineRecipe.getOutput()[0];
-                    if (SlimefunItemUtils.isDisabled(output)) {
-                        continue;
-                    }
 
-                    var recipe = new StandardRecipe(machineRecipe.getOutput()[0], machineRecipe.getInput());
-                    FastMachines.debug("registering standard recipe: {0}", recipe);
-                    recipes.add(recipe);
+            List<RawRecipe> pendingRecipes = new ArrayList<>();
+
+            for (MachineRecipe machineRecipe : machineRecipes) {
+                ItemStack[] input = machineRecipe.getInput();
+                ItemStack[] output = machineRecipe.getOutput();
+                if (output.length > 0) {
+                    pendingRecipes.add(new RawRecipe(input, output));
                 }
             }
+            registerRecipes(recipes, pendingRecipes);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             FastMachines.log(Level.WARNING, "Failed to retrieve machine recipes from {0}, attempting to use backup method.", id);
             if (machineItem instanceof RecipeDisplayItem recipeDisplayItem) {
@@ -169,6 +282,8 @@ public final class RecipeUtils {
             throw new IllegalArgumentException("The given item is not a valid RecipeDisplayItem: " + id);
         }
 
+        FastMachines.debug("Registering recipes from display recipes: {0}", id);
+
         registerDisplayRecipes(recipes, recipeDisplayItem.getDisplayRecipes());
     }
 
@@ -189,15 +304,16 @@ public final class RecipeUtils {
             throw new IllegalArgumentException("The display recipes list is illegal!");
         }
 
+        FastMachines.debug("Expected total recipes: {0}", displayRecipes.size() / 2);
+
+        List<RawRecipe> pendingRecipes = new ArrayList<>();
+
         for (int i = 0; i < displayRecipes.size(); i += 2) {
-            ItemStack input = displayRecipes.get(i);
-            ItemStack output = displayRecipes.get(i + 1);
-            if (SlimefunItemUtils.isDisabled(output)) {
-                continue;
-            }
-            var recipe = new StandardRecipe(output, input);
-            FastMachines.debug("registering standard recipe: {0}", recipe);
-            recipes.add(recipe);
+            ItemStack[] input = new ItemStack[] { displayRecipes.get(i) };
+            ItemStack[] output = new ItemStack[] { displayRecipes.get(i + 1) };
+
+            pendingRecipes.add(new RawRecipe(input, output));
         }
+        registerRecipes(recipes, pendingRecipes);
     }
 }

@@ -16,6 +16,8 @@ import net.guizhanss.fastmachines.items.machines.FastGrindStone;
 import net.guizhanss.fastmachines.items.machines.FastJuicer;
 import net.guizhanss.fastmachines.items.machines.FastMagicWorkbench;
 import net.guizhanss.fastmachines.items.machines.FastOreCrusher;
+import net.guizhanss.fastmachines.items.machines.FastOreWasher;
+import net.guizhanss.fastmachines.items.machines.FastPanningMachine;
 import net.guizhanss.fastmachines.items.machines.FastPressureChamber;
 import net.guizhanss.fastmachines.items.machines.FastSmeltery;
 import net.guizhanss.fastmachines.items.machines.FastTableSaw;
@@ -83,11 +85,11 @@ public final class Items {
             SlimefunItems.OUTPUT_CHEST, null, fastCore,
             new ItemStack(Material.BOOKSHELF), new ItemStack(Material.CRAFTING_TABLE), new ItemStack(Material.DISPENSER)
         }).register(plugin);
-//        new FastOreWasher(FastMachinesItems.FAST_ORE_WASHER, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
-//            null, new ItemStack(Material.GLASS), null,
-//            null, new ItemStack(Material.CRAFTING_TABLE), null,
-//            SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), null
-//        }).register(plugin);
+        new FastOreWasher(FastMachinesItems.FAST_ORE_WASHER, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, new ItemStack(Material.GLASS), null,
+            null, new ItemStack(Material.CRAFTING_TABLE), null,
+            SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), fastCore
+        }).register(plugin);
         new FastTableSaw(FastMachinesItems.FAST_TABLE_SAW, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
             null, null, null,
             new ItemStack(Material.SMOOTH_STONE_SLAB), new ItemStack(Material.STONECUTTER), new ItemStack(Material.SMOOTH_STONE_SLAB),
@@ -98,11 +100,15 @@ public final class Items {
             new ItemStack(Material.OAK_SLAB), fastCore, new ItemStack(Material.OAK_SLAB),
             new ItemStack(Material.OAK_SLAB), new ItemStack(Material.CAULDRON), new ItemStack(Material.OAK_SLAB)
         }).register(plugin);
+        new FastPanningMachine(FastMachinesItems.FAST_PANNING_MACHINE, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, null, null,
+            null, new ItemStack(Material.OAK_TRAPDOOR), null,
+            SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.CAULDRON), fastCore
+        }).register(plugin);
         new FastJuicer(FastMachinesItems.FAST_JUICER, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
             null, new ItemStack(Material.GLASS), null,
             null, new ItemStack(Material.NETHER_BRICK_FENCE), null,
             SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), fastCore
         }).register(plugin);
-        // </editor-fold>
     }
 }

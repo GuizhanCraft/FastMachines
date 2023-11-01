@@ -7,12 +7,15 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
+
+import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil;
 
 import lombok.experimental.UtilityClass;
 
@@ -123,7 +126,6 @@ public final class MachineUtils {
 
     /**
      * Add the given {@link ItemStack} to machine slots.
-     * If the {@link ItemStack} is already in machine slots, the amount will be added.
      *
      * @param menu
      *     The {@link BlockMenu} of machine.
@@ -160,5 +162,46 @@ public final class MachineUtils {
             }
         }
         return requiredAmount;
+    }
+
+    /**
+     * Add the given {@link ItemStack} to machine slots.
+     * If machine slots are all full, send to {@link Player}'s inventory.
+     * If player's inventory is full, drop on the ground.
+     *
+     * @param p
+     *     The {@link Player} to send items to.
+     * @param menu
+     *     The {@link BlockMenu} of machine.
+     * @param slots
+     *     The slots of machine to add {@link ItemStack} to.
+     * @param item
+     *     The {@link ItemStack} to add.
+     * @param amount
+     *     The amount of {@link ItemStack}s to add.
+     *
+     * @return The remaining amount of {@link ItemStack}s.
+     */
+    @ParametersAreNonnullByDefault
+    public static boolean addItem(Player p, BlockMenu menu, int[] slots, ItemStack item, int amount) {
+        int remaining = addItem(menu, slots, item, amount);
+        if (remaining > 0) {
+            // push the remaining to player inventory
+            int stacks = remaining / item.getMaxStackSize();
+            int reminder = remaining % item.getMaxStackSize();
+            ItemStack[] items = new ItemStack[stacks + (reminder > 0 ? 1 : 0)];
+            for (int i = 0; i < stacks; i++) {
+                items[i] = item.clone();
+                items[i].setAmount(item.getMaxStackSize());
+            }
+            if (reminder > 0) {
+                items[stacks] = item.clone();
+                items[stacks].setAmount(reminder);
+            }
+            InventoryUtil.push(p, items);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

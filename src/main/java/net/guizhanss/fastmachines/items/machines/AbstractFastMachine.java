@@ -33,11 +33,11 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.IRecipe;
+import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
 import net.guizhanss.fastmachines.setup.Groups;
 import net.guizhanss.fastmachines.utils.BlockStorageUtils;
 import net.guizhanss.fastmachines.utils.Heads;
 import net.guizhanss.fastmachines.utils.MachineUtils;
-import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil;
 import net.guizhanss.guizhanlib.minecraft.utils.ItemUtil;
 import net.guizhanss.guizhanlib.slimefun.machines.TickingMenuBlock;
 
@@ -96,7 +96,6 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     protected static final Map<BlockPosition, Map<IRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
 
     protected final List<IRecipe> recipes = new ArrayList<>();
-
     protected final IntRangeSetting energyPerUse = new IntRangeSetting(this, "energy-per-use", 0, 8, Integer.MAX_VALUE);
     protected final IntRangeSetting energyCapacity = new IntRangeSetting(this, "energy-capacity", 0, 1024, Integer.MAX_VALUE);
 
@@ -372,23 +371,22 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         }
 
         // push the product
-        ItemStack product = recipe.getKey().getOutput(pos.getWorld()).clone();
-        int remaining = MachineUtils.addItem(blockMenu, OUTPUT_SLOTS, product, amount);
-        if (remaining > 0) {
-            FastMachines.getLocalization().sendMessage(p, "not-enough-space");
-            // push the remaining to player inventory
-            int stacks = product.getMaxStackSize();
-            int reminder = remaining / product.getMaxStackSize();
-            ItemStack[] items = new ItemStack[stacks + (reminder > 0 ? 1 : 0)];
-            for (int i = 0; i < stacks; i++) {
-                items[i] = product.clone();
-                items[i].setAmount(product.getMaxStackSize());
+        if (recipe.getKey() instanceof RandomRecipe randomRecipe) {
+            boolean machineFull = false;
+            for (int i = 0; i < amount; i++) {
+                ItemStack product = randomRecipe.getOutput(pos.getWorld()).clone();
+                if (MachineUtils.addItem(p, blockMenu, OUTPUT_SLOTS, product, 1)) {
+                    machineFull = true;
+                }
             }
-            if (reminder > 0) {
-                items[stacks] = product.clone();
-                items[stacks].setAmount(reminder);
+            if (machineFull) {
+                FastMachines.getLocalization().sendMessage(p, "not-enough-space");
             }
-            InventoryUtil.push(p, items);
+        } else {
+            ItemStack product = recipe.getKey().getOutput(pos.getWorld()).clone();
+            if (MachineUtils.addItem(p, blockMenu, OUTPUT_SLOTS, product, amount)) {
+                FastMachines.getLocalization().sendMessage(p, "not-enough-space");
+            }
         }
     }
 
