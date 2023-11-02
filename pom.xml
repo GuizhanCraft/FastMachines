@@ -133,7 +133,7 @@
         <dependency>
             <groupId>com.github.MockBukkit</groupId>
             <artifactId>MockBukkit</artifactId>
-            <version>v1.20-SNAPSHOT</version>
+            <version>3.44.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
