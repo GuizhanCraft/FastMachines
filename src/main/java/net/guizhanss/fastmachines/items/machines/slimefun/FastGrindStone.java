@@ -1,4 +1,4 @@
-package net.guizhanss.fastmachines.items.machines;
+package net.guizhanss.fastmachines.items.machines.slimefun;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -8,21 +8,22 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
 import net.guizhanss.fastmachines.FastMachines;
+import net.guizhanss.fastmachines.items.machines.AbstractFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public final class FastTableSaw extends AbstractFastMachine {
+public final class FastGrindStone extends AbstractFastMachine {
 
     private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.STONECUTTER);
+        "CRAFT", Material.DISPENSER);
 
-    public FastTableSaw(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public FastGrindStone(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);
     }
 
     @Override
     protected void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        RecipeUtils.registerDisplayRecipes(recipes, SlimefunItems.TABLE_SAW.getItemId());
+        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.GRIND_STONE.getItemId());
     }
 
     @Override
