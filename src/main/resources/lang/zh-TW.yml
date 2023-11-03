@@ -1,140 +1,140 @@
 console:
-  loaded-language: "Loaded language: {0}"
-  loading-items: "Loading items..."
-  loading-researches: "Loading researches..."
+  loaded-language: "正在加載語言：{0}"
+  loading-items: "正在加載物品..."
+  loading-researches: "正在加載研究..."
 categories:
   FAST_MACHINES:
-    name: "&eFast Machines"
+    name: "&e快捷機器"
   MATERIALS:
-    name: "&eFast Machines &7- &bMaterials"
+    name: "&e快捷機器 &7- &b材料"
   MACHINES:
-    name: "&eFast Machines &7- &aMachines"
+    name: "&e快捷機器 &7- &b機器"
 items:
   #gui items
   CHOICE_INDICATOR:
-    name: "&eSelected item"
+    name: "&e已選擇的物品"
     lore:
-      - "&7You have selected the item below to be crafted."
+      - "&7你已選擇的目標物品顯示在下方。"
   SCROLL_UP:
-    name: "&eScroll up"
+    name: "&e向上滾動"
     lore:
-      - "&7Click to scroll up possible outputs."
+      - "&7點擊向上翻頁。"
   SCROLL_DOWN:
-    name: "&eScroll down"
+    name: "&e向下滾動"
     lore:
-      - "&7Click to scroll down possible outputs."
+      - "&7點擊向下翻頁。"
   INFO:
-    name: "&fInformation"
+    name: "&f信息"
     lore:
-      - "&7Put the materials in the first 4 rows,"
-      - "&7all the available outputs will be shown."
+      - "&7在前4行放入材料，"
+      - "&7所有可用的合成將會顯示。"
       - ""
-      - "&7Select an item, then click on 'Craft' below."
-      - "&7The outputs will fill the bottom rows."
+      - "&7選擇一個物品，然後點擊下方的\"合成\"按鈕。"
+      - "&7合成的物品將優先填充下方行。"
       - ""
-      - "&cIf the possible output amount does not satisfy"
-      - "&cthe requested amount, the crafting will provide"
-      - "&cmaximum possible amount of the item."
+      - "&c當合成的數量不滿足"
+      - "&c需求的數量時，會盡可能"
+      - "&c嘗試合成該物品直到材料耗盡。"
   CRAFT:
-    name: "&aCraft"
+    name: "&a合成"
     lore:
-      - "&7Click to craft the selected item."
+      - "&7點擊合成選中的物品。"
       - ""
-      - "&7Left Click: 1 time"
-      - "&7Right Click: 16 times"
-      - "&7Shift + Left Click: 64 times"
-      - "&7Shift + Right Click: as many as possible"
+      - "&7左鍵點擊：1次"
+      - "&7右鍵點擊：16次"
+      - "&7Shift + 左鍵點擊：64次"
+      - "&7Shift + 右鍵點擊：盡可能多合成"
   NO_ITEM:
-    name: "&cNo Item selected"
+    name: "&c未選擇物品"
     lore: [ ]
   #materials
   FAST_CORE:
-    name: "&bFast Core"
+    name: "&b快捷核心"
     lore:
-      - "&7The core of a Fast Machine."
+      - "&7快捷機器的核心。"
   ETERNAL_FIRE:
-    name: "&4Eternal Fire"
+    name: "&4永恒之火"
     lore:
-      - "&7The fire that never goes out."
+      - "&7永遠不會熄滅的火。"
   #machines
   FAST_CRAFTING_TABLE:
-    name: "&aFast Crafting Table"
+    name: "&a快捷工作台"
     lore:
-      - "&7More useful Vanilla Crafting Table."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的原版工作台。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_FURNACE:
-    name: "&aFast Furnace"
+    name: "&a快捷熔爐"
     lore:
-      - "&7More useful Vanilla Furnace."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的原版熔爐。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_ENHANCED_CRAFTING_TABLE:
-    name: "&aFast Enhanced Crafting Table"
+    name: "&a快捷增強型工作台"
     lore:
-      - "&7More useful Enhanced Crafting Table."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的增強型工作台。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_GRIND_STONE:
-    name: "&aFast Grind Stone"
+    name: "&a快捷磨石"
     lore:
-      - "&7More useful Grind Stone."
-      - "&7Craft without need to put items in order."
+      - "&7更有用的磨石。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_ARMOR_FORGE:
-    name: "&aFast Armor Forge"
+    name: "&a快捷盔甲鍛造台"
     lore:
-      - "&7More useful Armor Forge."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的盔甲鍛造台。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_ORE_CRUSHER:
-    name: "&aFast Ore Crusher"
+    name: "&a快捷礦石粉碎機"
     lore:
-      - "&7More useful Ore Crusher."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的礦石粉碎機。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_COMPRESSOR:
-    name: "&aFast Compressor"
+    name: "&a快捷壓縮機"
     lore:
-      - "&7More useful Compressor."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的壓縮機。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_SMELTERY:
-    name: "&aFast Smeltery"
+    name: "&a快捷冶煉爐"
     lore:
-      - "&7More useful Smeltery."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的冶煉爐。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_PRESSURE_CHAMBER:
-    name: "&aFast Pressure Chamber"
+    name: "&a快捷壓力艙"
     lore:
-      - "&7More useful Pressure Chamber."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的加熱壓力艙。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_MAGIC_WORKBENCH:
-    name: "&aFast Magic Workbench"
+    name: "&a快捷魔法工作台"
     lore:
-      - "&7More useful Magic Workbench."
-      - "&7Craft without need to put items in order."
+      - "&7更有用的魔法工作台。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_ORE_WASHER:
-    name: "&aFast Ore Washer"
+    name: "&a快捷洗礦機"
     lore:
-      - "&7More useful Ore Washer."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的洗礦機。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_TABLE_SAW:
-    name: "&aFast Table Saw"
+    name: "&a快捷台鋸"
     lore:
-      - "&7More useful Table Saw."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的台鋸。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_COMPOSTER:
-    name: "&aFast Composter"
+    name: "&a快捷攪拌機"
     lore:
-      - "&7More useful Composter."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的攪拌機。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_PANNING_MACHINE:
-    name: "&aFast Panning Machine"
+    name: "&a快捷淘金機"
     lore:
-      - "&7More useful Automated Panning Machine."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的淘金機。"
+      - "&7不需要將物品按序擺放即可合成。"
   FAST_JUICER:
-    name: "&aFast Juicer"
+    name: "&a快捷榨汁機"
     lore:
-      - "&7More useful Juicer."
-      - "&7Craft without need to put items in order."
+      - "&7更加有用的榨汁機。"
+      - "&7不需要將物品按序擺放即可合成。"
 lores:
-  per-craft: " &7per craft"
+  per-craft: " &7每次合成"
 messages:
-  not-enough-energy: "&cNot enough energy!"
-  not-enough-materials: "&cNot enough materials!"
-  not-enough-space: "&cNot enough space in the machine! The items will be sent to your inventory. If your inventory is full, the items will be dropped on the ground."
+  not-enough-energy: "&c電力不足！"
+  not-enough-materials: "&c材料不足！"
+  not-enough-space: "&c機器空間不足！物品將送到你的物品欄中。如果你的物品欄已滿，則會掉落在地上。"
