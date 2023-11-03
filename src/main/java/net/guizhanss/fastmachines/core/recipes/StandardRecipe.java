@@ -1,5 +1,6 @@
 package net.guizhanss.fastmachines.core.recipes;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -26,6 +27,10 @@ public class StandardRecipe implements IRecipe {
     public StandardRecipe(ItemStack output, ItemStack... input) {
         this.output = output;
         this.input = RecipeUtils.calculateItems(input);
+    }
+
+    public StandardRecipe(ItemStack output, List<ItemStack> input) {
+        this(output, input.toArray(new ItemStack[0]));
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -15,7 +16,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 
+import org.bukkit.inventory.CookingRecipe;
+import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
@@ -45,6 +51,7 @@ public final class RecipeUtils {
         if (bItem == null) return 1;
         if (SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true)) return 0;
         if (aItem.hashCode() != bItem.hashCode()) return aItem.hashCode() - bItem.hashCode();
+        FastMachines.debug("ItemStacks are not similar but has same has code: {0}, {1}", aItem, bItem);
         return -1; // hehe, fallback
     };
 
@@ -173,7 +180,7 @@ public final class RecipeUtils {
         if (!appendRandomRecipe(recipes, lastInput[0], storedOutput)) {
             IRecipe iRecipe;
             if (storedOutput.size() > 1) {
-                iRecipe = new RandomRecipe(lastInput[0], storedOutput.toArray(new ItemStack[0]));
+                iRecipe = new RandomRecipe(lastInput[0], storedOutput);
                 FastMachines.debug("registering random recipe: {0}", iRecipe);
             } else {
                 iRecipe = new StandardRecipe(storedOutput.get(0), lastInput);
@@ -315,5 +322,48 @@ public final class RecipeUtils {
             pendingRecipes.add(new RawRecipe(input, output));
         }
         registerRecipes(recipes, pendingRecipes);
+    }
+
+    public static void registerVanillaRecipes(List<IRecipe> recipes, Class<? extends Recipe> recipeClass) {
+        Iterator<Recipe> iterator = FastMachines.getInstance().getServer().recipeIterator();
+        while (iterator.hasNext()) {
+            Recipe recipe = iterator.next();
+            if (recipeClass.isInstance(recipe)) {
+                registerVanillaRecipe(recipes, recipe);
+            }
+        }
+    }
+
+    private static <T extends Recipe> void registerVanillaRecipe(List<IRecipe> recipes, T recipe) {
+        IRecipe iRecipe = null;
+        if (recipe instanceof CraftingRecipe craftingRecipe) {
+            if (craftingRecipe instanceof ShapedRecipe shapedRecipe) {
+                List<ItemStack> ingredientList = new ArrayList<>();
+                var ingredients = shapedRecipe.getIngredientMap();
+
+                StringBuilder shapeR = new StringBuilder();
+                for (var shapeLine : shapedRecipe.getShape()) {
+                    shapeR.append(shapeLine.replaceAll(" ", ""));
+                }
+
+                var shape = shapeR.toString().toCharArray();
+                for (var i : shape) {
+                    ingredientList.add(ingredients.get(i));
+                }
+
+                iRecipe = new StandardRecipe(shapedRecipe.getResult(), ingredientList);
+                FastMachines.debug("registering standard recipe: {0}", iRecipe);
+            } else if (craftingRecipe instanceof ShapelessRecipe shapelessRecipe) {
+                iRecipe = new StandardRecipe(shapelessRecipe.getResult(), shapelessRecipe.getIngredientList());
+                FastMachines.debug("registering standard recipe: {0}", iRecipe);
+            }
+        } else if (recipe instanceof CookingRecipe cookingRecipe) {
+            iRecipe = new StandardRecipe(cookingRecipe.getResult(), cookingRecipe.getInput());
+            FastMachines.debug("registering standard recipe: {0}", iRecipe);
+        }
+
+        if (iRecipe != null) {
+            recipes.add(iRecipe);
+        }
     }
 }

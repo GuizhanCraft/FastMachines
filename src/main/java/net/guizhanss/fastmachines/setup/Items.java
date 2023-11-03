@@ -21,6 +21,8 @@ import net.guizhanss.fastmachines.items.machines.slimefun.FastPanningMachine;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastPressureChamber;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastSmeltery;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastTableSaw;
+import net.guizhanss.fastmachines.items.machines.vanilla.FastCraftingTable;
+import net.guizhanss.fastmachines.items.machines.vanilla.FastFurnace;
 import net.guizhanss.fastmachines.items.materials.FastMaterial;
 
 import lombok.experimental.UtilityClass;
@@ -45,6 +47,16 @@ public final class Items {
         ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
             FastMachinesItems.FAST_CORE : null;
 
+        new FastCraftingTable(FastMachinesItems.FAST_CRAFTING_TABLE, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, new ItemStack(Material.CHEST), null,
+            null, new ItemStack(Material.CRAFTING_TABLE), null,
+            null, fastCore, null
+        }).register(plugin);
+        new FastFurnace(FastMachinesItems.FAST_FURNACE, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, new ItemStack(Material.CHEST), null,
+            null, new ItemStack(Material.FURNACE), null,
+            null, fastCore, null
+        }).register(plugin);
         new FastEnhancedCraftingTable(FastMachinesItems.FAST_ENHANCED_CRAFTING_TABLE, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
             null, null, null,
             null, new ItemStack(Material.CRAFTING_TABLE), null,

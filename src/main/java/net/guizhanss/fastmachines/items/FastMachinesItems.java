@@ -22,6 +22,14 @@ public final class FastMachinesItems {
     // </editor-fold>
 
     // <editor-fold desc="Machines">
+    public static final SlimefunItemStack FAST_CRAFTING_TABLE = FastMachines.getLocalization().getItem(
+        "FAST_CRAFTING_TABLE",
+        Material.CRAFTING_TABLE
+    );
+    public static final SlimefunItemStack FAST_FURNACE = FastMachines.getLocalization().getItem(
+        "FAST_FURNACE",
+        Material.FURNACE
+    );
     public static final SlimefunItemStack FAST_ENHANCED_CRAFTING_TABLE = FastMachines.getLocalization().getItem(
         "FAST_ENHANCED_CRAFTING_TABLE",
         Material.CRAFTING_TABLE

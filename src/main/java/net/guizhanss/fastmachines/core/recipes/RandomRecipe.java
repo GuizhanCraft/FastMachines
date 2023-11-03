@@ -26,8 +26,12 @@ public class RandomRecipe implements IRecipe {
     private final ItemStack input;
 
     public RandomRecipe(ItemStack input, ItemStack... outputs) {
+        this(input, Arrays.asList(outputs));
+    }
+
+    public RandomRecipe(ItemStack input, List<ItemStack> outputs) {
         this.input = input;
-        this.outputs = new ArrayList<>(Arrays.asList(outputs));
+        this.outputs = new ArrayList<>(outputs);
     }
 
     @Override
