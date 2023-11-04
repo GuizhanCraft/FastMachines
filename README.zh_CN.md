@@ -8,7 +8,7 @@
 
 ## 下载
 
-(WIP)
+[![Build Status](https://builds.guizhanss.com/ybw0014/FastMachines/master/badge.svg)](https://builds.guizhanss.com/ybw0014/FastMachines/master)
 
 ## 配置
 
