@@ -17,7 +17,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.google.common.base.Preconditions;
 
 import org.bukkit.inventory.CookingRecipe;
-import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -336,27 +335,25 @@ public final class RecipeUtils {
 
     private static <T extends Recipe> void registerVanillaRecipe(List<IRecipe> recipes, T recipe) {
         IRecipe iRecipe = null;
-        if (recipe instanceof CraftingRecipe craftingRecipe) {
-            if (craftingRecipe instanceof ShapedRecipe shapedRecipe) {
-                List<ItemStack> ingredientList = new ArrayList<>();
-                var ingredients = shapedRecipe.getIngredientMap();
+        if (recipe instanceof ShapedRecipe shapedRecipe) {
+            List<ItemStack> ingredientList = new ArrayList<>();
+            var ingredients = shapedRecipe.getIngredientMap();
 
-                StringBuilder shapeR = new StringBuilder();
-                for (var shapeLine : shapedRecipe.getShape()) {
-                    shapeR.append(shapeLine.replaceAll(" ", ""));
-                }
-
-                var shape = shapeR.toString().toCharArray();
-                for (var i : shape) {
-                    ingredientList.add(ingredients.get(i));
-                }
-
-                iRecipe = new StandardRecipe(shapedRecipe.getResult(), ingredientList);
-                FastMachines.debug("registering standard recipe: {0}", iRecipe);
-            } else if (craftingRecipe instanceof ShapelessRecipe shapelessRecipe) {
-                iRecipe = new StandardRecipe(shapelessRecipe.getResult(), shapelessRecipe.getIngredientList());
-                FastMachines.debug("registering standard recipe: {0}", iRecipe);
+            StringBuilder shapeR = new StringBuilder();
+            for (var shapeLine : shapedRecipe.getShape()) {
+                shapeR.append(shapeLine.replaceAll(" ", ""));
             }
+
+            var shape = shapeR.toString().toCharArray();
+            for (var i : shape) {
+                ingredientList.add(ingredients.get(i));
+            }
+
+            iRecipe = new StandardRecipe(shapedRecipe.getResult(), ingredientList);
+            FastMachines.debug("registering standard recipe: {0}", iRecipe);
+        } else if (recipe instanceof ShapelessRecipe shapelessRecipe) {
+            iRecipe = new StandardRecipe(shapelessRecipe.getResult(), shapelessRecipe.getIngredientList());
+            FastMachines.debug("registering standard recipe: {0}", iRecipe);
         } else if (recipe instanceof CookingRecipe cookingRecipe) {
             iRecipe = new StandardRecipe(cookingRecipe.getResult(), cookingRecipe.getInput());
             FastMachines.debug("registering standard recipe: {0}", iRecipe);
