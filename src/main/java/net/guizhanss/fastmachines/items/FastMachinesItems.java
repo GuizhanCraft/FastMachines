@@ -40,7 +40,7 @@ public final class FastMachinesItems {
     );
     public static final SlimefunItemStack FAST_ARMOR_FORGE = FastMachines.getLocalization().getItem(
         "FAST_ARMOR_FORGE",
-        Material.ANVIL
+        Material.CRAFTING_TABLE
     );
     public static final SlimefunItemStack FAST_ORE_CRUSHER = FastMachines.getLocalization().getItem(
         "FAST_ORE_CRUSHER",
