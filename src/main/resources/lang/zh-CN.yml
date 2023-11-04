@@ -57,6 +57,16 @@ items:
     lore:
       - "&7永远不会熄灭的火。"
   #machines
+  FAST_CRAFTING_TABLE:
+    name: "&a快捷工作台"
+    lore:
+      - "&7更加有用的原版工作台。"
+      - "&7不需要将物品按序摆放即可合成。"
+  FAST_FURNACE:
+    name: "&a快捷熔炉"
+    lore:
+      - "&7更加有用的原版熔炉。"
+      - "&7不需要将物品按序摆放即可合成。"
   FAST_ENHANCED_CRAFTING_TABLE:
     name: "&a快捷增强型工作台"
     lore:
