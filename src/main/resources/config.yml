@@ -2,7 +2,7 @@
 auto-update: true
 
 # The locale of the plugin.
-# Available languages: https://github.com/ybw0014/FastMachines/tree/master/src/main/resources/lang
+# Available languages: https://github.com/ybw0014/FastMachines/tree/master/LOCALES.md
 lang: en-US
 
 # Enable researches for items in this addon.
@@ -12,7 +12,7 @@ enable-researches: true
 fast-machines:
   # Whether to use energy on crafting.
   # Disabling this option will change the recipes of fast machines.
-  # The energy per use is defined per machine in /plugins/Slimefun/Items.yml
+  # The energy per craft / capacity is defined per machine in /plugins/Slimefun/Items.yml
   use-energy: true
 
 # Print debug messages.

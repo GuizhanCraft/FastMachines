@@ -15,7 +15,7 @@ Credit: Final_Root
 
 ### General Config (config.yml)
 
-- `auto-update`: Whether to enable auto update from TheBusyBiscuit's builds page. (default: `true`)
+- `auto-update`: Whether to enable auto update from builds page. (default: `true`)
 - `lang`: The language of the addon, check available languages [here](LOCALES.md). (default: `en-US`)
 - `enable-researches`: Whether to enable researches for fast machines. (default: `true`)
 - `debug`: Whether to enable debug mode. (default: `false`)
