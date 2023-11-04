@@ -1,8 +1,9 @@
 package net.guizhanss.fastmachines.items.machines.vanilla;
 
 import org.bukkit.Material;
-import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -23,7 +24,8 @@ public final class FastCraftingTable extends AbstractFastMachine {
     @Override
     protected void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        RecipeUtils.registerVanillaRecipes(recipes, CraftingRecipe.class);
+        RecipeUtils.registerVanillaRecipes(recipes, ShapedRecipe.class);
+        RecipeUtils.registerVanillaRecipes(recipes, ShapelessRecipe.class);
     }
 
     @Override
