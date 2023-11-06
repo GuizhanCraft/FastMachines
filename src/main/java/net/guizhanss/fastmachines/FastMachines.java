@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
 
+import org.bukkit.Tag;
 import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
@@ -71,7 +72,7 @@ public final class FastMachines extends AbstractAddon {
         if (!lang.equals(DEFAULT_LANG)) {
             localization.addLanguage(DEFAULT_LANG);
         }
-        localization.setPrefix("FM_");
+        localization.setIdPrefix("FM_");
         log(Level.INFO, localization.getString("console.loaded-language"), lang);
 
         // items

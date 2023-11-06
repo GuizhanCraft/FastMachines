@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import javax.annotation.Nonnull;
@@ -49,9 +50,9 @@ public final class RecipeUtils {
         if (aItem == null) return -1;
         if (bItem == null) return 1;
         if (SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true)) return 0;
-        if (aItem.hashCode() != bItem.hashCode()) return aItem.hashCode() - bItem.hashCode();
-        FastMachines.debug("ItemStacks are not similar but has same has code: {0}, {1}", aItem, bItem);
-        return -1; // hehe, fallback
+        if (Objects.hashCode(aItem) != Objects.hashCode(bItem)) return Objects.hashCode(aItem) - Objects.hashCode(bItem);
+        if (aItem.getAmount() != bItem.getAmount()) return aItem.getAmount() - bItem.getAmount();
+        return 0;
     };
 
 
