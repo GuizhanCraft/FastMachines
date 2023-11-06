@@ -131,11 +131,19 @@ public final class RecipeUtils {
         List<ItemStack> storedOutput = new ArrayList<>();
 
         // put recipes that with same input together
-        pendingRecipes.sort((a, b) -> {
-            int result = Arrays.compare(a.input(), b.input(), ITEM_COMPARATOR);
-            if (result != 0) return result;
-            return Arrays.compare(a.output(), b.output(), ITEM_COMPARATOR);
-        });
+        int tries = 0;
+        while (tries < 3) {
+            try {
+                pendingRecipes.sort((a, b) -> {
+                    int result = Arrays.compare(a.input(), b.input(), ITEM_COMPARATOR);
+                    if (result != 0) return result;
+                    return Arrays.compare(a.output(), b.output(), ITEM_COMPARATOR);
+                });
+                break;
+            } catch (IllegalArgumentException e) {
+                tries++;
+            }
+        }
 
         FastMachines.debug("raw recipes: {0}", pendingRecipes);
 
