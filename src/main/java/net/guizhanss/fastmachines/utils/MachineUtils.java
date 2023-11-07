@@ -7,6 +7,10 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -53,6 +57,12 @@ public final class MachineUtils {
         ItemStack[] items = new ItemStack[slots.length];
         for (int i = 0; i < slots.length; i++) {
             items[i] = menu.getItemInSlot(slots[i]);
+
+            // convert to SlimefunItemStack if possible
+            SlimefunItem sfItem = SlimefunItem.getByItem(items[i]);
+            if (sfItem != null && SlimefunUtils.isItemSimilar(items[i], sfItem.getItem(), false, false, true)) {
+                items[i] = new SlimefunItemStack((SlimefunItemStack) sfItem.getItem(), items[i].getAmount());
+            }
         }
         return items;
     }
