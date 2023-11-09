@@ -17,6 +17,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -25,6 +26,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 
@@ -37,6 +39,7 @@ import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
 import net.guizhanss.fastmachines.setup.Groups;
 import net.guizhanss.fastmachines.utils.BlockStorageUtils;
 import net.guizhanss.fastmachines.utils.Heads;
+import net.guizhanss.fastmachines.utils.Keys;
 import net.guizhanss.fastmachines.utils.MachineUtils;
 import net.guizhanss.guizhanlib.minecraft.utils.ItemUtil;
 import net.guizhanss.guizhanlib.slimefun.machines.TickingMenuBlock;
@@ -300,7 +303,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
                 blockMenu.addMenuClickHandler(PREVIEW_SLOTS[i], ChestMenuUtils.getEmptyClickHandler());
                 continue;
             }
-            ItemStack output = outputItems[index].clone();
+            ItemStack output = getDisplayItem(outputItems[index]);
             blockMenu.replaceExistingItem(PREVIEW_SLOTS[i], output);
             blockMenu.addMenuClickHandler(PREVIEW_SLOTS[i], ((player, slot, itemStack, clickAction) -> {
                 BlockStorageUtils.setInt(pos, KEY_CHOICE, index);
@@ -323,7 +326,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         if (choice >= outputs.size()) {
             blockMenu.replaceExistingItem(CHOICE_SLOT, NO_ITEM);
         } else {
-            ItemStack output = outputItems[choice].clone();
+            ItemStack output = getDisplayItem(outputItems[choice]);
             blockMenu.replaceExistingItem(CHOICE_SLOT, output);
         }
     }
@@ -388,6 +391,23 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
                 FastMachines.getLocalization().sendMessage(p, "not-enough-space");
             }
         }
+    }
+
+    /**
+     * Get the {@link ItemStack} that is used to display in the preview slots.
+     *
+     * @param item
+     *     The original {@link ItemStack}.
+     *
+     * @return The new {@link ItemStack} that is used to display.
+     */
+    @Nonnull
+    protected ItemStack getDisplayItem(@Nonnull ItemStack item) {
+        ItemStack newItem = item.clone();
+        ItemMeta meta = newItem.getItemMeta();
+        PersistentDataAPI.setBoolean(meta, Keys.get("display"), true);
+        newItem.setItemMeta(meta);
+        return newItem;
     }
 
     /**
