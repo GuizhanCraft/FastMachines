@@ -8,7 +8,6 @@ import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
 
-import org.bukkit.Tag;
 import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;

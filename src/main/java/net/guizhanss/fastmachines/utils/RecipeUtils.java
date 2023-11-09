@@ -50,7 +50,8 @@ public final class RecipeUtils {
         if (aItem == null) return -1;
         if (bItem == null) return 1;
         if (SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true)) return 0;
-        if (Objects.hashCode(aItem) != Objects.hashCode(bItem)) return Objects.hashCode(aItem) - Objects.hashCode(bItem);
+        if (Objects.hashCode(aItem) != Objects.hashCode(bItem))
+            return Objects.hashCode(aItem) - Objects.hashCode(bItem);
         if (aItem.getAmount() != bItem.getAmount()) return aItem.getAmount() - bItem.getAmount();
         return 0;
     };
