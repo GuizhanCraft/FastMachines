@@ -1,140 +1,139 @@
 console:
-  loaded-language: "Loaded language: {0}"
-  loading-items: "Loading items..."
-  loading-researches: "Loading researches..."
+  loaded-language: "Betöltött nyelv: {0}"
+  loading-items: "Tárgyak betöltése..."
+  loading-researches: "Kutatások betöltése..."
 categories:
   FAST_MACHINES:
-    name: "&eFast Machines"
+    name: "&eGyors Gépek"
   MATERIALS:
-    name: "&eFast Machines &7- &bMaterials"
+    name: "&eGyors Gépek &7- &bAlapanyagok"
   MACHINES:
-    name: "&eFast Machines &7- &aMachines"
+    name: "&eFast Machines &7- &aGépek"
 items:
   #gui items
   CHOICE_INDICATOR:
-    name: "&eSelected item"
+    name: "&eKiválasztott tárgy"
     lore:
-      - "&7You have selected the item below to be crafted."
+      - "&7Kiválasztottad a lenti tárgyat elkészítésre."
   SCROLL_UP:
-    name: "&eScroll up"
+    name: "&eGörgess fel"
     lore:
-      - "&7Click to scroll up possible outputs."
+      - "&7Kattints hogy felgörgesd a lehetséges termékeket."
   SCROLL_DOWN:
-    name: "&eScroll down"
+    name: "&eGörgess le"
     lore:
-      - "&7Click to scroll down possible outputs."
+      - "&7Kattints hogy legörgesd a lehetséges termékeket."
   INFO:
-    name: "&fInformation"
+    name: "&fInformáció"
     lore:
-      - "&7Put the materials in the first 4 rows,"
-      - "&7all the available outputs will be shown."
+      - "&7Rakd az alapanyagokat az első 4 sorba,"
+      - "&7hogy minden lehetséges termék meg legyen mutatva."
       - ""
-      - "&7Select an item, then click on 'Craft' below."
-      - "&7The outputs will fill the bottom rows."
+      - "&7Válassz ki egy tárgyat, majd kattints a 'Barkácsolás'-ra."
+      - "&7A termékek majd megtöltik a lenti sorokat."
       - ""
-      - "&cIf the possible output amount does not satisfy"
-      - "&cthe requested amount, the crafting will provide"
-      - "&cmaximum possible amount of the item."
+      - "&cHa a lehetséges termék mennyiség nem felel meg"
+      - "&ca kért mennyiségnek, a folyamat majd"
+      - "&ca lehető legtöbbet fogja elkészíteni belőle."
   CRAFT:
-    name: "&aCraft"
+    name: "&aBarkácsolás"
     lore:
-      - "&7Click to craft the selected item."
+      - "&7Kattints hogy elkészítsd a kiválasztott tárgyat."
       - ""
-      - "&7Left Click: 1 time"
-      - "&7Right Click: 16 times"
-      - "&7Shift + Left Click: 64 times"
-      - "&7Shift + Right Click: as many as possible"
+      - "&7Bal kattintás: 1 elkészítése"
+      - "&7Jobb kattintás: 16 elkészítése"
+      - "&7Shift + Bal kattintás: 64 elkészítése"
+      - "&7Shift + Jobb kattintás: annyi amennyi lehetséges"
   NO_ITEM:
-    name: "&cNo Item selected"
-    lore: [ ]
+    name: "&cNincs kiválasztott tárgy"
   #materials
   FAST_CORE:
-    name: "&bFast Core"
+    name: "&bGyors mag"
     lore:
-      - "&7The core of a Fast Machine."
+      - "&7Egy gyors gépezet magja."
   ETERNAL_FIRE:
-    name: "&4Eternal Fire"
+    name: "&4Örök Tűz"
     lore:
-      - "&7The fire that never goes out."
+      - "&7A tűz ami sosem alszik ki."
   #machines
   FAST_CRAFTING_TABLE:
-    name: "&aFast Crafting Table"
+    name: "&aGyors Barkácsasztal"
     lore:
-      - "&7More useful Vanilla Crafting Table."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Barkácsasztal."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_FURNACE:
-    name: "&aFast Furnace"
+    name: "&aGyors Kemence"
     lore:
-      - "&7More useful Vanilla Furnace."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Kemence."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_ENHANCED_CRAFTING_TABLE:
-    name: "&aFast Enhanced Crafting Table"
+    name: "&aGyors Fejlesztett Barkácsasztal"
     lore:
-      - "&7More useful Enhanced Crafting Table."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint a Fejlesztett Barkácsasztal."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_GRIND_STONE:
-    name: "&aFast Grind Stone"
+    name: "&aGyors Köszörűkő"
     lore:
-      - "&7More useful Grind Stone."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Köszörűkő."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_ARMOR_FORGE:
-    name: "&aFast Armor Forge"
+    name: "&aGyors Kovácsasztal"
     lore:
-      - "&7More useful Armor Forge."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Kovácsasztal."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_ORE_CRUSHER:
-    name: "&aFast Ore Crusher"
+    name: "&aGyors Érc-zúzó"
     lore:
-      - "&7More useful Ore Crusher."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Érc-zúzó."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_COMPRESSOR:
-    name: "&aFast Compressor"
+    name: "&aGyors Kompresszor"
     lore:
-      - "&7More useful Compressor."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Kompresszor."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_SMELTERY:
-    name: "&aFast Smeltery"
+    name: "&aGyors Kohó"
     lore:
-      - "&7More useful Smeltery."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Kohó."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_PRESSURE_CHAMBER:
-    name: "&aFast Pressure Chamber"
+    name: "&aGyors Nyomás Kamra"
     lore:
-      - "&7More useful Pressure Chamber."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Nyomás Kamra."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_MAGIC_WORKBENCH:
-    name: "&aFast Magic Workbench"
+    name: "&aGyors Mágikus Barkácsasztal"
     lore:
-      - "&7More useful Magic Workbench."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Mágikus Barkácsasztal."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_ORE_WASHER:
-    name: "&aFast Ore Washer"
+    name: "&aGyors Érc-mosó"
     lore:
-      - "&7More useful Ore Washer."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Érc-mosó."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_TABLE_SAW:
-    name: "&aFast Table Saw"
+    name: "&aGyors Asztali Fűrész"
     lore:
-      - "&7More useful Table Saw."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Asztali Fűrész."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_COMPOSTER:
-    name: "&aFast Composter"
+    name: "&aGyors Komposztáló"
     lore:
-      - "&7More useful Composter."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Komposztáló."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_PANNING_MACHINE:
-    name: "&aFast Panning Machine"
+    name: "&aGyors Szitálógép"
     lore:
-      - "&7More useful Automated Panning Machine."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az Automata Szitálógép."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_JUICER:
-    name: "&aFast Juicer"
+    name: "&aGyors Facsarógép"
     lore:
-      - "&7More useful Juicer."
-      - "&7Craft without need to put items in order."
+      - "&7Hasznosabb mint az alap Facsarógép."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
 lores:
-  per-craft: " &7per craft"
+  per-craft: " &7barkácsolásonként"
 messages:
-  not-enough-energy: "&cNot enough energy!"
-  not-enough-materials: "&cNot enough materials!"
-  not-enough-space: "&cNot enough space in the machine! The items will be sent to your inventory. If your inventory is full, the items will be dropped on the ground."
+  not-enough-energy: "&cNincs elég energia!"
+  not-enough-materials: "&cNincs elég alapanyag!"
+  not-enough-space: "&cNincs elég hely a gépben! A tárgyak a tárhelyedbe fognak kerülni. Ha tele van a tárhelyed, akkor a földre fognak kiszóródni."
