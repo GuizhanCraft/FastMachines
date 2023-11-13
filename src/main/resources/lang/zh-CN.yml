@@ -46,7 +46,6 @@ items:
       - "&7Shift + 右键点击：尽可能多合成"
   NO_ITEM:
     name: "&c未选择物品"
-    lore: [ ]
   #materials
   FAST_CORE:
     name: "&b快捷核心"
