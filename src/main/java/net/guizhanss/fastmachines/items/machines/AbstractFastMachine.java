@@ -234,7 +234,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
             return;
         }
 
-        FastMachines.debug("current machine location: {0}", pos);
+        FastMachines.debug("current machine: {0}, location: {1}", getClass().getSimpleName(), pos);
         FastMachines.debug("machine inputs: {0}", machineInputs);
 
         // Fetch available recipes based on inputs

@@ -17,6 +17,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -49,13 +50,33 @@ public final class RecipeUtils {
         if (aItem == null && bItem == null) return 0;
         if (aItem == null) return -1;
         if (bItem == null) return 1;
-        if (SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true)) return 0;
+        if (isItemSimilar(aItem, bItem)) return 0;
         if (Objects.hashCode(aItem) != Objects.hashCode(bItem))
             return Objects.hashCode(aItem) - Objects.hashCode(bItem);
         if (aItem.getAmount() != bItem.getAmount()) return aItem.getAmount() - bItem.getAmount();
         return 0;
     };
 
+    /**
+     * This private method is only used by ITEM_COMPARATOR.
+     * It covers edge cases that need to change the parameters of the
+     * {@link SlimefunUtils#isItemSimilar(ItemStack, ItemStack, boolean, boolean, boolean)} call.
+     *
+     * @param aItem
+     *     The first {@link ItemStack}
+     * @param bItem
+     *     The second {@link ItemStack}
+     *
+     * @return Whether the two items are similar.
+     */
+    @ParametersAreNonnullByDefault
+    private static boolean isItemSimilar(ItemStack aItem, ItemStack bItem) {
+        if (aItem.getType() == Material.SPAWNER && bItem.getType() == Material.SPAWNER) {
+            return SlimefunUtils.isItemSimilar(aItem, bItem, true, true, true);
+        } else {
+            return SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true);
+        }
+    }
 
     /**
      * Calculate the amount of each item in the given array.
@@ -153,9 +174,16 @@ public final class RecipeUtils {
             ItemStack[] input = recipe.input();
             ItemStack[] output = recipe.output();
 
+            FastMachines.debug("--------------------");
+
+            if (input == null || output == null) {
+                FastMachines.log(Level.WARNING, "Unexpected empty input/output");
+                continue;
+            }
+
             if (output.length != 1) {
-                FastMachines.log(Level.WARNING, "Unexpected multiple output items from recipe, input: {0}, output: " +
-                    "{1}", input, output);
+                FastMachines.log(Level.WARNING, "Unexpected multiple output items from recipe, ignoring. input: {0}, " +
+                    "output: {1}", input, output);
                 continue;
             }
 
@@ -163,11 +191,16 @@ public final class RecipeUtils {
                 continue;
             }
 
+            FastMachines.debug("processing raw recipe: input={0}, output={1}",
+                Arrays.toString(input), Arrays.toString(output));
+
             if (Arrays.equals(input, lastInput, ITEM_COMPARATOR)) {
                 // this recipe still belongs to a random recipe, add current output to stored items
+                FastMachines.debug("input matches last recipe, adding to stored output");
                 storedOutput.add(output[0]);
             } else if (storedOutput.isEmpty()) {
                 // initial state, store it
+                FastMachines.debug("empty output, storing current recipe");
                 lastInput = input;
                 storedOutput.add(output[0]);
             } else {
