@@ -2,7 +2,6 @@ package net.guizhanss.fastmachines.setup;
 
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
 
-import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.FastMachinesItems;
 import net.guizhanss.fastmachines.utils.Keys;
 
@@ -10,29 +9,30 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class Researches {
-    public static void setup(FastMachines plugin) {
+    public static final Research MATERIALS = new Research(
+        Keys.get("materials"),
+        Keys.get("materials").hashCode(),
+        "Fast Machine Materials",
+        4
+    );
+
+    public static final Research MACHINES = new Research(
+        Keys.get("machines"),
+        Keys.get("machines").hashCode(),
+        "Fast Machines",
+        40
+    );
+
+    public static void setup() {
         // <editor-fold desc="Materials">
-        Research materialsResearch = new Research(
-            Keys.get("materials"),
-            Keys.get("materials").hashCode(),
-            "Fast Machine Materials",
-            4
-        );
-        materialsResearch.addItems(
+        MATERIALS.addItems(
             FastMachinesItems.ETERNAL_FIRE,
             FastMachinesItems.FAST_CORE
         );
-        materialsResearch.register();
         // </editor-fold>
 
         // <editor-fold desc="Machines">
-        Research machinesResearch = new Research(
-            Keys.get("machines"),
-            Keys.get("machines").hashCode(),
-            "Fast Machines",
-            40
-        );
-        machinesResearch.addItems(
+        MACHINES.addItems(
             FastMachinesItems.FAST_CRAFTING_TABLE,
             FastMachinesItems.FAST_FURNACE,
             FastMachinesItems.FAST_ENHANCED_CRAFTING_TABLE,
@@ -49,7 +49,17 @@ public final class Researches {
             FastMachinesItems.FAST_PANNING_MACHINE,
             FastMachinesItems.FAST_JUICER
         );
-        machinesResearch.register();
         // </editor-fold>
+    }
+
+    public static void setupIE() {
+        MACHINES.addItems(
+            FastMachinesItems.FAST_INFINITY_WORKBENCH
+        );
+    }
+
+    public static void register() {
+        MACHINES.register();
+        MATERIALS.register();
     }
 }

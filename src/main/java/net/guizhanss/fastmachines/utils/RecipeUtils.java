@@ -36,7 +36,7 @@ import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
 import net.guizhanss.fastmachines.core.recipes.RawRecipe;
 import net.guizhanss.fastmachines.core.recipes.StandardRecipe;
-import net.guizhanss.fastmachines.items.machines.AbstractFastMachine;
+import net.guizhanss.fastmachines.items.machines.abstracts.AbstractFastMachine;
 
 import lombok.experimental.UtilityClass;
 
@@ -271,7 +271,7 @@ public final class RecipeUtils {
     }
 
     /**
-     * Register recipes from a electric machine.
+     * Register recipes from a classic electric machine.
      *
      * @param recipes
      *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
@@ -366,6 +366,15 @@ public final class RecipeUtils {
         registerRecipes(recipes, pendingRecipes);
     }
 
+    /**
+     * Register recipes from vanilla recipes.
+     *
+     * @param recipes
+     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
+     * @param recipeClass
+     *     The class of the vanilla {@link Recipe}.
+     */
+    @ParametersAreNonnullByDefault
     public static void registerVanillaRecipes(List<IRecipe> recipes, Class<? extends Recipe> recipeClass) {
         Iterator<Recipe> iterator = FastMachines.getInstance().getServer().recipeIterator();
         while (iterator.hasNext()) {

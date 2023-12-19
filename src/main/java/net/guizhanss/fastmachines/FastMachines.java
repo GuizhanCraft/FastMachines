@@ -12,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 
+import net.guizhanss.fastmachines.core.services.IntegrationService;
 import net.guizhanss.fastmachines.core.services.LocalizationService;
 import net.guizhanss.fastmachines.setup.Items;
 import net.guizhanss.fastmachines.setup.Researches;
@@ -78,10 +79,14 @@ public final class FastMachines extends AbstractAddon {
         log(Level.INFO, localization.getString("console.loading-items"));
         Items.setup(this);
 
+        // integrations
+        new IntegrationService(this);
+
         // researches
         if (config.getBoolean("enable-researches", true)) {
             log(Level.INFO, localization.getString("console.loading-researches"));
-            Researches.setup(this);
+            Researches.setup();
+            Researches.register();
         }
 
         setupMetrics();
@@ -98,7 +103,7 @@ public final class FastMachines extends AbstractAddon {
 
     @Override
     protected void autoUpdate() {
-        if (getPluginVersion().startsWith("DEV")) {
+        if (getPluginVersion().startsWith("Dev")) {
             String path = getGithubUser() + "/" + getGithubRepo() + "/" + getGithubBranch();
             new GitHubBuildsUpdater(this, getFile(), path).start();
         } else if (getPluginVersion().startsWith("Build")) {

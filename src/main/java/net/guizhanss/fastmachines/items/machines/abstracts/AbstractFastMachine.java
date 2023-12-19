@@ -1,4 +1,4 @@
-package net.guizhanss.fastmachines.items.machines;
+package net.guizhanss.fastmachines.items.machines.abstracts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.items.settings.IntRangeSetting;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
@@ -99,14 +98,10 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     protected static final Map<BlockPosition, Map<IRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
 
     protected final List<IRecipe> recipes = new ArrayList<>();
-    protected final IntRangeSetting energyPerUse = new IntRangeSetting(this, "energy-per-use", 0, 8, Integer.MAX_VALUE);
-    protected final IntRangeSetting energyCapacity = new IntRangeSetting(this, "energy-capacity", 0, 1024, Integer.MAX_VALUE);
 
+    @ParametersAreNonnullByDefault
     protected AbstractFastMachine(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(Groups.MACHINES, item, recipeType, recipe);
-
-        addItemSetting(energyPerUse);
-        addItemSetting(energyCapacity);
     }
 
     @Nonnull
@@ -115,10 +110,8 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         return EnergyNetComponentType.CONSUMER;
     }
 
-    @Override
-    public int getCapacity() {
-        return energyCapacity.getValue();
-    }
+    // Also getCapacity() which is already defined.
+    public abstract int getEnergyPerUse();
 
     @Override
     protected void setup(@Nonnull BlockMenuPreset preset) {
@@ -134,7 +127,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         ItemStack craftItem = ItemUtil.appendLore(
             getCraftItem(),
             "",
-            LoreBuilder.power(energyPerUse.getValue(), FastMachines.getLocalization().getString("lores.per-craft"))
+            LoreBuilder.power(getEnergyPerUse(), FastMachines.getLocalization().getString("lores.per-craft"))
         );
         preset.addItem(CRAFT_SLOT, craftItem, ChestMenuUtils.getEmptyClickHandler());
     }
@@ -350,7 +343,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
 
         // check if the machine has enough energy
         if (FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy")) {
-            int energyNeeded = energyPerUse.getValue() * amount;
+            int energyNeeded = getEnergyPerUse() * amount;
             int currentEnergy = getCharge(blockMenu.getLocation());
             if (currentEnergy < energyNeeded) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-energy");

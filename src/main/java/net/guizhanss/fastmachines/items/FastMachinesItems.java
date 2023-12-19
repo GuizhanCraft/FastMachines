@@ -82,5 +82,10 @@ public final class FastMachinesItems {
         "FAST_JUICER",
         Material.CAULDRON
     );
+
+    public static final SlimefunItemStack FAST_INFINITY_WORKBENCH = FastMachines.getLocalization().getItem(
+        "FAST_INFINITY_WORKBENCH",
+        Material.RESPAWN_ANCHOR
+    );
     // </editor-fold>
 }
