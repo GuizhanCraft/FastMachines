@@ -6,5 +6,6 @@ depend:
   - Slimefun
 softdepend:
   - GuizhanLibPlugin
+  - InfinityExpansion
 authors: [ ybw0014 ]
 description: A Slimefun Addon that adds better basic machines.

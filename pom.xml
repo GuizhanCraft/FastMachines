@@ -97,9 +97,9 @@
         </dependency>
 
         <dependency>
-            <groupId>io.github.Slimefun</groupId>
+            <groupId>com.github.Slimefun</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-35</version>
+            <version>bbfb9734b9</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -128,6 +128,13 @@
             <artifactId>GuizhanLib-api</artifactId>
             <version>1.6.1</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.SlimefunGuguProject</groupId>
+            <artifactId>InfinityExpansion</artifactId>
+            <version>14b651fce2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

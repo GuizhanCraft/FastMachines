@@ -1,13 +1,18 @@
 package net.guizhanss.fastmachines.setup;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.FastMachinesItems;
+import net.guizhanss.fastmachines.items.machines.infinityexpansion.FastInfinityWorkbench;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastArmorForge;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastComposter;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastCompressor;
@@ -122,5 +127,22 @@ public final class Items {
             null, new ItemStack(Material.NETHER_BRICK_FENCE), null,
             SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), fastCore
         }).register(plugin);
+    }
+
+    public static void setupIE(FastMachines plugin) {
+        ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
+            FastMachinesItems.FAST_CORE : null;
+
+        new FastInfinityWorkbench(FastMachinesItems.FAST_INFINITY_WORKBENCH, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, null, null,
+            null, null, null,
+            SlimefunItems.OUTPUT_CHEST, getSf("INFINITY_FORGE"), fastCore
+        }).register(plugin);
+    }
+
+    @Nullable
+    private static ItemStack getSf(@Nonnull String id) {
+        var sfItem = SlimefunItem.getById(id);
+        return sfItem != null ? sfItem.getItem() : null;
     }
 }
