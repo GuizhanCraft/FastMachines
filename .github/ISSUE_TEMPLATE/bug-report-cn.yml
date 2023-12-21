@@ -1,5 +1,5 @@
 name: Bug汇报
-description: 反馈本插件的Bug或问题，仅限中文
+description: 反馈本插件的Bug或问题
 labels: ["bug"]
 assignees:
   - ybw0014
@@ -7,7 +7,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 欢迎来到 问题追踪器
+        ## 欢迎来到 FastMachines 的问题追踪器
+        任何意见，建议请前往[QQ群](https://50l.cc/gugu-qgroup)进行反馈。
         建议先阅读[这篇文章](https://slimefun-wiki.guizhanss.cn/How-to-report-bugs)了解如何正确地汇报Bug。
 
         <strong><i>你必须填写标注为星号（*）的表单项</i></strong>
@@ -18,10 +19,10 @@ body:
       label: 检查项目
       description: 在汇报之前，你需要确认
       options:
-        - label: 你使用的是从构建站下载的版本 (https://builds.guizhanss.com)
+        - label: 你使用的是从鬼斩构建站（<https://builds.guizhanss.com>）或 Blob 构建站（https://blob.build/）下载的版本
           required: true
         - label: 你已经检验过下载的文件的校验和，确认已完整下载文件
-          required: false
+          required: true
         - label: 你没有对下载的文件内容进行任何更改
           required: true
         - label: 你已经寻找过[已知问题列表](https://github.com/ybw0014/FastMachines/issues)，且没有找到相同的问题
@@ -66,7 +67,7 @@ body:
     attributes:
       label: 服务器日志
       description: |
-        请查看服务器日志中是否包含任何报错，如果有请上传至 [https://paste.guizhanss.net/](https://paste.guizhanss.net/) 或其他在线剪贴板并在此填入链接。
+        请查看服务器日志中是否包含任何报错，如果有请上传至 [https://paste.guizhanss.net/](https://paste.guizhanss.net/) 并在此填入链接。
         **不要直接在这里粘贴日志**
       placeholder: https://paste.guizhanss.net/...
     validations:
@@ -78,7 +79,7 @@ body:
       label: 错误报告
       description: |
         如果服务器日志中提到了`/plugins/Slimefun/error-reports`中的文件（即错误报告）
-        请上传至 [https://paste.guizhanss.net/](https://paste.guizhanss.net/) 或其他在线剪贴板并在此填入链接。
+        请上传至 [https://paste.guizhanss.net/](https://paste.guizhanss.net/) 并在此填入链接。
         **不要直接在这里粘贴错误报告**
       placeholder: https://paste.guizhanss.net/...
     validations:
@@ -102,7 +103,7 @@ body:
     id: minecraft-version
     attributes:
       label: Minecraft 版本
-      description: 请输入你的 Minecraft 版本
+      description: 请填写你的 Minecraft 版本
     validations:
       required: true
 
@@ -123,7 +124,6 @@ body:
       label: 插件版本
       description: |
         请填写插件版本
-        只需填写Build后面的数字版本即可
-        (`Build 7 zh-CN(ybw0014) (git 9ef7fee)`只需填写`7`即可)
+        (例如 Build 1 (git x114514))
     validations:
       required: true

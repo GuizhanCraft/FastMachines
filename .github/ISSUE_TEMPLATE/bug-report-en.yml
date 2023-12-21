@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Welcome to Bug Tracker
+        ## Welcome to FastMachines Bug Tracker
         Please take a look at [How to report bugs](https://github.com/Slimefun/Slimefun4/wiki/How-to-report-bugs) and [existing Issues](https://github.com/ybw0014/FastMachines/issues).
 
         <strong><i>Fields marked with an asterisk (*) are required.</i></strong>
@@ -18,7 +18,9 @@ body:
       label: Checklist
       description: Please go through this checklist before you create the issue.
       options:
-        - label: You are using official version downloaded from Builds Page
+        - label: You are using official version downloaded from Blob Builds (https://blob.build/) or Guizhan Builds (<https://builds.guizhanss.com>)
+          required: true
+        - label: You checked the checksum of the downloaded file, and confirmed that the file is complete
           required: true
         - label: You did not modify the jar file
           required: true
@@ -99,8 +101,8 @@ body:
   - type: input
     id: minecraft-version
     attributes:
-      label: Minecraft Version
-      description: Please provide your Minecraft Version
+      label: Minecraft version
+      description: Please provide the Minecraft version
     validations:
       required: true
 
@@ -119,6 +121,6 @@ body:
     attributes:
       label: Plugin version
       description: |
-        Please specify the plugin version.
+        Please specify the plugin version (like `DEV - 1 (git XXXXXX)`)
     validations:
       required: true
