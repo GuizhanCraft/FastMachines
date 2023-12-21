@@ -10,7 +10,7 @@ import com.google.common.base.Preconditions;
 
 import org.bukkit.plugin.Plugin;
 
-import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
 
 import net.guizhanss.fastmachines.core.services.IntegrationService;
 import net.guizhanss.fastmachines.core.services.LocalizationService;
@@ -104,8 +104,7 @@ public final class FastMachines extends AbstractAddon {
     @Override
     protected void autoUpdate() {
         if (getPluginVersion().startsWith("Dev")) {
-            String path = getGithubUser() + "/" + getGithubRepo() + "/" + getGithubBranch();
-            new GitHubBuildsUpdater(this, getFile(), path).start();
+            new BlobBuildUpdater(this, getFile(), getGithubRepo()).start();
         } else if (getPluginVersion().startsWith("Build")) {
             try {
                 // use updater in lib plugin

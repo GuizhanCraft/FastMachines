@@ -99,7 +99,7 @@
         <dependency>
             <groupId>com.github.Slimefun</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>bbfb9734b9</version>
+            <version>RC-36</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
