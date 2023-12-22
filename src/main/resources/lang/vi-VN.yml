@@ -131,6 +131,11 @@ items:
     lore:
       - "&7Máy ép trái cây hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
+  FAST_INFINITY_WORKBENCH:
+    name: "&aBàn làm việc vô cực Nhanh"
+    lore:
+      - "&7Bàn làm việc Vô cực hữu ích hơn."
+      - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
 lores:
   per-craft: " &7mỗi lần chế tạo"
 messages:

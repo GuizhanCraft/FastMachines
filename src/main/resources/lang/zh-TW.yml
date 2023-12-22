@@ -131,6 +131,11 @@ items:
     lore:
       - "&7更加有用的榨汁機。"
       - "&7不需要將物品按序擺放即可合成。"
+  FAST_INFINITY_WORKBENCH:
+    name: "&a快捷無盡工作台"
+    lore:
+      - "&7更有用的無盡工作台。"
+      - "&7不需要將物品按序擺放即可合成。"
 lores:
   per-craft: " &7每次合成"
 messages:
