@@ -14,6 +14,11 @@ public final class IntegrationService {
             Items.setupIE(plugin);
             Researches.setupIE();
         }
+
+        if (isEnabled("SlimeFrame")) {
+            Items.setupSFrame(plugin);
+            Researches.setupSFrame();
+        }
     }
 
     private boolean isEnabled(String pluginName) {

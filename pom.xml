@@ -136,5 +136,12 @@
             <version>14b651fce2</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.VoperAD</groupId>
+            <artifactId>SlimeFrame</artifactId>
+            <version>8af2379a01</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

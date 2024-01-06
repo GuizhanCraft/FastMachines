@@ -3,6 +3,8 @@ package net.guizhanss.fastmachines.setup;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.guizhanss.fastmachines.items.machines.slimeframe.FastSlimeFrameFoundry;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -137,6 +139,17 @@ public final class Items {
             null, null, null,
             null, null, null,
             SlimefunItems.OUTPUT_CHEST, getSf("INFINITY_FORGE"), fastCore
+        }).register(plugin);
+    }
+
+    public static void setupSFrame(FastMachines plugin) {
+        ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
+            FastMachinesItems.FAST_CORE : null;
+
+        new FastSlimeFrameFoundry(FastMachinesItems.FAST_SLIMEFRAME_FOUNDRY, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, null, null,
+            new ItemStack(Material.STONECUTTER), new ItemStack(Material.CRAFTING_TABLE), new ItemStack(Material.STONECUTTER),
+            SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), fastCore
         }).register(plugin);
     }
 
