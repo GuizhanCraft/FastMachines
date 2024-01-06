@@ -3,8 +3,6 @@ package net.guizhanss.fastmachines.setup;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.guizhanss.fastmachines.items.machines.slimeframe.FastSlimeFrameFoundry;
-
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,6 +13,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.FastMachinesItems;
 import net.guizhanss.fastmachines.items.machines.infinityexpansion.FastInfinityWorkbench;
+import net.guizhanss.fastmachines.items.machines.slimeframe.FastSlimeFrameFoundry;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastArmorForge;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastComposter;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastCompressor;
