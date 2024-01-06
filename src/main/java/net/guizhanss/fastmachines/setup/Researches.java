@@ -58,6 +58,12 @@ public final class Researches {
         );
     }
 
+    public static void setupSFrame() {
+        MACHINES.addItems(
+            FastMachinesItems.FAST_SLIMEFRAME_FOUNDRY
+        );
+    }
+
     public static void register() {
         MACHINES.register();
         MATERIALS.register();

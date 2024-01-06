@@ -7,5 +7,6 @@ depend:
 softdepend:
   - GuizhanLibPlugin
   - InfinityExpansion
+  - SlimeFrame
 authors: [ ybw0014 ]
 description: A Slimefun Addon that adds better basic machines.

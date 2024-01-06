@@ -13,6 +13,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.FastMachinesItems;
 import net.guizhanss.fastmachines.items.machines.infinityexpansion.FastInfinityWorkbench;
+import net.guizhanss.fastmachines.items.machines.slimeframe.FastSlimeFrameFoundry;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastArmorForge;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastComposter;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastCompressor;
@@ -137,6 +138,17 @@ public final class Items {
             null, null, null,
             null, null, null,
             SlimefunItems.OUTPUT_CHEST, getSf("INFINITY_FORGE"), fastCore
+        }).register(plugin);
+    }
+
+    public static void setupSFrame(FastMachines plugin) {
+        ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
+            FastMachinesItems.FAST_CORE : null;
+
+        new FastSlimeFrameFoundry(FastMachinesItems.FAST_SLIMEFRAME_FOUNDRY, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, null, null,
+            new ItemStack(Material.STONECUTTER), new ItemStack(Material.CRAFTING_TABLE), new ItemStack(Material.STONECUTTER),
+            SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), fastCore
         }).register(plugin);
     }
 
