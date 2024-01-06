@@ -8,6 +8,12 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.settings.IntRangeSetting;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
+/**
+ * General abstract class for Infinity Fast Machines.
+ * The default energy per use is 10m and the default capacity is 100m.
+ *
+ * @author ybw0014
+ */
 public abstract class AInfinityMachine extends AbstractFastMachine {
 
     private final IntRangeSetting energyPerUse = new IntRangeSetting(this, "energy-per-use", 0, 10_000_000,
