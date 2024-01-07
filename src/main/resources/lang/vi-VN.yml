@@ -136,6 +136,11 @@ items:
     lore:
       - "&7Bàn làm việc Vô cực hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
+  FAST_SLIMEFRAME_FOUNDRY:
+    name: "&aXưởng đúc SlimeFrame nhanh"
+    lore:
+      - "&7Xưởng đúc SlimeFrame hữu ích hơn."
+      - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
 lores:
   per-craft: " &7mỗi lần chế tạo"
 messages:
