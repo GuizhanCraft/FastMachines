@@ -78,7 +78,7 @@ public final class FastMachineCache {
                     amount = 1;
                 }
             }
-            craft(menu, player, amount);
+            craft(player, amount);
             return false;
         });
     }
@@ -166,11 +166,11 @@ public final class FastMachineCache {
             }
             ItemStack output = getDisplayItem(outputItems[index]);
             menu.replaceExistingItem(PREVIEW_SLOTS[i], output);
-            menu.addMenuClickHandler(PREVIEW_SLOTS[i], ((player, slot, itemStack, clickAction) -> {
+            menu.addMenuClickHandler(PREVIEW_SLOTS[i], (player, slot, itemStack, clickAction) -> {
                 choice = itemStack;
                 updateChoice();
                 return false;
-            }));
+            });
         }
 
         updateChoice();
@@ -190,10 +190,9 @@ public final class FastMachineCache {
     }
 
     @ParametersAreNonnullByDefault
-    private void craft(BlockMenu blockMenu, Player p, int amount) {
+    private void craft(Player p, int amount) {
         Preconditions.checkArgument(amount > 0, "amount must greater than 0");
 
-        BlockPosition pos = new BlockPosition(blockMenu.getLocation());
         var outputRecipes = outputs.entrySet().stream().toList();
 
         // invalid choice, due to previous selection not available anymore
@@ -201,7 +200,7 @@ public final class FastMachineCache {
             return;
         }
         var recipeEntry = outputRecipes.stream().filter(entry ->
-            RecipeUtils.isItemSimilar(entry.getKey().getOutput(pos.getWorld()), choice)
+            RecipeUtils.isItemSimilar(entry.getKey().getOutput(blockPosition.getWorld()), choice)
         ).findFirst();
         if (recipeEntry.isEmpty()) {
             return;
@@ -213,25 +212,25 @@ public final class FastMachineCache {
         // check if the machine has enough energy
         if (FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy")) {
             int energyNeeded = machine.getEnergyPerUse() * amount;
-            int currentEnergy = machine.getCharge(blockMenu.getLocation());
+            int currentEnergy = machine.getCharge(blockPosition.toLocation());
             if (currentEnergy < energyNeeded) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-energy");
                 return;
             }
-            machine.setCharge(blockMenu.getLocation(), currentEnergy - energyNeeded);
+            machine.setCharge(blockPosition.toLocation(), currentEnergy - energyNeeded);
         }
 
         // remove recipe inputs
         for (var inputEntry : recipe.getKey().getInput().entrySet()) {
             int requiredAmount = inputEntry.getValue() * amount;
-            var itemAmount = MachineUtils.getItemAmount(blockMenu, INPUT_SLOTS, inputEntry.getKey());
+            var itemAmount = MachineUtils.getItemAmount(menu, INPUT_SLOTS, inputEntry.getKey());
             // total amount is less than required amount, usually shouldn't happen
             if (itemAmount.getSecondValue() < requiredAmount) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-materials");
                 return;
             }
             // remove items from machine
-            MachineUtils.removeItems(blockMenu, itemAmount.getFirstValue().stream().mapToInt(Integer::intValue).toArray(),
+            MachineUtils.removeItems(menu, itemAmount.getFirstValue().stream().mapToInt(Integer::intValue).toArray(),
                 inputEntry.getKey(), requiredAmount);
         }
 
@@ -239,8 +238,8 @@ public final class FastMachineCache {
         if (recipe.getKey() instanceof RandomRecipe randomRecipe) {
             boolean machineFull = false;
             for (int i = 0; i < amount; i++) {
-                ItemStack product = randomRecipe.getOutput(pos.getWorld()).clone();
-                if (MachineUtils.addItem(p, blockMenu, OUTPUT_SLOTS, product, 1)) {
+                ItemStack product = randomRecipe.getOutput(blockPosition.getWorld()).clone();
+                if (MachineUtils.addItem(p, menu, OUTPUT_SLOTS, product, 1)) {
                     machineFull = true;
                 }
             }
@@ -248,8 +247,8 @@ public final class FastMachineCache {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-space");
             }
         } else {
-            ItemStack product = recipe.getKey().getOutput(pos.getWorld()).clone();
-            if (MachineUtils.addItem(p, blockMenu, OUTPUT_SLOTS, product, amount)) {
+            ItemStack product = recipe.getKey().getOutput(blockPosition.getWorld()).clone();
+            if (MachineUtils.addItem(p, menu, OUTPUT_SLOTS, product, amount)) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-space");
             }
         }
