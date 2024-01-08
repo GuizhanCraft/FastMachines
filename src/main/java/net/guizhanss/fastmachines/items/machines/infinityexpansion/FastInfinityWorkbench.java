@@ -13,7 +13,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.RawRecipe;
-import net.guizhanss.fastmachines.items.machines.abstracts.AInfinityMachine;
+import net.guizhanss.fastmachines.items.machines.generic.AInfinityMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
 public final class FastInfinityWorkbench extends AInfinityMachine {

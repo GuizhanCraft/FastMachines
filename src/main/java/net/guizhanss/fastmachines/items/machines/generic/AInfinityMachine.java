@@ -1,4 +1,4 @@
-package net.guizhanss.fastmachines.items.machines.abstracts;
+package net.guizhanss.fastmachines.items.machines.generic;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

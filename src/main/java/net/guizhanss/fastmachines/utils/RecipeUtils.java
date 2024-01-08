@@ -14,6 +14,7 @@ import java.util.logging.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNullableByDefault;
 
 import com.google.common.base.Preconditions;
 
@@ -36,7 +37,7 @@ import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
 import net.guizhanss.fastmachines.core.recipes.RawRecipe;
 import net.guizhanss.fastmachines.core.recipes.StandardRecipe;
-import net.guizhanss.fastmachines.items.machines.abstracts.AbstractFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
 
 import lombok.experimental.UtilityClass;
 
@@ -69,13 +70,11 @@ public final class RecipeUtils {
      *
      * @return Whether the two items are similar.
      */
-    @ParametersAreNonnullByDefault
-    private static boolean isItemSimilar(ItemStack aItem, ItemStack bItem) {
-        if (aItem.getType() == Material.SPAWNER && bItem.getType() == Material.SPAWNER) {
-            return SlimefunUtils.isItemSimilar(aItem, bItem, true, true, true);
-        } else {
-            return SlimefunUtils.isItemSimilar(aItem, bItem, false, true, true);
-        }
+    @ParametersAreNullableByDefault
+    public static boolean isItemSimilar(ItemStack aItem, ItemStack bItem) {
+        if (aItem == null || bItem == null) return false;
+        boolean checkLore = aItem.getType() == Material.SPAWNER && bItem.getType() == Material.SPAWNER;
+        return SlimefunUtils.isItemSimilar(aItem, bItem, checkLore, true, true);
     }
 
     /**

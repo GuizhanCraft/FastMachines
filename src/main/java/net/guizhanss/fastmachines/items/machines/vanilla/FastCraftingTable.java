@@ -9,7 +9,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
 import net.guizhanss.fastmachines.FastMachines;
-import net.guizhanss.fastmachines.items.machines.abstracts.AFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.AFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
 public final class FastCraftingTable extends AFastMachine {
