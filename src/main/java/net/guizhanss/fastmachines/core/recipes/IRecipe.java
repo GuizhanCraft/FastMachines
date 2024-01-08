@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
-import net.guizhanss.fastmachines.items.machines.abstracts.AbstractFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
 
 /**
  * This interface represents a recipe used by a {@link AbstractFastMachine}.

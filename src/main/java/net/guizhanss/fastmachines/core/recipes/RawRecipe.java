@@ -4,6 +4,14 @@ import java.util.Arrays;
 
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * A temporary class used to store a pair of input and output. This class is used before registering recipes.
+ *
+ * @param input
+ *     The input {@link ItemStack}s.
+ * @param output
+ *     The output {@link ItemStack}s.
+ */
 public record RawRecipe(ItemStack[] input, ItemStack[] output) {
 
     @Override
