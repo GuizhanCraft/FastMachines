@@ -71,7 +71,7 @@ public final class RecipeUtils {
      * @return Whether the two items are similar.
      */
     @ParametersAreNullableByDefault
-    public static boolean isItemSimilar(ItemStack aItem, ItemStack bItem) {
+    private static boolean isItemSimilar(ItemStack aItem, ItemStack bItem) {
         if (aItem == null || bItem == null) return false;
         boolean checkLore = aItem.getType() == Material.SPAWNER && bItem.getType() == Material.SPAWNER;
         return SlimefunUtils.isItemSimilar(aItem, bItem, checkLore, true, true);

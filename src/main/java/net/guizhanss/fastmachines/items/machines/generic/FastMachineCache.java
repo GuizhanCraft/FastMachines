@@ -21,9 +21,9 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
+import net.guizhanss.fastmachines.utils.ItemUtils;
 import net.guizhanss.fastmachines.utils.Keys;
 import net.guizhanss.fastmachines.utils.MachineUtils;
-import net.guizhanss.fastmachines.utils.RecipeUtils;
 
 import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine.CHOICE_SLOT;
 import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine.CRAFT_SLOT;
@@ -167,7 +167,7 @@ public final class FastMachineCache {
             ItemStack output = getDisplayItem(outputItems[index]);
             menu.replaceExistingItem(PREVIEW_SLOTS[i], output);
             menu.addMenuClickHandler(PREVIEW_SLOTS[i], (player, slot, itemStack, clickAction) -> {
-                choice = itemStack;
+                choice = outputItems[index];
                 updateChoice();
                 return false;
             });
@@ -181,7 +181,7 @@ public final class FastMachineCache {
             outputs.keySet().stream().map(recipe -> recipe.getOutput(blockPosition.getWorld())).toArray(ItemStack[]::new);
 
         for (ItemStack output : outputItems) {
-            if (RecipeUtils.isItemSimilar(output, choice)) {
+            if (ItemUtils.isSimilar(output, choice)) {
                 menu.replaceExistingItem(CHOICE_SLOT, getDisplayItem(choice));
                 return;
             }
@@ -200,7 +200,7 @@ public final class FastMachineCache {
             return;
         }
         var recipeEntry = outputRecipes.stream().filter(entry ->
-            RecipeUtils.isItemSimilar(entry.getKey().getOutput(blockPosition.getWorld()), choice)
+            ItemUtils.isSimilar(entry.getKey().getOutput(blockPosition.getWorld()), choice)
         ).findFirst();
         if (recipeEntry.isEmpty()) {
             return;
@@ -267,6 +267,23 @@ public final class FastMachineCache {
         ItemStack newItem = item.clone();
         ItemMeta meta = newItem.getItemMeta();
         PersistentDataAPI.setBoolean(meta, Keys.get("display"), true);
+        newItem.setItemMeta(meta);
+        return newItem;
+    }
+
+    /**
+     * Get the original {@link ItemStack} from a display {@link ItemStack}.
+     *
+     * @param displayItem
+     *     The display {@link ItemStack}.
+     *
+     * @return The original {@link ItemStack}.
+     */
+    @Nonnull
+    private ItemStack getOriginalItem(@Nonnull ItemStack displayItem) {
+        ItemStack newItem = displayItem.clone();
+        ItemMeta meta = newItem.getItemMeta();
+        PersistentDataAPI.remove(meta, Keys.get("display"));
         newItem.setItemMeta(meta);
         return newItem;
     }
