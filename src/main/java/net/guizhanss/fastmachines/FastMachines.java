@@ -12,8 +12,11 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
 
+import net.guizhanss.fastmachines.core.Registry;
 import net.guizhanss.fastmachines.core.services.IntegrationService;
 import net.guizhanss.fastmachines.core.services.LocalizationService;
+import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
+import net.guizhanss.fastmachines.listeners.SlimefunRegistryLoadedListener;
 import net.guizhanss.fastmachines.setup.Items;
 import net.guizhanss.fastmachines.setup.Researches;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
@@ -26,11 +29,17 @@ public final class FastMachines extends AbstractAddon {
 
     private static final String DEFAULT_LANG = "en-US";
 
+    private Registry registry;
     private LocalizationService localization;
     private boolean debugEnabled = false;
 
     public FastMachines() {
         super("ybw0014", "FastMachines", "master", "auto-update");
+    }
+
+    @Nonnull
+    public static Registry getRegistry() {
+        return inst().registry;
     }
 
     @Nonnull
@@ -61,6 +70,9 @@ public final class FastMachines extends AbstractAddon {
         // config
         AddonConfig config = getAddonConfig();
 
+        // registry
+        registry = new Registry();
+
         // debug
         debugEnabled = config.getBoolean("debug", false);
 
@@ -89,6 +101,8 @@ public final class FastMachines extends AbstractAddon {
             Researches.register();
         }
 
+        registerRecipes();
+
         setupMetrics();
     }
 
@@ -99,6 +113,18 @@ public final class FastMachines extends AbstractAddon {
 
     private void setupMetrics() {
         new Metrics(this, 20046);
+    }
+
+    private void registerRecipes() {
+        Runnable runnable = () -> registry.getAllEnabledFastMachines().forEach(AbstractFastMachine::registerRecipes);
+        try {
+            // if Slimefun has the new SlimefunItemRegistryFinalizedEvent, we can register recipes during this event
+            Class.forName("io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent");
+            new SlimefunRegistryLoadedListener(this, runnable);
+        } catch (ClassNotFoundException ex) {
+            // Slimefun does not have the new event, so we register recipes 2 ticks after server completes loading
+            getScheduler().run(2, runnable);
+        }
     }
 
     @Override

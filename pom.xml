@@ -99,7 +99,7 @@
         <dependency>
             <groupId>com.github.Slimefun</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-36</version>
+            <version>7c917c396f</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -130,6 +130,7 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- InfinityExpansion didnt set up jitpack, so we use this -->
         <dependency>
             <groupId>com.github.SlimefunGuguProject</groupId>
             <artifactId>InfinityExpansion</artifactId>
