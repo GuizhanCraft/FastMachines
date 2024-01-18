@@ -63,11 +63,8 @@ public final class RecipeUtils {
      * It covers edge cases that need to change the parameters of the
      * {@link SlimefunUtils#isItemSimilar(ItemStack, ItemStack, boolean, boolean, boolean)} call.
      *
-     * @param aItem
-     *     The first {@link ItemStack}
-     * @param bItem
-     *     The second {@link ItemStack}
-     *
+     * @param aItem The first {@link ItemStack}
+     * @param bItem The second {@link ItemStack}
      * @return Whether the two items are similar.
      */
     @ParametersAreNullableByDefault
@@ -82,9 +79,7 @@ public final class RecipeUtils {
      * Similar items will be merged by
      * {@link SlimefunUtils#isItemSimilar(ItemStack, ItemStack, boolean, boolean, boolean)}.
      *
-     * @param items
-     *     The array of {@link ItemStack}.
-     *
+     * @param items The array of {@link ItemStack}.
      * @return A {@link Map} that contains the amount of each item.
      */
     public static Map<ItemStack, Integer> calculateItems(@Nonnull ItemStack... items) {
@@ -115,13 +110,9 @@ public final class RecipeUtils {
      * Find a {@link RandomRecipe} in all the recipes, with the given {@link ItemStack} input. If such recipe is
      * found, append output to it, then return true. Otherwise, nothing happens and return false.
      *
-     * @param recipes
-     *     The {@link List} of {@link IRecipe}.
-     * @param input
-     *     The input {@link ItemStack} which will be used to find.
-     * @param output
-     *     The {@link List} of output {@link ItemStack}s.
-     *
+     * @param recipes The {@link List} of {@link IRecipe}.
+     * @param input   The input {@link ItemStack} which will be used to find.
+     * @param output  The {@link List} of output {@link ItemStack}s.
      * @return Whether there is an existing {@link RandomRecipe}
      */
     private static boolean appendRandomRecipe(List<IRecipe> recipes, ItemStack input, List<ItemStack> output) {
@@ -141,11 +132,9 @@ public final class RecipeUtils {
     /**
      * Register recipes.
      *
-     * @param recipes
-     *     The {@link List} that stores {@link IRecipe}s.
-     * @param pendingRecipes
-     *     The {@link List} of recipes that need to be registered. The first element in pair is input, and the second
-     *     element in pair is output.
+     * @param recipes        The {@link List} that stores {@link IRecipe}s.
+     * @param pendingRecipes The {@link List} of recipes that need to be registered. The first element in pair is input, and the second
+     *                       element in pair is output.
      */
     public static void registerRecipes(List<IRecipe> recipes, List<RawRecipe> pendingRecipes) {
         ItemStack[] lastInput = new ItemStack[0];
@@ -234,10 +223,8 @@ public final class RecipeUtils {
     /**
      * Register recipes from a {@link MultiBlockMachine}.
      *
-     * @param recipes
-     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
-     * @param id
-     *     The id of the {@link MultiBlockMachine}.
+     * @param recipes The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
+     * @param id      The id of the {@link MultiBlockMachine}.
      */
     @ParametersAreNonnullByDefault
     public static void registerMultiblockMachineRecipes(List<IRecipe> recipes, String id) {
@@ -272,10 +259,8 @@ public final class RecipeUtils {
     /**
      * Register recipes from a classic electric machine.
      *
-     * @param recipes
-     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
-     * @param id
-     *     The id of the {@link MultiBlockMachine}.
+     * @param recipes The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
+     * @param id      The id of the {@link MultiBlockMachine}.
      */
     @ParametersAreNonnullByDefault
     public static void registerMachineRecipes(List<IRecipe> recipes, String id) {
@@ -338,10 +323,8 @@ public final class RecipeUtils {
     /**
      * Register recipes from display recipes.
      *
-     * @param recipes
-     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
-     * @param displayRecipes
-     *     The display recipes from a {@link RecipeDisplayItem}.
+     * @param recipes        The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
+     * @param displayRecipes The display recipes from a {@link RecipeDisplayItem}.
      */
     @ParametersAreNonnullByDefault
     public static void registerDisplayRecipes(List<IRecipe> recipes, List<ItemStack> displayRecipes) {
@@ -357,8 +340,8 @@ public final class RecipeUtils {
         List<RawRecipe> pendingRecipes = new ArrayList<>();
 
         for (int i = 0; i < displayRecipes.size(); i += 2) {
-            ItemStack[] input = new ItemStack[] { displayRecipes.get(i) };
-            ItemStack[] output = new ItemStack[] { displayRecipes.get(i + 1) };
+            ItemStack[] input = new ItemStack[]{displayRecipes.get(i)};
+            ItemStack[] output = new ItemStack[]{displayRecipes.get(i + 1)};
 
             pendingRecipes.add(new RawRecipe(input, output));
         }
@@ -368,10 +351,8 @@ public final class RecipeUtils {
     /**
      * Register recipes from vanilla recipes.
      *
-     * @param recipes
-     *     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
-     * @param recipeClass
-     *     The class of the vanilla {@link Recipe}.
+     * @param recipes     The {@link List} instance of {@link IRecipe} from a {@link AbstractFastMachine}.
+     * @param recipeClass The class of the vanilla {@link Recipe}.
      */
     @ParametersAreNonnullByDefault
     public static void registerVanillaRecipes(List<IRecipe> recipes, Class<? extends Recipe> recipeClass) {

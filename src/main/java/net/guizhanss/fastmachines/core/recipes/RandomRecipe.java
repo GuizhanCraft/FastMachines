@@ -60,9 +60,7 @@ public class RandomRecipe implements IRecipe {
     /**
      * Check whether all the output items are disabled in the given {@link World}.
      *
-     * @param world
-     *     The world to check.
-     *
+     * @param world The world to check.
      * @return True if all the output items are disabled in the given {@link World}.
      */
     @Override

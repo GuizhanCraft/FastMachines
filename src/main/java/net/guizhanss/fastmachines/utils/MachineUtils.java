@@ -26,11 +26,8 @@ public final class MachineUtils {
     /**
      * Get the amount map of machine inputs.
      *
-     * @param menu
-     *     The {@link BlockMenu} of machine.
-     * @param slots
-     *     The slots of machine inputs.
-     *
+     * @param menu  The {@link BlockMenu} of machine.
+     * @param slots The slots of machine input.
      * @return The amount map of machine inputs.
      */
     @Nonnull
@@ -42,11 +39,8 @@ public final class MachineUtils {
     /**
      * Retrive all the {@link ItemStack} inside given machine slots.
      *
-     * @param menu
-     *     The {@link BlockMenu} of machine.
-     * @param slots
-     *     The slots of machine.
-     *
+     * @param menu  The {@link BlockMenu} of machine.
+     * @param slots The slots of machine.
      * @return The array of {@link ItemStack} inside given machine slots.
      */
     @Nonnull
@@ -68,13 +62,9 @@ public final class MachineUtils {
     /**
      * Get the amount of given {@link ItemStack} in machine slots.
      *
-     * @param menu
-     *     The {@link BlockMenu} of machine.
-     * @param slots
-     *     The slots of machine to scan.
-     * @param item
-     *     The {@link ItemStack} to scan.
-     *
+     * @param menu  The {@link BlockMenu} of machine.
+     * @param slots The slots of machine to scan.
+     * @param item  The {@link ItemStack} to scan.
      * @return A pair, where the first element is the slots that contains of given {@link ItemStack},
      * and the second element is the total amount of given {@link ItemStack}.
      */
@@ -99,15 +89,10 @@ public final class MachineUtils {
     /**
      * Remove the given amount of {@link ItemStack} from machine slots.
      *
-     * @param menu
-     *     The {@link BlockMenu} of machine.
-     * @param slots
-     *     The slots of machine to remove {@link ItemStack} from.
-     * @param item
-     *     The {@link ItemStack} to remove.
-     * @param amount
-     *     The amount of {@link ItemStack} to remove.
-     *
+     * @param menu   The {@link BlockMenu} of machine.
+     * @param slots  The slots of machine to remove {@link ItemStack} from.
+     * @param item   The {@link ItemStack} to remove.
+     * @param amount The amount of {@link ItemStack} to remove.
      * @return Whether the item is removed.
      */
     public static boolean removeItems(BlockMenu menu, int[] slots, ItemStack item, int amount) {
@@ -135,15 +120,10 @@ public final class MachineUtils {
     /**
      * Add the given {@link ItemStack} to machine slots.
      *
-     * @param menu
-     *     The {@link BlockMenu} of machine.
-     * @param slots
-     *     The slots of machine to add {@link ItemStack} to.
-     * @param item
-     *     The {@link ItemStack} to add.
-     * @param amount
-     *     The amount of {@link ItemStack}s to add.
-     *
+     * @param menu   The {@link BlockMenu} of machine.
+     * @param slots  The slots of machine to add {@link ItemStack} to.
+     * @param item   The {@link ItemStack} to add.
+     * @param amount The amount of {@link ItemStack}s to add.
      * @return The remaining amount of {@link ItemStack}s.
      */
     @ParametersAreNonnullByDefault
@@ -177,17 +157,11 @@ public final class MachineUtils {
      * If machine slots are all full, send to {@link Player}'s inventory.
      * If player's inventory is full, drop on the ground.
      *
-     * @param p
-     *     The {@link Player} to send items to.
-     * @param menu
-     *     The {@link BlockMenu} of machine.
-     * @param slots
-     *     The slots of machine to add {@link ItemStack} to.
-     * @param item
-     *     The {@link ItemStack} to add.
-     * @param amount
-     *     The amount of {@link ItemStack}s to add.
-     *
+     * @param p      The {@link Player} to send items to.
+     * @param menu   The {@link BlockMenu} of machine.
+     * @param slots  The slots of machine to add {@link ItemStack} to.
+     * @param item   The {@link ItemStack} to add.
+     * @param amount The amount of {@link ItemStack}s to add.
      * @return The remaining amount of {@link ItemStack}s.
      */
     @ParametersAreNonnullByDefault

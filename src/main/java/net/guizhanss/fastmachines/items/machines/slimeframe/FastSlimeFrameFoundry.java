@@ -22,7 +22,7 @@ public class FastSlimeFrameFoundry extends AFastMachine {
     }
 
     @Override
-    protected void registerRecipes() {
+    public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerMultiblockMachineRecipes(recipes, SFrameStacks.FOUNDRY.getItemId());
     }

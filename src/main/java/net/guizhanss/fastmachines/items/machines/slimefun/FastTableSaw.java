@@ -21,7 +21,7 @@ public final class FastTableSaw extends AFastMachine {
     }
 
     @Override
-    protected void registerRecipes() {
+    public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerDisplayRecipes(recipes, SlimefunItems.TABLE_SAW.getItemId());
     }

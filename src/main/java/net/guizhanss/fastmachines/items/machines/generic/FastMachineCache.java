@@ -257,9 +257,7 @@ public final class FastMachineCache {
     /**
      * Get the {@link ItemStack} that is used to display in the preview slots.
      *
-     * @param item
-     *     The original {@link ItemStack}.
-     *
+     * @param item The original {@link ItemStack}.
      * @return The new {@link ItemStack} that is used to display.
      */
     @Nonnull
@@ -274,9 +272,7 @@ public final class FastMachineCache {
     /**
      * Get the original {@link ItemStack} from a display {@link ItemStack}.
      *
-     * @param displayItem
-     *     The display {@link ItemStack}.
-     *
+     * @param displayItem The display {@link ItemStack}.
      * @return The original {@link ItemStack}.
      */
     @Nonnull

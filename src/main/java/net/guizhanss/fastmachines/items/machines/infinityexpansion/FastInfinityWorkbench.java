@@ -25,13 +25,13 @@ public final class FastInfinityWorkbench extends AInfinityMachine {
     }
 
     @Override
-    protected void registerRecipes() {
+    public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         try {
             var recipeType = InfinityWorkbench.TYPE;
             List<RawRecipe> rawRecipes = new ArrayList<>();
             for (var recipe : recipeType.recipes().entrySet()) {
-                RawRecipe rawRecipe = new RawRecipe(recipe.getKey(), new ItemStack[] { recipe.getValue() });
+                RawRecipe rawRecipe = new RawRecipe(recipe.getKey(), new ItemStack[]{recipe.getValue()});
                 rawRecipes.add(rawRecipe);
             }
             RecipeUtils.registerRecipes(recipes, rawRecipes);

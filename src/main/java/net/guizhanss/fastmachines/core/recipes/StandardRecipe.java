@@ -59,9 +59,7 @@ public class StandardRecipe implements IRecipe {
     /**
      * Check whether the output item is disabled in the given {@link World}.
      *
-     * @param world
-     *     The world to check.
-     *
+     * @param world The world to check.
      * @return True if output item is disabled in the given {@link World}.
      */
     @Override
@@ -73,7 +71,7 @@ public class StandardRecipe implements IRecipe {
     @Override
     @Nonnull
     public ItemStack[] getAllOutputs() {
-        return new ItemStack[] { output };
+        return new ItemStack[]{output};
     }
 
     @Override
