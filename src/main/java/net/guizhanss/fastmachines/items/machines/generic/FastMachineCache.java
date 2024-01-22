@@ -146,8 +146,8 @@ public final class FastMachineCache {
     }
 
     private void updateMenu() {
-        ItemStack[] outputItems =
-            outputs.keySet().stream().map(recipe -> recipe.getOutput(blockPosition.getWorld())).toArray(ItemStack[]::new);
+        ItemStack[] outputItems = new LinkedHashMap<>(outputs)
+            .keySet().stream().map(recipe -> recipe.getOutput(blockPosition.getWorld())).toArray(ItemStack[]::new);
         int totalPages = (int) Math.ceil(outputs.size() * 1.0 / ITEMS_PER_PAGE);
         // limit the page in range
         if (page < 1) {
@@ -177,8 +177,8 @@ public final class FastMachineCache {
     }
 
     private void updateChoice() {
-        ItemStack[] outputItems =
-            outputs.keySet().stream().map(recipe -> recipe.getOutput(blockPosition.getWorld())).toArray(ItemStack[]::new);
+        ItemStack[] outputItems = new LinkedHashMap<>(outputs)
+            .keySet().stream().map(recipe -> recipe.getOutput(blockPosition.getWorld())).toArray(ItemStack[]::new);
 
         for (ItemStack output : outputItems) {
             if (ItemUtils.isSimilar(output, choice)) {
@@ -193,7 +193,7 @@ public final class FastMachineCache {
     private void craft(Player p, int amount) {
         Preconditions.checkArgument(amount > 0, "amount must greater than 0");
 
-        var outputRecipes = outputs.entrySet().stream().toList();
+        var outputRecipes = new LinkedHashMap<>(outputs).entrySet().stream().toList();
 
         // invalid choice, due to previous selection not available anymore
         if (choice == null) {
