@@ -37,10 +37,6 @@ public final class LocalizationService extends SlimefunLocalization {
         var translationFiles = FileUtils.listYmlFilesInJar(jarFile, FOLDER_NAME);
         for (String translationFile : translationFiles) {
             String filePath = FOLDER_NAME + File.separator + translationFile;
-            File file = new File(plugin.getDataFolder(), filePath);
-            if (file.exists()) {
-                continue;
-            }
             plugin.saveResource(filePath, true);
         }
     }

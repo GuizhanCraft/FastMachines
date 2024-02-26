@@ -1,6 +1,8 @@
 package net.guizhanss.fastmachines.items.machines.generic;
 
+import java.util.ConcurrentModificationException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -189,11 +191,27 @@ public final class FastMachineCache {
         menu.replaceExistingItem(CHOICE_SLOT, NO_ITEM);
     }
 
+
     @ParametersAreNonnullByDefault
-    private void craft(Player p, int amount) {
+    private void craft(final Player p, final int amount) {
+        craft(p, amount, 0);
+    }
+
+    @ParametersAreNonnullByDefault
+    private void craft(final Player p, final int amount, int tries) {
         Preconditions.checkArgument(amount > 0, "amount must greater than 0");
 
-        var outputRecipes = new LinkedHashMap<>(outputs).entrySet().stream().toList();
+        List<Map.Entry<IRecipe, Integer>> outputRecipes;
+        try {
+            outputRecipes = new LinkedHashMap<>(outputs).entrySet().stream().toList();
+        } catch (ConcurrentModificationException e) {
+            // sometimes player crafts when the machine is calculating outputs,
+            // so we just delay this one tick and try again
+            if (tries < 3) {
+                FastMachines.getScheduler().run(() -> craft(p, amount, tries + 1));
+            }
+            return;
+        }
 
         // invalid choice, due to previous selection not available anymore
         if (choice == null) {
@@ -206,12 +224,12 @@ public final class FastMachineCache {
             return;
         }
         var recipe = recipeEntry.get();
-        int maxAmount = recipe.getValue();
-        amount = Math.min(maxAmount, amount);
+        final int maxAmount = recipe.getValue();
+        int actualAmount = Math.min(maxAmount, amount);
 
         // check if the machine has enough energy
         if (FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy")) {
-            int energyNeeded = machine.getEnergyPerUse() * amount;
+            int energyNeeded = machine.getEnergyPerUse() * actualAmount;
             int currentEnergy = machine.getCharge(blockPosition.toLocation());
             if (currentEnergy < energyNeeded) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-energy");
@@ -222,7 +240,7 @@ public final class FastMachineCache {
 
         // remove recipe inputs
         for (var inputEntry : recipe.getKey().getInput().entrySet()) {
-            int requiredAmount = inputEntry.getValue() * amount;
+            int requiredAmount = inputEntry.getValue() * actualAmount;
             var itemAmount = MachineUtils.getItemAmount(menu, INPUT_SLOTS, inputEntry.getKey());
             // total amount is less than required amount, usually shouldn't happen
             if (itemAmount.getSecondValue() < requiredAmount) {
