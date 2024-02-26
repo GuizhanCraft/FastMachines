@@ -8,6 +8,12 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+
+import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
+
+import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -45,8 +51,6 @@ import lombok.Getter;
  */
 @SuppressWarnings("ConstantConditions")
 public abstract class AbstractFastMachine extends TickingMenuBlock implements EnergyNetComponent {
-    // outputs map
-    protected static final Map<BlockPosition, Map<IRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
     // slots
     static final int[] INPUT_SLOTS = new int[] {
         0, 1, 2, 3, 4, 5, 6, 7, 8,
@@ -68,8 +72,8 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     static final int SCROLL_DOWN_SLOT = 51;
     static final int CHOICE_SLOT = 52;
     static final int CRAFT_SLOT = 53;
-    static final int CHOICE_INDICATOR_SLOT = 43;
-    static final int INFO_SLOT = 44;
+    static final int INFO_SLOT = 43;
+    static final int ENERGY_SLOT = 44;
     // constants
     static final int ITEMS_PER_PAGE = PREVIEW_SLOTS.length;
     // menu items
@@ -79,8 +83,6 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         "SCROLL_UP", Heads.ARROW_UP.getTexture());
     static final ItemStack SCROLL_DOWN_ITEM = FastMachines.getLocalization().getItem(
         "SCROLL_DOWN", Heads.ARROW_DOWN.getTexture());
-    static final ItemStack CHOICE_INDICATOR_ITEM = FastMachines.getLocalization().getItem(
-        "CHOICE_INDICATOR", Material.YELLOW_STAINED_GLASS_PANE);
     static final ItemStack INFO_ITEM = FastMachines.getLocalization().getItem(
         "INFO", Heads.INFO.getTexture());
 
@@ -108,18 +110,17 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         for (int slot : PREVIEW_SLOTS) {
             preset.addItem(slot, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }
-        preset.addItem(CHOICE_INDICATOR_SLOT, CHOICE_INDICATOR_ITEM, ChestMenuUtils.getEmptyClickHandler());
         preset.addItem(INFO_SLOT, INFO_ITEM, ChestMenuUtils.getEmptyClickHandler());
         preset.addItem(CHOICE_SLOT, NO_ITEM, ChestMenuUtils.getEmptyClickHandler());
         preset.addItem(SCROLL_UP_SLOT, SCROLL_UP_ITEM, ChestMenuUtils.getEmptyClickHandler());
         preset.addItem(SCROLL_DOWN_SLOT, SCROLL_DOWN_ITEM, ChestMenuUtils.getEmptyClickHandler());
 
-        ItemStack craftItem = ItemUtil.appendLore(
-            getCraftItem(),
-            "",
+        preset.addItem(CRAFT_SLOT, getCraftItem(), ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(ENERGY_SLOT, new CustomItemStack(
+            HeadTexture.ENERGY_CONNECTOR.getAsItemStack(),
+            " ",
             LoreBuilder.power(getEnergyPerUse(), FastMachines.getLocalization().getString("lores.per-craft"))
-        );
-        preset.addItem(CRAFT_SLOT, craftItem, ChestMenuUtils.getEmptyClickHandler());
+        ), ChestMenuUtils.getEmptyClickHandler());
     }
 
     @Override
