@@ -1,5 +1,8 @@
 package net.guizhanss.fastmachines.items.machines.slimefun;
 
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -7,9 +10,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.machines.generic.AFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
-
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public final class FastPanningMachine extends AFastMachine {
 

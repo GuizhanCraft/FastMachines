@@ -19,6 +19,10 @@ public final class FastMachinesItems {
         "FAST_CORE",
         Material.CONDUIT
     );
+    public static final SlimefunItemStack STACKED_ANCIENT_PEDESTAL = FastMachines.getLocalization().getItem(
+        "STACKED_ANCIENT_PEDESTAL",
+        Material.DISPENSER
+    );
     // </editor-fold>
 
     // <editor-fold desc="Machines">
@@ -82,7 +86,10 @@ public final class FastMachinesItems {
         "FAST_JUICER",
         Material.CAULDRON
     );
-
+    public static final SlimefunItemStack FAST_ANCIENT_ALTAR = FastMachines.getLocalization().getItem(
+        "FAST_ANCIENT_ALTAR",
+        Material.ENCHANTING_TABLE
+    );
     public static final SlimefunItemStack FAST_INFINITY_WORKBENCH = FastMachines.getLocalization().getItem(
         "FAST_INFINITY_WORKBENCH",
         Material.RESPAWN_ANCHOR

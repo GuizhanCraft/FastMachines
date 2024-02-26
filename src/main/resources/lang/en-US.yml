@@ -77,6 +77,12 @@ items:
     name: "&4Eternal Fire"
     lore:
       - "&7The fire that never goes out."
+  STACKED_ANCIENT_PEDESTAL:
+    name: "&6Stacked Ancient Pedestal"
+    lore:
+      - "&74 Ancient Pedestals in 1."
+      - "&eRight click &7to break into"
+      - "&74 Ancient Pedestals."
 
   # machines
   FAST_CRAFTING_TABLE:
@@ -153,6 +159,11 @@ items:
     name: "&aFast Juicer"
     lore:
       - "&7More useful Juicer."
+      - "&7Craft without need to put items in order."
+  FAST_ANCIENT_ALTAR:
+    name: "&aFast Ancient Altar"
+    lore:
+      - "&7More useful Ancient Altar."
       - "&7Craft without need to put items in order."
   FAST_INFINITY_WORKBENCH:
     name: "&aFast Infinity Workbench"

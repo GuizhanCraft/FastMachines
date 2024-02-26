@@ -14,6 +14,7 @@ import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.FastMachinesItems;
 import net.guizhanss.fastmachines.items.machines.infinityexpansion.FastInfinityWorkbench;
 import net.guizhanss.fastmachines.items.machines.slimeframe.FastSlimeFrameFoundry;
+import net.guizhanss.fastmachines.items.machines.slimefun.FastAncientAltar;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastArmorForge;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastComposter;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastCompressor;
@@ -30,6 +31,7 @@ import net.guizhanss.fastmachines.items.machines.slimefun.FastTableSaw;
 import net.guizhanss.fastmachines.items.machines.vanilla.FastCraftingTable;
 import net.guizhanss.fastmachines.items.machines.vanilla.FastFurnace;
 import net.guizhanss.fastmachines.items.materials.FastMaterial;
+import net.guizhanss.fastmachines.items.materials.StackedAncientPedestal;
 
 import lombok.experimental.UtilityClass;
 
@@ -46,6 +48,11 @@ public final class Items {
             null, SlimefunItems.SMALL_CAPACITOR, null,
             null, SlimefunItems.REDSTONE_ALLOY, null,
             null, null, null
+        }).register(plugin);
+        new StackedAncientPedestal(FastMachinesItems.STACKED_ANCIENT_PEDESTAL, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            SlimefunItems.ANCIENT_PEDESTAL, null, SlimefunItems.ANCIENT_PEDESTAL,
+            null, null, null,
+            SlimefunItems.ANCIENT_PEDESTAL, null, SlimefunItems.ANCIENT_PEDESTAL
         }).register(plugin);
         // </editor-fold>
 
@@ -128,6 +135,12 @@ public final class Items {
             null, new ItemStack(Material.NETHER_BRICK_FENCE), null,
             SlimefunItems.OUTPUT_CHEST, new ItemStack(Material.DISPENSER), fastCore
         }).register(plugin);
+        new FastAncientAltar(FastMachinesItems.FAST_ANCIENT_ALTAR, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, null, null,
+            null, fastCore, null,
+            FastMachinesItems.STACKED_ANCIENT_PEDESTAL, SlimefunItems.ANCIENT_ALTAR, FastMachinesItems.STACKED_ANCIENT_PEDESTAL
+        }).register(plugin);
+        // </editor-fold>
     }
 
     public static void setupIE(FastMachines plugin) {
