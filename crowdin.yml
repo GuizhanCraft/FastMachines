@@ -1,4 +1,4 @@
 files:
   - source: /src/main/resources/lang/en-US.yml
     translation: /src/main/resources/lang/%osx_locale%.yml
-pull_request_title: "i18n: update crowdin translations"
+pull_request_title: "chore(i18n): update crowdin translations"
