@@ -3,29 +3,43 @@ console:
   loading-items: "Loading items..."
   loading-researches: "Loading researches..."
 
-categories:
+items:
+  # categories
   FAST_MACHINES:
+    conditions:
+      force-load: true
     name: "&eFast Machines"
   MATERIALS:
+    conditions:
+      force-load: true
     name: "&eFast Machines &7- &bMaterials"
   MACHINES:
+    conditions:
+      force-load: true
     name: "&eFast Machines &7- &aMachines"
 
-items:
   # gui items
   CHOICE_INDICATOR:
+    conditions:
+      force-load: true
     name: "&eSelected item"
     lore:
       - "&7You have selected the item below to be crafted."
   SCROLL_UP:
+    conditions:
+      force-load: true
     name: "&eScroll up"
     lore:
       - "&7Click to scroll up possible outputs."
   SCROLL_DOWN:
+    conditions:
+      force-load: true
     name: "&eScroll down"
     lore:
       - "&7Click to scroll down possible outputs."
   INFO:
+    conditions:
+      force-load: true
     name: "&fInformation"
     lore:
       - "&7Put the materials in the first 4 rows,"
@@ -38,6 +52,8 @@ items:
       - "&cthe requested amount, the crafting will provide"
       - "&cmaximum possible amount of the item."
   CRAFT:
+    conditions:
+      force-load: true
     name: "&aCraft"
     lore:
       - "&7Click to craft the selected item."
@@ -47,6 +63,8 @@ items:
       - "&7Shift + Left Click: 64 times"
       - "&7Shift + Right Click: as many as possible"
   NO_ITEM:
+    conditions:
+      force-load: true
     name: "&cNo Item selected"
     lore: []
 

@@ -71,7 +71,7 @@ public class StandardRecipe implements IRecipe {
     @Override
     @Nonnull
     public ItemStack[] getAllOutputs() {
-        return new ItemStack[]{output};
+        return new ItemStack[] {output};
     }
 
     @Override

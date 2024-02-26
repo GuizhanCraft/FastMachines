@@ -340,8 +340,8 @@ public final class RecipeUtils {
         List<RawRecipe> pendingRecipes = new ArrayList<>();
 
         for (int i = 0; i < displayRecipes.size(); i += 2) {
-            ItemStack[] input = new ItemStack[]{displayRecipes.get(i)};
-            ItemStack[] output = new ItemStack[]{displayRecipes.get(i + 1)};
+            ItemStack[] input = new ItemStack[] {displayRecipes.get(i)};
+            ItemStack[] output = new ItemStack[] {displayRecipes.get(i + 1)};
 
             pendingRecipes.add(new RawRecipe(input, output));
         }

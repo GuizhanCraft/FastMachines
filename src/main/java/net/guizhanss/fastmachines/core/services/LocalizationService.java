@@ -1,41 +1,48 @@
 package net.guizhanss.fastmachines.core.services;
 
+import java.io.File;
 import java.text.MessageFormat;
-import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import net.guizhanss.fastmachines.FastMachines;
+import net.guizhanss.fastmachines.utils.FileUtils;
 import net.guizhanss.guizhanlib.minecraft.utils.ChatUtil;
 import net.guizhanss.guizhanlib.slimefun.addon.SlimefunLocalization;
-import net.guizhanss.guizhanlib.utils.StringUtil;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
 
 @SuppressWarnings("ConstantConditions")
 public final class LocalizationService extends SlimefunLocalization {
-    public LocalizationService(FastMachines plugin) {
-        super(plugin);
-    }
+    private static final String FOLDER_NAME = "lang";
+    private final FastMachines plugin;
+    private final File jarFile;
 
     @ParametersAreNonnullByDefault
-    @Nonnull
-    public String getString(String key, Object... args) {
-        return MessageFormat.format(getString(key), args);
+    public LocalizationService(FastMachines plugin, File jarFile) {
+        super(plugin);
+
+        this.plugin = plugin;
+        this.jarFile = jarFile;
+        extractTranslations();
     }
 
-    @Nonnull
-    public String getResearchName(@Nonnull String researchId) {
-        Preconditions.checkArgument(researchId != null, "Research Id cannot be null");
-
-        return getString("researches." + StringUtil.dehumanize(researchId).toLowerCase(Locale.ROOT));
+    private void extractTranslations() {
+        final File translationsFolder = new File(plugin.getDataFolder(), FOLDER_NAME);
+        if (!translationsFolder.exists()) {
+            translationsFolder.mkdirs();
+        }
+        var translationFiles = FileUtils.listYmlFilesInJar(jarFile, FOLDER_NAME);
+        for (String translationFile : translationFiles) {
+            String filePath = FOLDER_NAME + File.separator + translationFile;
+            File file = new File(plugin.getDataFolder(), filePath);
+            if (file.exists()) {
+                continue;
+            }
+            plugin.saveResource(filePath, true);
+        }
     }
 
     @ParametersAreNonnullByDefault
@@ -43,17 +50,10 @@ public final class LocalizationService extends SlimefunLocalization {
         Preconditions.checkArgument(sender != null, "CommandSender cannot be null");
         Preconditions.checkArgument(messageKey != null, "Message key cannot be null");
 
-        ChatUtil.send(sender, MessageFormat.format(getString("messages." + messageKey), args));
-    }
-
-    @ParametersAreNonnullByDefault
-    public void sendActionbarMessage(Player p, String messageKey, Object... args) {
-        Preconditions.checkArgument(p != null, "Player cannot be null");
-        Preconditions.checkArgument(messageKey != null, "Message key cannot be null");
-
-        String message = MessageFormat.format(getString("messages." + messageKey), args);
-
-        BaseComponent[] components = TextComponent.fromLegacyText(ChatUtil.color(message));
-        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, components);
+        if (FastMachines.getIntegrationService().isSlimefunTranslationEnabled()) {
+            FastMachines.getIntegrationService().sendMessage(sender, messageKey, args);
+        } else {
+            ChatUtil.send(sender, MessageFormat.format(getString("messages." + messageKey), args));
+        }
     }
 }

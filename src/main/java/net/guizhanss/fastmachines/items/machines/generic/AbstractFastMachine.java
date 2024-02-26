@@ -48,19 +48,19 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     // outputs map
     protected static final Map<BlockPosition, Map<IRecipe, Integer>> OUTPUTS_MAP = new HashMap<>();
     // slots
-    static final int[] INPUT_SLOTS = new int[]{
+    static final int[] INPUT_SLOTS = new int[] {
         0, 1, 2, 3, 4, 5, 6, 7, 8,
         9, 10, 11, 12, 13, 14, 15, 16, 17,
         18, 19, 20, 21, 22, 23, 24, 25, 26,
         27, 28, 29, 30, 31, 32, 33, 34, 35
     };
-    static final int[] OUTPUT_SLOTS = new int[]{
+    static final int[] OUTPUT_SLOTS = new int[] {
         27, 28, 29, 30, 31, 32, 33, 34, 35,
         18, 19, 20, 21, 22, 23, 24, 25, 26,
         9, 10, 11, 12, 13, 14, 15, 16, 17,
         0, 1, 2, 3, 4, 5, 6, 7, 8,
     };
-    static final int[] PREVIEW_SLOTS = new int[]{
+    static final int[] PREVIEW_SLOTS = new int[] {
         36, 37, 38, 39, 40, 41,
         45, 46, 47, 48, 49, 50
     };
@@ -169,7 +169,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     /**
      * Register available recipes for this machine.
      * <p>
-     * Note: this method is called synchronously 2 ticks after server completes loading.
+     * Note: this method is called synchronously after Slimefun item registry finishes loading.
      */
     public abstract void registerRecipes();
 

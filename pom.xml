@@ -45,11 +45,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <shadedPattern>net.guizhanss.fastmachines.bstats</shadedPattern>
+                                    <shadedPattern>net.guizhanss.fastmachines.libs.bstats</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>net.guizhanss.guizhanlib</pattern>
-                                    <shadedPattern>net.guizhanss.fastmachines.guizhanlib</shadedPattern>
+                                    <shadedPattern>net.guizhanss.fastmachines.libs.guizhanlib</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -126,8 +126,15 @@
         <dependency>
             <groupId>net.guizhanss</groupId>
             <artifactId>GuizhanLib-api</artifactId>
-            <version>1.7.0</version>
+            <version>1.7.6</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.guizhanss</groupId>
+            <artifactId>SlimefunTranslation</artifactId>
+            <version>4d42472a0e</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- InfinityExpansion didnt set up jitpack, so we use this -->

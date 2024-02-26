@@ -14,9 +14,8 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdat
 
 import net.guizhanss.fastmachines.core.Registry;
 import net.guizhanss.fastmachines.core.services.IntegrationService;
+import net.guizhanss.fastmachines.core.services.ListenerService;
 import net.guizhanss.fastmachines.core.services.LocalizationService;
-import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
-import net.guizhanss.fastmachines.listeners.SlimefunRegistryLoadedListener;
 import net.guizhanss.fastmachines.setup.Items;
 import net.guizhanss.fastmachines.setup.Researches;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
@@ -31,6 +30,7 @@ public final class FastMachines extends AbstractAddon {
 
     private Registry registry;
     private LocalizationService localization;
+    private IntegrationService integrationService;
     private boolean debugEnabled = false;
 
     public FastMachines() {
@@ -45,6 +45,11 @@ public final class FastMachines extends AbstractAddon {
     @Nonnull
     public static LocalizationService getLocalization() {
         return inst().localization;
+    }
+
+    @Nonnull
+    public static IntegrationService getIntegrationService() {
+        return inst().integrationService;
     }
 
     public static void debug(@Nonnull String message, @Nonnull Object... args) {
@@ -79,7 +84,7 @@ public final class FastMachines extends AbstractAddon {
         // localization
         log(Level.INFO, "Loading language...");
         String lang = config.getString("lang", DEFAULT_LANG);
-        localization = new LocalizationService(this);
+        localization = new LocalizationService(this, getFile());
         localization.addLanguage(lang);
         if (!lang.equals(DEFAULT_LANG)) {
             localization.addLanguage(DEFAULT_LANG);
@@ -92,7 +97,7 @@ public final class FastMachines extends AbstractAddon {
         Items.setup(this);
 
         // integrations
-        new IntegrationService(this);
+        integrationService = new IntegrationService(this);
 
         // researches
         if (config.getBoolean("enable-researches", true)) {
@@ -101,7 +106,7 @@ public final class FastMachines extends AbstractAddon {
             Researches.register();
         }
 
-        registerRecipes();
+        new ListenerService(this);
 
         setupMetrics();
     }
@@ -113,18 +118,6 @@ public final class FastMachines extends AbstractAddon {
 
     private void setupMetrics() {
         new Metrics(this, 20046);
-    }
-
-    private void registerRecipes() {
-        Runnable runnable = () -> registry.getAllEnabledFastMachines().forEach(AbstractFastMachine::registerRecipes);
-        try {
-            // if Slimefun has the new SlimefunItemRegistryFinalizedEvent, we can register recipes during this event
-            Class.forName("io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent");
-            new SlimefunRegistryLoadedListener(this, runnable);
-        } catch (ClassNotFoundException ex) {
-            // Slimefun does not have the new event, so we register recipes 2 ticks after server completes loading
-            getScheduler().run(2, runnable);
-        }
     }
 
     @Override
