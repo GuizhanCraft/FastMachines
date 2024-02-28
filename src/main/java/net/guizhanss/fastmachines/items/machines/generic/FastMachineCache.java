@@ -255,7 +255,7 @@ public final class FastMachineCache {
         // push the product
         if (recipe.getKey() instanceof RandomRecipe randomRecipe) {
             boolean machineFull = false;
-            for (int i = 0; i < amount; i++) {
+            for (int i = 0; i < actualAmount; i++) {
                 ItemStack product = randomRecipe.getOutput(blockPosition.getWorld()).clone();
                 if (MachineUtils.addItem(p, menu, OUTPUT_SLOTS, product, 1)) {
                     machineFull = true;
@@ -266,7 +266,7 @@ public final class FastMachineCache {
             }
         } else {
             ItemStack product = recipe.getKey().getOutput(blockPosition.getWorld()).clone();
-            if (MachineUtils.addItem(p, menu, OUTPUT_SLOTS, product, amount)) {
+            if (MachineUtils.addItem(p, menu, OUTPUT_SLOTS, product, actualAmount)) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-space");
             }
         }

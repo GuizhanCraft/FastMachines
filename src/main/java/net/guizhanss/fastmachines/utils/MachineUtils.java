@@ -162,7 +162,7 @@ public final class MachineUtils {
      * @param slots  The slots of machine to add {@link ItemStack} to.
      * @param item   The {@link ItemStack} to add.
      * @param amount The amount of {@link ItemStack}s to add.
-     * @return The remaining amount of {@link ItemStack}s.
+     * @return Whether there are remaining items after pushing to machine slots.
      */
     @ParametersAreNonnullByDefault
     public static boolean addItem(Player p, BlockMenu menu, int[] slots, ItemStack item, int amount) {
