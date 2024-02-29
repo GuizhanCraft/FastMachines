@@ -85,7 +85,11 @@ public final class FastMachines extends AbstractAddon {
         log(Level.INFO, "Loading language...");
         String lang = config.getString("lang", DEFAULT_LANG);
         localization = new LocalizationService(this, getFile());
-        localization.addLanguage(lang);
+        try {
+            localization.addLanguage(lang);
+        } catch (Exception e) {
+            log(Level.SEVERE, "An error has occurred while loading language " + lang);
+        }
         if (!lang.equals(DEFAULT_LANG)) {
             localization.addLanguage(DEFAULT_LANG);
         }
