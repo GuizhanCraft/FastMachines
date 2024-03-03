@@ -73,6 +73,12 @@ items:
     name: "&4Lửa Vĩnh cửu"
     lore:
       - "&7Ngọn lửa không bao giờ tắt."
+  STACKED_ANCIENT_PEDESTAL:
+    name: "&6Bệ Cổ Đại Xếp Chồng"
+    lore:
+      - "&74 Bệ Cổ Đại trong 1."
+      - "&eChuột Phải &7để tách ra"
+      - "&7làm 4 Bệ Cổ Đại trở lại."
   #machines
   FAST_CRAFTING_TABLE:
     name: "&aBàn chế tạo nhanh"
@@ -148,6 +154,11 @@ items:
     name: "&aMáy ép trái cây nhanh"
     lore:
       - "&7Máy ép trái cây hữu ích hơn."
+      - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
+  FAST_ANCIENT_ALTAR:
+    name: "&aTế Đàn Cổ Đại Nhanh"
+    lore:
+      - "&7Tế Đàn Cổ Đại hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
   FAST_INFINITY_WORKBENCH:
     name: "&aBàn làm việc vô cực Nhanh"
