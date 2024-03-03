@@ -59,7 +59,7 @@ items:
       - "&7Chuột trái: 1 lần"
       - "&7Chuột phải: 16 lần"
       - "&7Shift + Chuột trái: 64 lần"
-      - "&7Shift + Chuột phải: càng nhiều càng tốt"
+      - "&7Shift + Chuột phải: nhiều nhất có thể"
   NO_ITEM:
     conditions:
       force-load: true
@@ -70,9 +70,15 @@ items:
     lore:
       - "&7Cốt lõi của một Fast Machine."
   ETERNAL_FIRE:
-    name: "&4Lửa Vĩnh cửu"
+    name: "&4Lửa Vĩnh Cửu"
     lore:
       - "&7Ngọn lửa không bao giờ tắt."
+  STACKED_ANCIENT_PEDESTAL:
+    name: "&6Bệ Cổ Đại Xếp Chồng"
+    lore:
+      - "&74 Bệ Cổ Đại trong 1."
+      - "&eChuột Phải &7để tách ra"
+      - "&7làm 4 Bệ Cổ Đại trở lại."
   #machines
   FAST_CRAFTING_TABLE:
     name: "&aBàn chế tạo nhanh"
@@ -80,22 +86,22 @@ items:
       - "&7Bàn chế tạo Vanilla hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
   FAST_FURNACE:
-    name: "&aLò nung nhanh"
+    name: "&aLò Nung Nhanh"
     lore:
       - "&7Một chiếc lò Vanilla hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
   FAST_ENHANCED_CRAFTING_TABLE:
-    name: "&aBàn chế tạo nhanh nâng cao"
+    name: "&aBàn Chế Tạo Nâng Cao Nhanh"
     lore:
       - "&7Bàn chế tạo nhanh nâng cao hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
   FAST_GRIND_STONE:
-    name: "&aMài đá nhanh"
+    name: "&aĐá Mài Nhanh"
     lore:
       - "&7Đá mài hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
   FAST_ARMOR_FORGE:
-    name: "&aRèn giáp nhanh"
+    name: "&aLò Rèn Giáp Nhanh"
     lore:
       - "&7Lò Rèn giáp hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
@@ -148,6 +154,11 @@ items:
     name: "&aMáy ép trái cây nhanh"
     lore:
       - "&7Máy ép trái cây hữu ích hơn."
+      - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
+  FAST_ANCIENT_ALTAR:
+    name: "&aTế Đàn Cổ Đại Nhanh"
+    lore:
+      - "&7Tế Đàn Cổ Đại hữu ích hơn."
       - "&7Chế tạo mà không cần sắp xếp vật phẩm theo thứ tự."
   FAST_INFINITY_WORKBENCH:
     name: "&aBàn làm việc vô cực Nhanh"

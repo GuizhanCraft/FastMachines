@@ -73,6 +73,12 @@ items:
     name: "&4永恒之火"
     lore:
       - "&7永远不会熄灭的火。"
+  STACKED_ANCIENT_PEDESTAL:
+    name: "&6堆叠的古代基座"
+    lore:
+      - "&74合1的古代基座。"
+      - "&e右键点击 &7以"
+      - "&7还原成4个古代基座。"
   #machines
   FAST_CRAFTING_TABLE:
     name: "&a快捷工作台"
@@ -148,6 +154,11 @@ items:
     name: "&a快捷榨汁机"
     lore:
       - "&7更加有用的榨汁机。"
+      - "&7不需要将物品按序摆放即可合成。"
+  FAST_ANCIENT_ALTAR:
+    name: "&a快捷古代祭坛"
+    lore:
+      - "&7更加有用的古代祭坛。"
       - "&7不需要将物品按序摆放即可合成。"
   FAST_INFINITY_WORKBENCH:
     name: "&a快捷无尽工作台"
