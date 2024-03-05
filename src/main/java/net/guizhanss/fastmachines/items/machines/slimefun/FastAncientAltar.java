@@ -33,6 +33,10 @@ public final class FastAncientAltar extends AFastMachine {
             var altar = (AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem();
             List<RawRecipe> rawRecipes = new ArrayList<>();
             for (var recipe : altar.getRecipes()) {
+                // TODO: figure out the proper way to handle spawners
+                if (recipe.getOutput().getType() == Material.SPAWNER) {
+                    continue;
+                }
                 var input = recipe.getInput();
                 input.add(recipe.getCatalyst());
                 RawRecipe rawRecipe = new RawRecipe(input.toArray(new ItemStack[9]), new ItemStack[] {recipe.getOutput()});
