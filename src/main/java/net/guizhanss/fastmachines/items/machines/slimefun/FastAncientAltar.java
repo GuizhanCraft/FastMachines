@@ -33,7 +33,9 @@ public final class FastAncientAltar extends AFastMachine {
             var altar = (AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem();
             List<RawRecipe> rawRecipes = new ArrayList<>();
             for (var recipe : altar.getRecipes()) {
-                RawRecipe rawRecipe = new RawRecipe(recipe.getInput().toArray(new ItemStack[0]), new ItemStack[] {recipe.getOutput()});
+                var input = recipe.getInput();
+                input.add(recipe.getCatalyst());
+                RawRecipe rawRecipe = new RawRecipe(input.toArray(new ItemStack[9]), new ItemStack[] {recipe.getOutput()});
                 rawRecipes.add(rawRecipe);
             }
             RecipeUtils.registerRecipes(recipes, rawRecipes);
