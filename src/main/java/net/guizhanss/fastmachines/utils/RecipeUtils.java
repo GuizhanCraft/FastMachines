@@ -41,6 +41,8 @@ import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
 
 import lombok.experimental.UtilityClass;
 
+import org.bukkit.inventory.meta.Damageable;
+
 @UtilityClass
 @SuppressWarnings("ConstantConditions")
 public final class RecipeUtils {
@@ -378,16 +380,23 @@ public final class RecipeUtils {
 
             var shape = shapeR.toString().toCharArray();
             for (var i : shape) {
-                ingredientList.add(ingredients.get(i));
+                if (ingredients.get(i) == null) {
+                    continue;
+                }
+                ingredientList.add(ItemUtils.removeDamage(ingredients.get(i)));
             }
 
             iRecipe = new StandardRecipe(shapedRecipe.getResult(), ingredientList);
             FastMachines.debug("registering standard recipe: {0}", iRecipe);
         } else if (recipe instanceof ShapelessRecipe shapelessRecipe) {
-            iRecipe = new StandardRecipe(shapelessRecipe.getResult(), shapelessRecipe.getIngredientList());
+            List<ItemStack> ingredientList = new ArrayList<>();
+            for (var ingredient : shapelessRecipe.getIngredientList()) {
+                ingredientList.add(ItemUtils.removeDamage(ingredient));
+            }
+            iRecipe = new StandardRecipe(shapelessRecipe.getResult(), ingredientList);
             FastMachines.debug("registering standard recipe: {0}", iRecipe);
         } else if (recipe instanceof CookingRecipe cookingRecipe) {
-            iRecipe = new StandardRecipe(cookingRecipe.getResult(), cookingRecipe.getInput());
+            iRecipe = new StandardRecipe(cookingRecipe.getResult(), ItemUtils.removeDamage(cookingRecipe.getInput()));
             FastMachines.debug("registering standard recipe: {0}", iRecipe);
         }
 
