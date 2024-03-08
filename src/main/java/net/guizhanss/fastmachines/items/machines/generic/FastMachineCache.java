@@ -44,7 +44,8 @@ public final class FastMachineCache {
     private final AbstractFastMachine machine;
     private final BlockMenu menu;
     private final BlockPosition blockPosition;
-    private final Map<IRecipe, Integer> outputs = new LinkedHashMap<>();
+    private int inputHash;
+    private Map<IRecipe, Integer> outputs;
     private int page = -1;
     private ItemStack choice;
 
@@ -66,7 +67,7 @@ public final class FastMachineCache {
             return false;
         });
         menu.addMenuClickHandler(CRAFT_SLOT, (player, i, itemStack, clickAction) -> {
-            int amount;
+            final int amount;
             if (clickAction.isShiftClicked()) {
                 if (clickAction.isRightClicked()) {
                     amount = Integer.MAX_VALUE;
@@ -89,7 +90,9 @@ public final class FastMachineCache {
         if (FastMachines.getSlimefunTickCount() % 2 == 0) {
             findAvailableOutputs();
         }
-        updateMenu();
+        if (outputs != null) {
+            updateMenu();
+        }
     }
 
     /**
@@ -97,7 +100,12 @@ public final class FastMachineCache {
      */
     private void findAvailableOutputs() {
         Map<ItemStack, Integer> machineInputs = MachineUtils.getMachineInputAmount(menu, INPUT_SLOTS);
-        outputs.clear();
+        int currentInputHash = machineInputs.hashCode();
+        if (currentInputHash == inputHash) {
+            return;
+        }
+        inputHash = currentInputHash;
+        outputs = new LinkedHashMap<>();
 
         if (machineInputs.isEmpty()) {
             return;
@@ -179,13 +187,19 @@ public final class FastMachineCache {
     }
 
     private void updateChoice() {
-        ItemStack[] outputItems = new LinkedHashMap<>(outputs)
-            .keySet().stream().map(recipe -> recipe.getOutput(blockPosition.getWorld())).toArray(ItemStack[]::new);
-
-        for (ItemStack output : outputItems) {
-            if (ItemUtils.isSimilar(output, choice)) {
-                menu.replaceExistingItem(CHOICE_SLOT, getDisplayItem(choice));
-                return;
+        var outputItemSet = new LinkedHashMap<>(outputs).keySet();
+        for (IRecipe recipe : outputItemSet) {
+            if (recipe instanceof RandomRecipe randomRecipe) {
+                if (ItemUtils.isSimilar(choice, List.of(randomRecipe.getAllOutputs()))) {
+                    menu.replaceExistingItem(CHOICE_SLOT, getDisplayItem(randomRecipe.getOutput(blockPosition.getWorld())));
+                    return;
+                }
+            } else {
+                var output = recipe.getOutput(blockPosition.getWorld());
+                if (ItemUtils.isSimilar(choice, output)) {
+                    menu.replaceExistingItem(CHOICE_SLOT, getDisplayItem(output));
+                    return;
+                }
             }
         }
         menu.replaceExistingItem(CHOICE_SLOT, NO_ITEM);
@@ -218,7 +232,7 @@ public final class FastMachineCache {
             return;
         }
         var recipeEntry = outputRecipes.stream().filter(entry ->
-            ItemUtils.isSimilar(entry.getKey().getOutput(blockPosition.getWorld()), choice)
+            ItemUtils.isSimilar(choice, List.of(entry.getKey().getAllOutputs()))
         ).findFirst();
         if (recipeEntry.isEmpty()) {
             return;

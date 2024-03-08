@@ -1,5 +1,7 @@
 package net.guizhanss.fastmachines.utils;
 
+import java.util.Collection;
+
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.ParametersAreNullableByDefault;
@@ -38,6 +40,15 @@ public final class ItemUtils {
         }
         boolean checkLore = aItem.getType() == Material.SPAWNER && bItem.getType() == Material.SPAWNER;
         return SlimefunUtils.isItemSimilar(aItem, bItem, checkLore, true, true);
+    }
+
+    public static boolean isSimilar(ItemStack targetItem, Collection<ItemStack> sourceItems) {
+        for (ItemStack sourceItem : sourceItems) {
+            if (isSimilar(targetItem, sourceItem)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
