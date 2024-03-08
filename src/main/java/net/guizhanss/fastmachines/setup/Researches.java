@@ -47,7 +47,8 @@ public final class Researches {
             FastMachinesItems.FAST_TABLE_SAW,
             FastMachinesItems.FAST_COMPOSTER,
             FastMachinesItems.FAST_PANNING_MACHINE,
-            FastMachinesItems.FAST_JUICER
+            FastMachinesItems.FAST_JUICER,
+            FastMachinesItems.FAST_ANCIENT_ALTAR
         );
         // </editor-fold>
     }
