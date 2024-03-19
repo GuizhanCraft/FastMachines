@@ -1,5 +1,6 @@
 package net.guizhanss.fastmachines.items.materials;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.bukkit.inventory.ItemStack;
@@ -14,15 +15,13 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 
 import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class StackedAncientPedestal extends FastMaterial {
     @ParametersAreNonnullByDefault
     public StackedAncientPedestal(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ItemUseHandler getItemHandler() {
         return e -> {
