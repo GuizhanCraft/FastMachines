@@ -36,6 +36,15 @@ public final class MachineUtils {
         return RecipeUtils.calculateItems(getItems(menu, slots));
     }
 
+    @ParametersAreNonnullByDefault
+    public static int checksum(Map<ItemStack, Integer> map) {
+        int checksum = 0;
+        for (var entry : map.entrySet()) {
+            checksum ^= entry.getKey().hashCode() * entry.getValue();
+        }
+        return checksum;
+    }
+
     /**
      * Retrive all the {@link ItemStack} inside given machine slots.
      *

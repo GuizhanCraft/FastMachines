@@ -44,7 +44,7 @@ public final class FastMachineCache {
     private final AbstractFastMachine machine;
     private final BlockMenu menu;
     private final BlockPosition blockPosition;
-    private int inputHash;
+    private int inputChecksum;
     private Map<IRecipe, Integer> outputs;
     private int page = -1;
     private ItemStack choice;
@@ -100,11 +100,11 @@ public final class FastMachineCache {
      */
     private void findAvailableOutputs() {
         Map<ItemStack, Integer> machineInputs = MachineUtils.getMachineInputAmount(menu, INPUT_SLOTS);
-        int currentInputHash = machineInputs.hashCode();
-        if (currentInputHash == inputHash) {
+        int currentInputChecksum = MachineUtils.checksum(machineInputs);
+        if (currentInputChecksum == inputChecksum) {
             return;
         }
-        inputHash = currentInputHash;
+        inputChecksum = currentInputChecksum;
         outputs = new LinkedHashMap<>();
 
         if (machineInputs.isEmpty()) {
@@ -218,10 +218,10 @@ public final class FastMachineCache {
         List<Map.Entry<IRecipe, Integer>> outputRecipes;
         try {
             outputRecipes = new LinkedHashMap<>(outputs).entrySet().stream().toList();
-        } catch (ConcurrentModificationException e) {
+        } catch (Exception e) {
             // sometimes player crafts when the machine is calculating outputs,
             // so we just delay this one tick and try again
-            if (tries < 3) {
+            if (tries < 5) {
                 FastMachines.getScheduler().run(() -> craft(p, amount, tries + 1));
             }
             return;
