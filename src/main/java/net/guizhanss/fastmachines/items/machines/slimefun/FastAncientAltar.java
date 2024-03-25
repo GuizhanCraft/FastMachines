@@ -37,7 +37,7 @@ public final class FastAncientAltar extends AFastMachine {
                 if (recipe.getOutput().getType() == Material.SPAWNER) {
                     continue;
                 }
-                var input = recipe.getInput();
+                var input = new ArrayList<>(recipe.getInput());
                 input.add(recipe.getCatalyst());
                 RawRecipe rawRecipe = new RawRecipe(input.toArray(new ItemStack[9]), new ItemStack[] {recipe.getOutput()});
                 rawRecipes.add(rawRecipe);
