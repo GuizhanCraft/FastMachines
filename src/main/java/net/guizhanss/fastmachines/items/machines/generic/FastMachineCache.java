@@ -1,6 +1,5 @@
 package net.guizhanss.fastmachines.items.machines.generic;
 
-import java.util.ConcurrentModificationException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

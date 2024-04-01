@@ -4,6 +4,8 @@ import org.bukkit.Material;
 
 import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.utils.Heads;
@@ -15,10 +17,14 @@ import lombok.experimental.UtilityClass;
 public final class Groups {
     public static final NestedItemGroup MAIN = new NestedItemGroup(
         Keys.get("fast_machines"),
-        FastMachines.getLocalization().getItem(
-            "FAST_MACHINES",
-            Heads.MAIN.getTexture()
+        new CustomItemStack(
+            SlimefunUtils.getCustomHead(Heads.MAIN.getTexture()),
+            "&bSlow Machines"
         )
+//        FastMachines.getLocalization().getItem(
+//            "FAST_MACHINES",
+//            Heads.MAIN.getTexture()
+//        )
     );
 
     public static final SubItemGroup MATERIALS = new SubItemGroup(

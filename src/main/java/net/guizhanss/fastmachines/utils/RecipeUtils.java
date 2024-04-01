@@ -41,8 +41,6 @@ import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
 
 import lombok.experimental.UtilityClass;
 
-import org.bukkit.inventory.meta.Damageable;
-
 @UtilityClass
 @SuppressWarnings("ConstantConditions")
 public final class RecipeUtils {

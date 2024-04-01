@@ -8,12 +8,6 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-
-import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
-
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -26,7 +20,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -36,7 +32,6 @@ import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.setup.Groups;
 import net.guizhanss.fastmachines.utils.Heads;
-import net.guizhanss.guizhanlib.minecraft.utils.ItemUtil;
 import net.guizhanss.guizhanlib.slimefun.machines.TickingMenuBlock;
 
 import lombok.Getter;
