@@ -68,7 +68,7 @@ public final class FastMachines extends AbstractAddon {
     @Override
     public void enable() {
         log(Level.INFO, "====================");
-        log(Level.INFO, "     SlowMachines   ");
+        log(Level.INFO, "     FastMachines   ");
         log(Level.INFO, "     by ybw0014     ");
         log(Level.INFO, "====================");
 
