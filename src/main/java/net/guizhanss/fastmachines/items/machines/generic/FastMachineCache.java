@@ -47,6 +47,7 @@ public final class FastMachineCache {
     private Map<IRecipe, Integer> outputs;
     private int page = -1;
     private ItemStack choice;
+    private boolean crafting = false;
 
     @ParametersAreNonnullByDefault
     public FastMachineCache(AbstractFastMachine machine, BlockMenu menu) {
@@ -80,7 +81,12 @@ public final class FastMachineCache {
                     amount = 1;
                 }
             }
+            if (crafting) {
+                return false;
+            }
+            crafting = true;
             craft(player, amount);
+            crafting = false;
             return false;
         });
     }
@@ -99,16 +105,15 @@ public final class FastMachineCache {
      */
     private void findAvailableOutputs() {
         Map<ItemStack, Integer> machineInputs = MachineUtils.getMachineInputAmount(menu, INPUT_SLOTS);
+        if (machineInputs.isEmpty()) {
+            return;
+        }
         int currentInputChecksum = MachineUtils.checksum(machineInputs);
         if (currentInputChecksum == inputChecksum) {
             return;
         }
         inputChecksum = currentInputChecksum;
-        outputs = new LinkedHashMap<>();
-
-        if (machineInputs.isEmpty()) {
-            return;
-        }
+        Map<IRecipe, Integer> newOutputs = new LinkedHashMap<>();
 
         FastMachines.debug("current machine: {0}, location: {1}", machine.getClass().getSimpleName(), blockPosition);
         FastMachines.debug("machine inputs: {0}", machineInputs);
@@ -147,11 +152,12 @@ public final class FastMachineCache {
             // this recipe is available
             if (outputAmount > 0) {
                 FastMachines.debug("recipe is available, output amount: {0}", outputAmount);
-                outputs.put(recipe, outputAmount);
+                newOutputs.put(recipe, outputAmount);
             }
         }
 
-        FastMachines.debug("outputs: " + outputs);
+        FastMachines.debug("outputs: " + newOutputs);
+        outputs = newOutputs;
     }
 
     private void updateMenu() {

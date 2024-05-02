@@ -24,7 +24,7 @@ public final class Groups {
     public static final SubItemGroup MATERIALS = new SubItemGroup(
         Keys.get("materials"),
         MAIN,
-        FastMachines.getLocalization().getItemGroupItem(
+        FastMachines.getLocalization().getItem(
             "MATERIALS",
             Material.DIAMOND
         )
@@ -33,7 +33,7 @@ public final class Groups {
     public static final SubItemGroup MACHINES = new SubItemGroup(
         Keys.get("machines"),
         MAIN,
-        FastMachines.getLocalization().getItemGroupItem(
+        FastMachines.getLocalization().getItem(
             "MACHINES",
             Heads.MAIN.getTexture()
         )
