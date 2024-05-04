@@ -207,10 +207,15 @@ public final class RecipeUtils {
     }
 
     private static void registerRecipeHelper(List<IRecipe> recipes, ItemStack[] lastInput, List<ItemStack> storedOutput) {
-        if (!appendRandomRecipe(recipes, lastInput[0], storedOutput)) {
+        var firstValidInput = Arrays.stream(lastInput).filter(Objects::nonNull).findFirst();
+        if (firstValidInput.isEmpty()) {
+            FastMachines.log(Level.WARNING, "Unexpected empty input, ignoring");
+            return;
+        }
+        if (!appendRandomRecipe(recipes, firstValidInput.get(), storedOutput)) {
             IRecipe iRecipe;
             if (storedOutput.size() > 1) {
-                iRecipe = new RandomRecipe(lastInput[0], storedOutput);
+                iRecipe = new RandomRecipe(firstValidInput.get(), storedOutput);
                 FastMachines.debug("registering random recipe: {0}", iRecipe);
             } else {
                 iRecipe = new StandardRecipe(storedOutput.get(0), lastInput);
