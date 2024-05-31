@@ -1,7 +1,5 @@
 package net.guizhanss.fastmachines.items;
 
-import me.voper.slimeframe.xseries.XMaterial;
-
 import org.bukkit.Material;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
