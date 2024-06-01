@@ -34,7 +34,7 @@ public final class FastInfinityWorkbench extends AInfinityMachine {
                 RawRecipe rawRecipe = new RawRecipe(recipe.getKey(), new ItemStack[] {recipe.getValue()});
                 rawRecipes.add(rawRecipe);
             }
-            RecipeUtils.registerRecipes(recipes, rawRecipes);
+            RecipeUtils.registerRecipes(recipes, rawRecipes, false);
         } catch (Exception ex) {
             FastMachines.log(Level.SEVERE, ex, "An error has occurred while registering recipes for {0}", getClass().getSimpleName());
         }

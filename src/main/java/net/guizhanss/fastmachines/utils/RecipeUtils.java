@@ -132,11 +132,12 @@ public final class RecipeUtils {
     /**
      * Register recipes.
      *
-     * @param recipes        The {@link List} that stores {@link IRecipe}s.
-     * @param pendingRecipes The {@link List} of recipes that need to be registered. The first element in pair is input, and the second
-     *                       element in pair is output.
+     * @param recipes             The {@link List} that stores {@link IRecipe}s.
+     * @param pendingRecipes      The {@link List} of recipes that need to be registered. The first element in pair is input, and the second
+     *                            element in pair is output.
+     * @param enableRandomRecipes Whether to enable random recipes.
      */
-    public static void registerRecipes(List<IRecipe> recipes, List<RawRecipe> pendingRecipes) {
+    public static void registerRecipes(List<IRecipe> recipes, List<RawRecipe> pendingRecipes, boolean enableRandomRecipes) {
         ItemStack[] lastInput = new ItemStack[0];
         List<ItemStack> storedOutput = new ArrayList<>();
 
@@ -182,40 +183,54 @@ public final class RecipeUtils {
             FastMachines.debug("processing raw recipe: input={0}, output={1}",
                 Arrays.toString(input), Arrays.toString(output));
 
-            if (Arrays.equals(input, lastInput, ITEM_COMPARATOR)) {
-                // this recipe still belongs to a random recipe, add current output to stored items
-                FastMachines.debug("input matches last recipe, adding to stored output");
-                storedOutput.add(output[0]);
-            } else if (storedOutput.isEmpty()) {
-                // initial state, store it
-                FastMachines.debug("empty output, storing current recipe");
-                lastInput = input;
-                storedOutput.add(output[0]);
-            } else {
-                // current input is different with stored input
-                registerRecipeHelper(recipes, lastInput, storedOutput);
+            if (enableRandomRecipes) {
+                if (Arrays.equals(input, lastInput, ITEM_COMPARATOR)) {
+                    // this recipe still belongs to a random recipe, add current output to stored items
+                    FastMachines.debug("input matches last recipe, adding to stored output");
+                    storedOutput.add(output[0]);
+                } else if (storedOutput.isEmpty()) {
+                    // initial state, store it
+                    FastMachines.debug("empty output, storing current recipe");
+                    lastInput = input;
+                    storedOutput.add(output[0]);
+                } else {
+                    // current input is different with stored input
+                    registerRecipeHelper(recipes, lastInput, storedOutput);
 
-                // clear store, put current one in
-                lastInput = input;
-                storedOutput.clear();
-                storedOutput.add(output[0]);
+                    // clear store, put current one in
+                    lastInput = input;
+                    storedOutput.clear();
+                    storedOutput.add(output[0]);
+                }
+            } else {
+                // no random recipes enabled, register each recipe directly
+                IRecipe iRecipe = new StandardRecipe(output[0], input);
+                FastMachines.debug("registering standard recipe: {0}", iRecipe);
+                recipes.add(iRecipe);
             }
         }
 
-        // the last recipe is not processed yet.
-        registerRecipeHelper(recipes, lastInput, storedOutput);
+        if (enableRandomRecipes) {
+            // the last recipe is not processed yet.
+            registerRecipeHelper(recipes, lastInput, storedOutput);
+        }
     }
 
     private static void registerRecipeHelper(List<IRecipe> recipes, ItemStack[] lastInput, List<ItemStack> storedOutput) {
-        var firstValidInput = Arrays.stream(lastInput).filter(Objects::nonNull).findFirst();
-        if (firstValidInput.isEmpty()) {
-            FastMachines.log(Level.WARNING, "Unexpected empty input, ignoring");
+        var validInputs = Arrays.stream(lastInput).filter(Objects::nonNull).toList();
+        if (validInputs.isEmpty()) {
+            FastMachines.log(Level.WARNING, "Unexpected empty input");
             return;
         }
-        if (!appendRandomRecipe(recipes, firstValidInput.get(), storedOutput)) {
+        if (validInputs.size() > 1) {
+            IRecipe iRecipe = new StandardRecipe(storedOutput.get(0), lastInput);
+            FastMachines.debug("registering standard recipe: {0}", iRecipe);
+            return;
+        }
+        if (!appendRandomRecipe(recipes, validInputs.get(0), storedOutput)) {
             IRecipe iRecipe;
             if (storedOutput.size() > 1) {
-                iRecipe = new RandomRecipe(firstValidInput.get(), storedOutput);
+                iRecipe = new RandomRecipe(validInputs.get(0), storedOutput);
                 FastMachines.debug("registering random recipe: {0}", iRecipe);
             } else {
                 iRecipe = new StandardRecipe(storedOutput.get(0), lastInput);
@@ -232,7 +247,7 @@ public final class RecipeUtils {
      * @param id      The id of the {@link MultiBlockMachine}.
      */
     @ParametersAreNonnullByDefault
-    public static void registerMultiblockMachineRecipes(List<IRecipe> recipes, String id) {
+    public static void registerMultiblockMachineRecipes(List<IRecipe> recipes, String id, boolean enableRandomRecipes) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(id != null, MSG_ID_NULL);
 
@@ -258,7 +273,7 @@ public final class RecipeUtils {
             ItemStack[] output = recipeList.get(i + 1);
             pendingRecipes.add(new RawRecipe(input, output));
         }
-        registerRecipes(recipes, pendingRecipes);
+        registerRecipes(recipes, pendingRecipes, enableRandomRecipes);
     }
 
     /**
@@ -268,7 +283,7 @@ public final class RecipeUtils {
      * @param id      The id of the {@link MultiBlockMachine}.
      */
     @ParametersAreNonnullByDefault
-    public static void registerMachineRecipes(List<IRecipe> recipes, String id) {
+    public static void registerMachineRecipes(List<IRecipe> recipes, String id, boolean enableRandomRecipes) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(id != null, MSG_ID_NULL);
 
@@ -295,11 +310,11 @@ public final class RecipeUtils {
                     pendingRecipes.add(new RawRecipe(input, output));
                 }
             }
-            registerRecipes(recipes, pendingRecipes);
+            registerRecipes(recipes, pendingRecipes, enableRandomRecipes);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             FastMachines.log(Level.WARNING, "Failed to retrieve machine recipes from {0}, attempting to use backup method.", id);
             if (machineItem instanceof RecipeDisplayItem recipeDisplayItem) {
-                registerDisplayRecipes(recipes, recipeDisplayItem.getDisplayRecipes());
+                registerDisplayRecipes(recipes, recipeDisplayItem.getDisplayRecipes(), enableRandomRecipes);
                 FastMachines.log(Level.INFO, "Backup method succeeded. You can ignore the above warning.");
             } else {
                 FastMachines.log(Level.SEVERE, "Backup method failed, please report this.");
@@ -307,7 +322,7 @@ public final class RecipeUtils {
         }
     }
 
-    public static void registerDisplayRecipes(List<IRecipe> recipes, String id) {
+    public static void registerDisplayRecipes(List<IRecipe> recipes, String id, boolean enableRandomRecipes) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(id != null, MSG_ID_NULL);
 
@@ -322,7 +337,7 @@ public final class RecipeUtils {
 
         FastMachines.debug("Registering recipes from display recipes: {0}", id);
 
-        registerDisplayRecipes(recipes, recipeDisplayItem.getDisplayRecipes());
+        registerDisplayRecipes(recipes, recipeDisplayItem.getDisplayRecipes(), enableRandomRecipes);
     }
 
     /**
@@ -332,7 +347,7 @@ public final class RecipeUtils {
      * @param displayRecipes The display recipes from a {@link RecipeDisplayItem}.
      */
     @ParametersAreNonnullByDefault
-    public static void registerDisplayRecipes(List<IRecipe> recipes, List<ItemStack> displayRecipes) {
+    public static void registerDisplayRecipes(List<IRecipe> recipes, List<ItemStack> displayRecipes, boolean enableRandomRecipes) {
         Preconditions.checkArgument(recipes != null, MSG_RECIPE_NULL);
         Preconditions.checkArgument(displayRecipes != null, "displayRecipes cannot be null");
 
@@ -350,7 +365,7 @@ public final class RecipeUtils {
 
             pendingRecipes.add(new RawRecipe(input, output));
         }
-        registerRecipes(recipes, pendingRecipes);
+        registerRecipes(recipes, pendingRecipes, enableRandomRecipes);
     }
 
     /**

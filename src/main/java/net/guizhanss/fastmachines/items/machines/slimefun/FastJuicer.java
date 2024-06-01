@@ -23,7 +23,7 @@ public final class FastJuicer extends AFastMachine {
     @Override
     public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.JUICER.getItemId());
+        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.JUICER.getItemId(), false);
     }
 
     @Override

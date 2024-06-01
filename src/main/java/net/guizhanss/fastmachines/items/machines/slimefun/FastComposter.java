@@ -23,7 +23,7 @@ public final class FastComposter extends AFastMachine {
     @Override
     public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        RecipeUtils.registerDisplayRecipes(recipes, SlimefunItems.COMPOSTER.getItemId());
+        RecipeUtils.registerDisplayRecipes(recipes, SlimefunItems.COMPOSTER.getItemId(), false);
     }
 
     @Override

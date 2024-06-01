@@ -23,7 +23,7 @@ public final class FastEnhancedCraftingTable extends AFastMachine {
     @Override
     public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.ENHANCED_CRAFTING_TABLE.getItemId());
+        RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.ENHANCED_CRAFTING_TABLE.getItemId(), false);
     }
 
     @Override

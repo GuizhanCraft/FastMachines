@@ -33,7 +33,6 @@ public final class FastAncientAltar extends AFastMachine {
             var altar = (AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem();
             List<RawRecipe> rawRecipes = new ArrayList<>();
             for (var recipe : altar.getRecipes()) {
-                // TODO: figure out the proper way to handle spawners
                 if (recipe.getOutput().getType() == Material.SPAWNER) {
                     continue;
                 }
@@ -42,7 +41,7 @@ public final class FastAncientAltar extends AFastMachine {
                 RawRecipe rawRecipe = new RawRecipe(input.toArray(new ItemStack[9]), new ItemStack[] {recipe.getOutput()});
                 rawRecipes.add(rawRecipe);
             }
-            RecipeUtils.registerRecipes(recipes, rawRecipes);
+            RecipeUtils.registerRecipes(recipes, rawRecipes, false);
         } catch (Exception ex) {
             FastMachines.log(Level.SEVERE, ex, "An error has occurred while registering recipes for {0}", getClass().getSimpleName());
         }
