@@ -40,35 +40,35 @@ public final class FastMachinesItems {
     );
     public static final SlimefunItemStack FAST_GRIND_STONE = FastMachines.getLocalization().getItem(
         "FAST_GRIND_STONE",
-        Material.DISPENSER
+        Material.GRINDSTONE
     );
     public static final SlimefunItemStack FAST_ARMOR_FORGE = FastMachines.getLocalization().getItem(
         "FAST_ARMOR_FORGE",
-        Material.CRAFTING_TABLE
+        Material.IRON_BLOCK
     );
     public static final SlimefunItemStack FAST_ORE_CRUSHER = FastMachines.getLocalization().getItem(
         "FAST_ORE_CRUSHER",
-        Material.DISPENSER
+        Material.DROPPER
     );
     public static final SlimefunItemStack FAST_COMPRESSOR = FastMachines.getLocalization().getItem(
         "FAST_COMPRESSOR",
-        Material.DISPENSER
+        Material.PISTON
     );
     public static final SlimefunItemStack FAST_SMELTERY = FastMachines.getLocalization().getItem(
         "FAST_SMELTERY",
-        Material.FURNACE
+        Material.BLAST_FURNACE
     );
     public static final SlimefunItemStack FAST_PRESSURE_CHAMBER = FastMachines.getLocalization().getItem(
         "FAST_PRESSURE_CHAMBER",
-        Material.BLAST_FURNACE
+        Material.SMOKER
     );
     public static final SlimefunItemStack FAST_MAGIC_WORKBENCH = FastMachines.getLocalization().getItem(
         "FAST_MAGIC_WORKBENCH",
-        Material.CRAFTING_TABLE
+        Material.BOOKSHELF
     );
     public static final SlimefunItemStack FAST_ORE_WASHER = FastMachines.getLocalization().getItem(
         "FAST_ORE_WASHER",
-        Material.CAULDRON
+        Material.HOPPER
     );
     public static final SlimefunItemStack FAST_TABLE_SAW = FastMachines.getLocalization().getItem(
         "FAST_TABLE_SAW",
@@ -76,15 +76,15 @@ public final class FastMachinesItems {
     );
     public static final SlimefunItemStack FAST_COMPOSTER = FastMachines.getLocalization().getItem(
         "FAST_COMPOSTER",
-        Material.CAULDRON
+        Material.COMPOSTER
     );
     public static final SlimefunItemStack FAST_PANNING_MACHINE = FastMachines.getLocalization().getItem(
         "FAST_PANNING_MACHINE",
-        Material.CAULDRON
+        Material.HOPPER
     );
     public static final SlimefunItemStack FAST_JUICER = FastMachines.getLocalization().getItem(
         "FAST_JUICER",
-        Material.CAULDRON
+        Material.BREWING_STAND
     );
     public static final SlimefunItemStack FAST_ANCIENT_ALTAR = FastMachines.getLocalization().getItem(
         "FAST_ANCIENT_ALTAR",
