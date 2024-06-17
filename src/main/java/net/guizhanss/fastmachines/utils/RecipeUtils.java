@@ -18,6 +18,8 @@ import javax.annotation.ParametersAreNullableByDefault;
 
 import com.google.common.base.Preconditions;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
@@ -178,6 +180,20 @@ public final class RecipeUtils {
 
             if (SlimefunItemUtils.isDisabled(output[0])) {
                 continue;
+            }
+
+            // process the input recipe, in case custom recipe plugins modify the input item to non-SlimefunItemStack
+            // when they are actually slimefun items
+            for (int i = 0; i < input.length; i++) {
+                if (input[i] == null) {
+                    continue;
+                }
+                SlimefunItem sfItem = SlimefunItem.getByItem(input[i]);
+                if (sfItem != null && !(input[i] instanceof SlimefunItemStack) &&
+                    SlimefunUtils.isItemSimilar(input[i], sfItem.getItem(), false, false, true)
+                ) {
+                    input[i] = new SlimefunItemStack((SlimefunItemStack) sfItem.getItem(), input[i].getAmount());
+                }
             }
 
             FastMachines.debug("processing raw recipe: input={0}, output={1}",
