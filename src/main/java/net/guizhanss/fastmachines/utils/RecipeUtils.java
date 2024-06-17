@@ -18,8 +18,6 @@ import javax.annotation.ParametersAreNullableByDefault;
 
 import com.google.common.base.Preconditions;
 
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-
 import org.bukkit.Material;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
@@ -28,6 +26,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;

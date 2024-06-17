@@ -19,7 +19,7 @@ body:
       label: 检查项目
       description: 在汇报之前，你需要确认
       options:
-        - label: 你使用的是从鬼斩构建站（<https://builds.guizhanss.com>）或 Blob 构建站（https://blob.build/）下载的版本
+        - label: 你使用的是从鬼斩构建站（<https://builds.guizhanss.com>）或 Blob 构建站（<https://blob.build/>）下载的版本
           required: true
         - label: 你已经检验过下载的文件的校验和，确认已完整下载文件
           required: true
