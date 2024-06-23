@@ -68,7 +68,7 @@ public final class FastMachinesItems {
     );
     public static final SlimefunItemStack FAST_ORE_WASHER = FastMachines.getLocalization().getItem(
         "FAST_ORE_WASHER",
-        Material.HOPPER
+        Material.CAULDRON
     );
     public static final SlimefunItemStack FAST_TABLE_SAW = FastMachines.getLocalization().getItem(
         "FAST_TABLE_SAW",
