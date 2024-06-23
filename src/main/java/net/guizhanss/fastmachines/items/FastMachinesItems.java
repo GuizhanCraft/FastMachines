@@ -36,7 +36,7 @@ public final class FastMachinesItems {
     );
     public static final SlimefunItemStack FAST_ENHANCED_CRAFTING_TABLE = FastMachines.getLocalization().getItem(
         "FAST_ENHANCED_CRAFTING_TABLE",
-        Material.CRAFTING_TABLE
+        Material.CARTOGRAPHY_TABLE
     );
     public static final SlimefunItemStack FAST_GRIND_STONE = FastMachines.getLocalization().getItem(
         "FAST_GRIND_STONE",
