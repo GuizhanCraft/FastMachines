@@ -72,6 +72,9 @@ public final class FastMachines extends AbstractAddon {
         log(Level.INFO, "     by ybw0014     ");
         log(Level.INFO, "====================");
 
+        // check sf version
+        checkSlimefunVersion();
+
         // config
         AddonConfig config = getAddonConfig();
 
@@ -138,6 +141,19 @@ public final class FastMachines extends AbstractAddon {
                 // use updater in lib
                 new GuizhanBuildsUpdater(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch()).start();
             }
+        }
+    }
+
+    private void checkSlimefunVersion() {
+        String sfVersion = getServer().getPluginManager().getPlugin("Slimefun").getDescription().getVersion();
+        if (sfVersion.startsWith("DEV - 1104")) {
+            for (int i = 0; i < 100; i++) {
+                log(Level.SEVERE, "You are using a damn ancient version of Slimefun, update Slimefun first!");
+                log(Level.SEVERE, "Download Slimefun from here: https://blob.build/project/Slimefun4/Dev");
+                log(Level.SEVERE, "Also join the Slimefun discord so you can get the announcements for new versions and will not be a primitive any more.");
+                log(Level.SEVERE, "https://discord.gg/slimefun");
+            }
+            getServer().getPluginManager().disablePlugin(this);
         }
     }
 }

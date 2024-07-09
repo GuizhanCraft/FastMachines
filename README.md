@@ -9,7 +9,10 @@ Credit: Final_Root
 
 ## Download
 
-[![Build Status](https://builds.guizhanss.com/ybw0014/FastMachines/master/badge.svg)](https://builds.guizhanss.com/ybw0014/FastMachines/master)
+Download from:
+
+- [Blob builds](https://blob.build/project/FastMachines)
+- [Guizhan Builds![Build Status](https://builds.guizhanss.com/ybw0014/FastMachines/master/badge.svg)](https://builds.guizhanss.com/ybw0014/FastMachines/master)
 
 ## Configuration
 
