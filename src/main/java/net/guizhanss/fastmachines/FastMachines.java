@@ -1,34 +1,32 @@
 package net.guizhanss.fastmachines;
 
-import java.io.File;
-import java.lang.reflect.Method;
 import java.util.logging.Level;
 
 import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
 
-import org.bukkit.plugin.Plugin;
-
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
 
 import net.guizhanss.fastmachines.core.Registry;
+import net.guizhanss.fastmachines.core.services.ConfigurationService;
 import net.guizhanss.fastmachines.core.services.IntegrationService;
 import net.guizhanss.fastmachines.core.services.ListenerService;
 import net.guizhanss.fastmachines.core.services.LocalizationService;
 import net.guizhanss.fastmachines.setup.Items;
 import net.guizhanss.fastmachines.setup.Researches;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
-import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig;
 import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
+import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 
 import org.bstats.bukkit.Metrics;
 
 public final class FastMachines extends AbstractAddon {
 
-    private static final String DEFAULT_LANG = "en-US";
+    public static final String DEFAULT_LANG = "en-US";
 
     private Registry registry;
+    private ConfigurationService configService;
     private LocalizationService localization;
     private IntegrationService integrationService;
     private boolean debugEnabled = false;
@@ -40,6 +38,11 @@ public final class FastMachines extends AbstractAddon {
     @Nonnull
     public static Registry getRegistry() {
         return inst().registry;
+    }
+
+    @Nonnull
+    public static ConfigurationService getConfigService() {
+        return inst().configService;
     }
 
     @Nonnull
@@ -73,20 +76,20 @@ public final class FastMachines extends AbstractAddon {
         log(Level.INFO, "====================");
 
         // check sf version
-        checkSlimefunVersion();
-
-        // config
-        AddonConfig config = getAddonConfig();
+        if (!checkSlimefunVersion()) return;
 
         // registry
         registry = new Registry();
 
+        // config
+        configService = new ConfigurationService(this);
+
         // debug
-        debugEnabled = config.getBoolean("debug", false);
+        debugEnabled = configService.isDebugEnabled();
 
         // localization
         log(Level.INFO, "Loading language...");
-        String lang = config.getString("lang", DEFAULT_LANG);
+        String lang = configService.getLang();
         localization = new LocalizationService(this, getFile());
         try {
             localization.addLanguage(lang);
@@ -107,7 +110,7 @@ public final class FastMachines extends AbstractAddon {
         integrationService = new IntegrationService(this);
 
         // researches
-        if (config.getBoolean("enable-researches", true)) {
+        if (configService.isEnableResearches()) {
             log(Level.INFO, localization.getString("console.loading-researches"));
             Researches.setup();
             Researches.register();
@@ -132,19 +135,17 @@ public final class FastMachines extends AbstractAddon {
         if (getPluginVersion().startsWith("Dev")) {
             new BlobBuildUpdater(this, getFile(), getGithubRepo()).start();
         } else if (getPluginVersion().startsWith("Build")) {
-            try {
+            if (getServer().getPluginManager().getPlugin("GuizhanLibPlugin") != null) {
                 // use updater in lib plugin
-                Class<?> clazz = Class.forName("net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater");
-                Method updaterStart = clazz.getDeclaredMethod("start", Plugin.class, File.class, String.class, String.class, String.class);
-                updaterStart.invoke(null, this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch());
-            } catch (Exception ignored) {
+                GuizhanUpdater.start(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch());
+            } else {
                 // use updater in lib
                 new GuizhanBuildsUpdater(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch()).start();
             }
         }
     }
 
-    private void checkSlimefunVersion() {
+    private boolean checkSlimefunVersion() {
         String sfVersion = getServer().getPluginManager().getPlugin("Slimefun").getDescription().getVersion();
         if (sfVersion.startsWith("DEV - 1104")) {
             for (int i = 0; i < 100; i++) {
@@ -154,6 +155,8 @@ public final class FastMachines extends AbstractAddon {
                 log(Level.SEVERE, "https://discord.gg/slimefun");
             }
             getServer().getPluginManager().disablePlugin(this);
+            return false;
         }
+        return true;
     }
 }

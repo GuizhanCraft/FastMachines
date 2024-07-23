@@ -94,7 +94,6 @@ public final class FastMachinesItems {
         "FAST_INFINITY_WORKBENCH",
         Material.RESPAWN_ANCHOR
     );
-
     public static final SlimefunItemStack FAST_SLIMEFRAME_FOUNDRY = FastMachines.getLocalization().getItem(
         "FAST_SLIMEFRAME_FOUNDRY",
         Material.ANVIL

@@ -247,7 +247,7 @@ public final class FastMachineCache {
         int actualAmount = Math.min(maxAmount, amount);
 
         // check if the machine has enough energy
-        if (FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy")) {
+        if (FastMachines.getConfigService().isFastMachinesUseEnergy()) {
             int energyNeeded = machine.getEnergyPerUse() * actualAmount;
             int currentEnergy = machine.getCharge(blockPosition.toLocation());
             if (currentEnergy < energyNeeded) {

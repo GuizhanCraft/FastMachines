@@ -8,6 +8,8 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.settings.IntRangeSetting;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
+import net.guizhanss.fastmachines.FastMachines;
+
 /**
  * General abstract class for Fast Machines.
  * The default energy per use is 8 and the default capacity is 1024.
@@ -30,11 +32,13 @@ public abstract class AFastMachine extends AbstractFastMachine {
 
     @Override
     public int getEnergyPerUse() {
-        return energyPerUse.getValue();
+        return FastMachines.getConfigService().isFastMachinesUseEnergy() ?
+            energyPerUse.getValue() : 0;
     }
 
     @Override
     public int getCapacity() {
-        return energyCapacity.getValue();
+        return FastMachines.getConfigService().isFastMachinesUseEnergy() ?
+            energyCapacity.getValue() : 0;
     }
 }

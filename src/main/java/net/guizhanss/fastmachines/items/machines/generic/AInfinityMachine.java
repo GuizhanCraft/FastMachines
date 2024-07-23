@@ -2,6 +2,8 @@ package net.guizhanss.fastmachines.items.machines.generic;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import net.guizhanss.fastmachines.FastMachines;
+
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -30,11 +32,13 @@ public abstract class AInfinityMachine extends AbstractFastMachine {
 
     @Override
     public int getEnergyPerUse() {
-        return energyPerUse.getValue();
+        return FastMachines.getConfigService().isFastMachinesUseEnergy() ?
+            energyPerUse.getValue() : 0;
     }
 
     @Override
     public int getCapacity() {
-        return energyCapacity.getValue();
+        return FastMachines.getConfigService().isFastMachinesUseEnergy() ?
+            energyCapacity.getValue() : 0;
     }
 }

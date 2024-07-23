@@ -57,7 +57,7 @@ public final class Items {
         // </editor-fold>
 
         // <editor-fold desc="Machines">
-        ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
+        ItemStack fastCore = FastMachines.getConfigService().isFastMachinesUseEnergy() ?
             FastMachinesItems.FAST_CORE : null;
 
         new FastCraftingTable(FastMachinesItems.FAST_CRAFTING_TABLE, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
@@ -144,7 +144,7 @@ public final class Items {
     }
 
     public static void setupIE(FastMachines plugin) {
-        ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
+        ItemStack fastCore = FastMachines.getConfigService().isFastMachinesUseEnergy() ?
             FastMachinesItems.FAST_CORE : null;
 
         new FastInfinityWorkbench(FastMachinesItems.FAST_INFINITY_WORKBENCH, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
@@ -155,7 +155,7 @@ public final class Items {
     }
 
     public static void setupSFrame(FastMachines plugin) {
-        ItemStack fastCore = FastMachines.getAddonConfig().getBoolean("fast-machines.use-energy", true) ?
+        ItemStack fastCore = FastMachines.getConfigService().isFastMachinesUseEnergy() ?
             FastMachinesItems.FAST_CORE : null;
 
         new FastSlimeFrameFoundry(FastMachinesItems.FAST_SLIMEFRAME_FOUNDRY, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
