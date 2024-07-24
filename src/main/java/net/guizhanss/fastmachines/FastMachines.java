@@ -17,7 +17,6 @@ import net.guizhanss.fastmachines.setup.Items;
 import net.guizhanss.fastmachines.setup.Researches;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
 import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 
 import org.bstats.bukkit.Metrics;
 
@@ -135,13 +134,7 @@ public final class FastMachines extends AbstractAddon {
         if (getPluginVersion().startsWith("Dev")) {
             new BlobBuildUpdater(this, getFile(), getGithubRepo()).start();
         } else if (getPluginVersion().startsWith("Build")) {
-            if (getServer().getPluginManager().getPlugin("GuizhanLibPlugin") != null) {
-                // use updater in lib plugin
-                GuizhanUpdater.start(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch());
-            } else {
-                // use updater in lib
-                new GuizhanBuildsUpdater(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch()).start();
-            }
+            new GuizhanBuildsUpdater(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch()).start();
         }
     }
 
