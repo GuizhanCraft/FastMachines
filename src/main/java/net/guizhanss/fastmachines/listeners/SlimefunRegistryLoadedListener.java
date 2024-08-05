@@ -1,5 +1,7 @@
 package net.guizhanss.fastmachines.listeners;
 
+import java.util.logging.Level;
+
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -9,7 +11,6 @@ import org.bukkit.event.Listener;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 
 import net.guizhanss.fastmachines.FastMachines;
-import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
 
 public class SlimefunRegistryLoadedListener implements Listener {
 
@@ -20,6 +21,13 @@ public class SlimefunRegistryLoadedListener implements Listener {
 
     @EventHandler
     public void onRegistryLoaded(@Nonnull SlimefunItemRegistryFinalizedEvent e) {
-        FastMachines.getRegistry().getAllEnabledFastMachines().forEach(AbstractFastMachine::registerRecipes);
+        FastMachines.getRegistry().getAllEnabledFastMachines().forEach(machine -> {
+            FastMachines.debug("Registering recipes for {0}", machine.getClass().getSimpleName());
+            try {
+                machine.registerRecipes();
+            } catch (Exception ex) {
+                FastMachines.log(Level.SEVERE, ex, "An error has occurred while registering recipes for {0}", machine.getClass().getSimpleName());
+            }
+        });
     }
 }

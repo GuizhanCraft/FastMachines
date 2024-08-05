@@ -22,7 +22,6 @@ public final class FastPressureChamber extends AFastMachine {
 
     @Override
     public void registerRecipes() {
-        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.PRESSURE_CHAMBER.getItemId(), false);
     }
 

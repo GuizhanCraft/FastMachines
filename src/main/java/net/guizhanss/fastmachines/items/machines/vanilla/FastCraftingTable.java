@@ -23,7 +23,6 @@ public final class FastCraftingTable extends AFastMachine {
 
     @Override
     public void registerRecipes() {
-        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerVanillaRecipes(recipes, ShapedRecipe.class);
         RecipeUtils.registerVanillaRecipes(recipes, ShapelessRecipe.class);
     }

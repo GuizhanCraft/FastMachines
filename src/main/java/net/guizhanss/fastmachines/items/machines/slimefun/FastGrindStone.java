@@ -22,7 +22,6 @@ public final class FastGrindStone extends AFastMachine {
 
     @Override
     public void registerRecipes() {
-        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerMultiblockMachineRecipes(recipes, SlimefunItems.GRIND_STONE.getItemId(), false);
     }
 

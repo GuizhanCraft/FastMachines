@@ -22,7 +22,6 @@ public final class FastPanningMachine extends AFastMachine {
 
     @Override
     public void registerRecipes() {
-        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         RecipeUtils.registerDisplayRecipes(recipes, SlimefunItems.AUTOMATED_PANNING_MACHINE.getItemId(), true);
     }
 

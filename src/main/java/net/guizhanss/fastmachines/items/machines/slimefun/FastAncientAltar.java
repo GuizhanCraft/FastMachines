@@ -2,7 +2,6 @@ package net.guizhanss.fastmachines.items.machines.slimefun;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -28,23 +27,18 @@ public final class FastAncientAltar extends AFastMachine {
 
     @Override
     public void registerRecipes() {
-        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        try {
-            var altar = (AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem();
-            List<RawRecipe> rawRecipes = new ArrayList<>();
-            for (var recipe : altar.getRecipes()) {
-                if (recipe.getOutput().getType() == Material.SPAWNER) {
-                    continue;
-                }
-                var input = new ArrayList<>(recipe.getInput());
-                input.add(recipe.getCatalyst());
-                RawRecipe rawRecipe = new RawRecipe(input.toArray(new ItemStack[9]), new ItemStack[] {recipe.getOutput()});
-                rawRecipes.add(rawRecipe);
+        var altar = (AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem();
+        List<RawRecipe> rawRecipes = new ArrayList<>();
+        for (var recipe : altar.getRecipes()) {
+            if (recipe.getOutput().getType() == Material.SPAWNER) {
+                continue;
             }
-            RecipeUtils.registerRecipes(recipes, rawRecipes, false);
-        } catch (Exception ex) {
-            FastMachines.log(Level.SEVERE, ex, "An error has occurred while registering recipes for {0}", getClass().getSimpleName());
+            var input = new ArrayList<>(recipe.getInput());
+            input.add(recipe.getCatalyst());
+            RawRecipe rawRecipe = new RawRecipe(input.toArray(new ItemStack[9]), new ItemStack[] {recipe.getOutput()});
+            rawRecipes.add(rawRecipe);
         }
+        RecipeUtils.registerRecipes(recipes, rawRecipes, false);
     }
 
     @Override

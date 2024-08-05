@@ -1,7 +1,6 @@
 package net.guizhanss.fastmachines.items.machines.infinityexpansion;
 
 import java.util.List;
-import java.util.logging.Level;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -25,13 +24,8 @@ public final class FastMobDataInfuser extends AInfinityMachine {
 
     @Override
     public void registerRecipes() {
-        FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
-        try {
-            List<RawRecipe> rawRecipes = RecipeUtils.getInfinityMachineRecipes(MobDataInfuser.class);
-            RecipeUtils.registerRecipes(recipes, rawRecipes, false);
-        } catch (Exception ex) {
-            FastMachines.log(Level.SEVERE, ex, "An error has occurred while registering recipes for {0}", getClass().getSimpleName());
-        }
+        List<RawRecipe> rawRecipes = RecipeUtils.getInfinityMachineRecipes(MobDataInfuser.class);
+        RecipeUtils.registerRecipes(recipes, rawRecipes, false);
     }
 
     @Override
