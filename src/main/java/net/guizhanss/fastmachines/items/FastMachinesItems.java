@@ -26,6 +26,7 @@ public final class FastMachinesItems {
     // </editor-fold>
 
     // <editor-fold desc="Machines">
+    // vanilla
     public static final SlimefunItemStack FAST_CRAFTING_TABLE = FastMachines.getLocalization().getItem(
         "FAST_CRAFTING_TABLE",
         Material.CRAFTING_TABLE
@@ -34,6 +35,8 @@ public final class FastMachinesItems {
         "FAST_FURNACE",
         Material.FURNACE
     );
+
+    // Slimefun
     public static final SlimefunItemStack FAST_ENHANCED_CRAFTING_TABLE = FastMachines.getLocalization().getItem(
         "FAST_ENHANCED_CRAFTING_TABLE",
         Material.CARTOGRAPHY_TABLE
@@ -90,10 +93,18 @@ public final class FastMachinesItems {
         "FAST_ANCIENT_ALTAR",
         Material.ENCHANTING_TABLE
     );
+
+    // InfinityExpansion
     public static final SlimefunItemStack FAST_INFINITY_WORKBENCH = FastMachines.getLocalization().getItem(
         "FAST_INFINITY_WORKBENCH",
         Material.RESPAWN_ANCHOR
     );
+    public static final SlimefunItemStack FAST_MOB_DATA_INFUSER = FastMachines.getLocalization().getItem(
+        "FAST_MOB_DATA_INFUSER",
+        Material.LODESTONE
+    );
+
+    // SlimeFrame
     public static final SlimefunItemStack FAST_SLIMEFRAME_FOUNDRY = FastMachines.getLocalization().getItem(
         "FAST_SLIMEFRAME_FOUNDRY",
         Material.ANVIL

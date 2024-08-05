@@ -13,6 +13,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.items.FastMachinesItems;
 import net.guizhanss.fastmachines.items.machines.infinityexpansion.FastInfinityWorkbench;
+import net.guizhanss.fastmachines.items.machines.infinityexpansion.FastMobDataInfuser;
 import net.guizhanss.fastmachines.items.machines.slimeframe.FastSlimeFrameFoundry;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastAncientAltar;
 import net.guizhanss.fastmachines.items.machines.slimefun.FastArmorForge;
@@ -151,6 +152,12 @@ public final class Items {
             null, null, null,
             null, null, null,
             SlimefunItems.OUTPUT_CHEST, getSf("INFINITY_FORGE"), fastCore
+        }).register(plugin);
+
+        new FastMobDataInfuser(FastMachinesItems.FAST_MOB_DATA_INFUSER, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+            null, null, null,
+            null, null, null,
+            SlimefunItems.OUTPUT_CHEST, getSf("DATA_INFUSER"), fastCore
         }).register(plugin);
     }
 

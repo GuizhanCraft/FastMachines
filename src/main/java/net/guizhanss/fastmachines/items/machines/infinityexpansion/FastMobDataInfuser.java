@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.mooy1.infinityexpansion.items.blocks.InfinityWorkbench;
+import io.github.mooy1.infinityexpansion.items.mobdata.MobDataInfuser;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
@@ -15,11 +15,11 @@ import net.guizhanss.fastmachines.core.recipes.RawRecipe;
 import net.guizhanss.fastmachines.items.machines.generic.AInfinityMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public final class FastInfinityWorkbench extends AInfinityMachine {
+public final class FastMobDataInfuser extends AInfinityMachine {
     private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.RESPAWN_ANCHOR);
+        "CRAFT", Material.LODESTONE);
 
-    public FastInfinityWorkbench(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public FastMobDataInfuser(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);
     }
 
@@ -27,7 +27,7 @@ public final class FastInfinityWorkbench extends AInfinityMachine {
     public void registerRecipes() {
         FastMachines.debug("Registering recipes for {0}", getClass().getSimpleName());
         try {
-            List<RawRecipe> rawRecipes = RecipeUtils.getInfinityMachineRecipes(InfinityWorkbench.class);
+            List<RawRecipe> rawRecipes = RecipeUtils.getInfinityMachineRecipes(MobDataInfuser.class);
             RecipeUtils.registerRecipes(recipes, rawRecipes, false);
         } catch (Exception ex) {
             FastMachines.log(Level.SEVERE, ex, "An error has occurred while registering recipes for {0}", getClass().getSimpleName());

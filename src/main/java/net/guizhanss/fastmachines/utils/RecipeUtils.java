@@ -1,5 +1,6 @@
 package net.guizhanss.fastmachines.utils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
+import io.github.mooy1.infinityexpansion.infinitylib.machines.MachineRecipeType;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
@@ -436,5 +438,40 @@ public final class RecipeUtils {
         if (iRecipe != null) {
             recipes.add(iRecipe);
         }
+    }
+
+    /**
+     * Obtain and parse the recipes from an InfinityExpansion item.
+     * It must have a static MachineRecipeType field TYPE.
+     *
+     * @param clazz The class of the InfinityExpansion item.
+     *
+     * @return The list of {@link RawRecipe}s parsed from the item.
+     */
+    @Nonnull
+    public static List<RawRecipe> getInfinityMachineRecipes(Class<? extends SlimefunItem> clazz) {
+        MachineRecipeType type = null;
+        List<RawRecipe> recipes = new ArrayList<>();
+
+        // get the TYPE field from the class
+        try {
+            Field field = clazz.getDeclaredField("TYPE");
+            field.setAccessible(true);
+
+            type = (MachineRecipeType) field.get(null);
+        } catch (NoSuchFieldException | IllegalAccessException | ClassCastException e) {
+            FastMachines.log(Level.SEVERE, "An error has occurred while getting recipes from InfinityExpansion item class: {0}", clazz.getSimpleName());
+        }
+        if (type == null) {
+            return recipes;
+        }
+
+        // parse recipes
+        for (var recipe : type.recipes().entrySet()) {
+            RawRecipe rawRecipe = new RawRecipe(recipe.getKey(), new ItemStack[] {recipe.getValue()});
+            recipes.add(rawRecipe);
+        }
+
+        return recipes;
     }
 }
