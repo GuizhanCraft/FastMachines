@@ -40,6 +40,7 @@ import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMach
  * A cache layer to store some of the data of a Fast Machine.
  */
 public final class FastMachineCache {
+
     private final AbstractFastMachine machine;
     private final BlockMenu menu;
     private final BlockPosition blockPosition;

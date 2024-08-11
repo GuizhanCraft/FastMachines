@@ -20,6 +20,7 @@ import lombok.Getter;
  * @author ybw0014
  */
 public class StandardRecipe implements IRecipe {
+
     private final ItemStack output;
     @Getter
     private final Map<ItemStack, Integer> input;

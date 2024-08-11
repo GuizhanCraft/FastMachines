@@ -23,6 +23,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class MachineUtils {
+
     /**
      * Get the amount map of machine inputs.
      *

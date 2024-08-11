@@ -22,6 +22,7 @@ import net.guizhanss.fastmachines.utils.RecipeUtils;
  * @author ybw0014
  */
 public class RandomRecipe implements IRecipe {
+
     private final List<ItemStack> outputs;
     private final ItemStack input;
 

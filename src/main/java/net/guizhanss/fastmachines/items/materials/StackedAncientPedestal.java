@@ -16,6 +16,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil;
 
 public final class StackedAncientPedestal extends FastMaterial {
+
     @ParametersAreNonnullByDefault
     public StackedAncientPedestal(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);

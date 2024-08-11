@@ -38,6 +38,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class Items {
+
     public static void setup(FastMachines plugin) {
         // <editor-fold desc="Materials">
         new FastMaterial(FastMachinesItems.ETERNAL_FIRE, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {

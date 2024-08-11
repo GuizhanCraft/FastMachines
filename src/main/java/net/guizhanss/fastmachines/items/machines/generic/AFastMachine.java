@@ -11,7 +11,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import net.guizhanss.fastmachines.FastMachines;
 
 /**
- * General abstract class for Fast Machines.
+ * General abstract class for basic machines.
  * The default energy per use is 8 and the default capacity is 1024.
  *
  * @author ybw0014

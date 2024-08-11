@@ -9,5 +9,6 @@ import lombok.Getter;
 
 @Getter
 public final class Registry {
+
     private final List<AbstractFastMachine> allEnabledFastMachines = new ArrayList<>();
 }

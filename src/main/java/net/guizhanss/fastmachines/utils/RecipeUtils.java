@@ -47,6 +47,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 @SuppressWarnings("ConstantConditions")
 public final class RecipeUtils {
+
     private static final String MSG_ID_NULL = "id cannot be null";
     private static final String MSG_RECIPE_NULL = "recipes cannot be null";
     // This comparator is just used to check if 2 ItemStacks are similar.
@@ -445,7 +446,6 @@ public final class RecipeUtils {
      * It must have a static MachineRecipeType field TYPE.
      *
      * @param clazz The class of the InfinityExpansion item.
-     *
      * @return The list of {@link RawRecipe}s parsed from the item.
      */
     @Nonnull

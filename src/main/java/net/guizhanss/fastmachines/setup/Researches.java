@@ -9,6 +9,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class Researches {
+
     public static final Research MATERIALS = new Research(
         Keys.get("materials"),
         Keys.get("materials").hashCode(),

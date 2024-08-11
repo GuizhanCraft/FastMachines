@@ -18,6 +18,7 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public final class BlockStorageUtils {
+
     @ParametersAreNonnullByDefault
     public static int getInt(Location location, String key) {
         return getInt(location, key, 0);

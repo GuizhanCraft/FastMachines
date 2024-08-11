@@ -16,6 +16,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class FileUtils {
+
     @Nonnull
     @ParametersAreNonnullByDefault
     public static List<String> listYmlFilesInJar(File jarFile, String folderName) {

@@ -13,6 +13,7 @@ import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
  * This interface represents a recipe used by a {@link AbstractFastMachine}.
  */
 public interface IRecipe {
+
     /**
      * Get all the possible outputs.
      *

@@ -11,6 +11,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.Unplaceabl
 import net.guizhanss.fastmachines.setup.Groups;
 
 public class FastMaterial extends UnplaceableBlock {
+
     @ParametersAreNonnullByDefault
     public FastMaterial(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(Groups.MATERIALS, item, recipeType, recipe);

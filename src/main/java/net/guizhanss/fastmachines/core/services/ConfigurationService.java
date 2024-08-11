@@ -1,13 +1,14 @@
 package net.guizhanss.fastmachines.core.services;
 
-import lombok.Getter;
+import javax.annotation.Nonnull;
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig;
 
-import javax.annotation.Nonnull;
+import lombok.Getter;
 
 public final class ConfigurationService {
+
     private final AddonConfig config;
 
     @Getter

@@ -46,6 +46,7 @@ import lombok.Getter;
  */
 @SuppressWarnings("ConstantConditions")
 public abstract class AbstractFastMachine extends TickingMenuBlock implements EnergyNetComponent {
+
     // slots
     static final int[] INPUT_SLOTS = new int[] {
         0, 1, 2, 3, 4, 5, 6, 7, 8,

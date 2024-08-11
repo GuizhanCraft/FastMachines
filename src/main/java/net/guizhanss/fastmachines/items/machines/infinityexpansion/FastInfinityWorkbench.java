@@ -16,6 +16,7 @@ import net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
 public final class FastInfinityWorkbench extends AbstractFastMachine {
+
     private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
         "CRAFT", Material.RESPAWN_ANCHOR);
 
