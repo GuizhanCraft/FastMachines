@@ -9,13 +9,12 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import me.voper.slimeframe.implementation.SFrameStacks;
 
 import net.guizhanss.fastmachines.FastMachines;
-import net.guizhanss.fastmachines.items.machines.generic.AFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.BasicFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public class FastSlimeFrameFoundry extends AFastMachine {
+public class FastSlimeFrameFoundry extends BasicFastMachine {
 
-    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.ANVIL);
+    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem("CRAFT", Material.ANVIL);
 
     public FastSlimeFrameFoundry(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);

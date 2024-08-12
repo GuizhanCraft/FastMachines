@@ -17,7 +17,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
 /**
- * A {@link RandomRecipe} is a recipe that contains only one fixed output {@link ItemStack}.
+ * A {@link RandomRecipe} is a recipe that contains only one fixed input {@link ItemStack}.
  *
  * @author ybw0014
  */
@@ -52,18 +52,9 @@ public class RandomRecipe implements IRecipe {
 
     @Override
     public String toString() {
-        return "RandomRecipe{" +
-            "input=" + input +
-            ", outputs=" + outputs +
-            '}';
+        return "RandomRecipe{input=" + input + ", outputs=" + outputs + '}';
     }
 
-    /**
-     * Check whether all the output items are disabled in the given {@link World}.
-     *
-     * @param world The world to check.
-     * @return True if all the output items are disabled in the given {@link World}.
-     */
     @Override
     public boolean isDisabledInWorld(@Nonnull World world) {
         for (ItemStack output : outputs) {

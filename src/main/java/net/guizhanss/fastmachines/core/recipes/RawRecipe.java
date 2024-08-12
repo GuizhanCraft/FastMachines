@@ -27,9 +27,6 @@ public record RawRecipe(ItemStack[] input, ItemStack[] output) {
 
     @Override
     public String toString() {
-        return "RawRecipe{" +
-            "input=" + Arrays.toString(input) +
-            ", output=" + Arrays.toString(output) +
-            '}';
+        return "RawRecipe{input=" + Arrays.toString(input) + ", output=" + Arrays.toString(output) + '}';
     }
 }

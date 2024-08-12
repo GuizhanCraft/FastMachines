@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.items.settings.IntRangeSetting;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
@@ -37,17 +38,15 @@ import net.guizhanss.guizhanlib.slimefun.machines.TickingMenuBlock;
 import lombok.Getter;
 
 /**
- * A fast machine is a basic machine but uses energy to fast craft from the given materials.
- * <p>
- * Idea from <a href="https://github.com/ecro-fun/FinalTECH">FinalTECH</a>.
+ * A fast machine is a machine that craft items without putting ingredients in shape, and can bulk craft.
  *
- * @author Final_ROOT
  * @author ybw0014
  */
 @SuppressWarnings("ConstantConditions")
 public abstract class AbstractFastMachine extends TickingMenuBlock implements EnergyNetComponent {
 
     // slots
+    // @formatter:off
     static final int[] INPUT_SLOTS = new int[] {
         0, 1, 2, 3, 4, 5, 6, 7, 8,
         9, 10, 11, 12, 13, 14, 15, 16, 17,
@@ -64,6 +63,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         36, 37, 38, 39, 40, 41,
         45, 46, 47, 48, 49, 50
     };
+    // @formatter:on
     static final int SCROLL_UP_SLOT = 42;
     static final int SCROLL_DOWN_SLOT = 51;
     static final int CHOICE_SLOT = 52;
@@ -73,23 +73,26 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     // constants
     static final int ITEMS_PER_PAGE = PREVIEW_SLOTS.length;
     // menu items
-    static final ItemStack NO_ITEM = FastMachines.getLocalization().getItem(
-        "NO_ITEM", Material.BARRIER);
-    static final ItemStack SCROLL_UP_ITEM = FastMachines.getLocalization().getItem(
-        "SCROLL_UP", Heads.ARROW_UP.getTexture());
-    static final ItemStack SCROLL_DOWN_ITEM = FastMachines.getLocalization().getItem(
-        "SCROLL_DOWN", Heads.ARROW_DOWN.getTexture());
-    static final ItemStack INFO_ITEM = FastMachines.getLocalization().getItem(
-        "INFO", Heads.INFO.getTexture());
+    static final ItemStack NO_ITEM = FastMachines.getLocalization().getItem("NO_ITEM", Material.BARRIER);
+    static final ItemStack SCROLL_UP_ITEM = FastMachines.getLocalization().getItem("SCROLL_UP", Heads.ARROW_UP.getTexture());
+    static final ItemStack SCROLL_DOWN_ITEM = FastMachines.getLocalization().getItem("SCROLL_DOWN", Heads.ARROW_DOWN.getTexture());
+    static final ItemStack INFO_ITEM = FastMachines.getLocalization().getItem("INFO", Heads.INFO.getTexture());
 
     @Getter
     protected final List<IRecipe> recipes = new ArrayList<>();
 
+    private final IntRangeSetting energyPerUseSetting;
+    private final IntRangeSetting energyCapacitySetting;
     private final Map<BlockPosition, FastMachineCache> caches = new HashMap<>();
 
     @ParametersAreNonnullByDefault
-    protected AbstractFastMachine(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    protected AbstractFastMachine(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int energyPerUse, int energyCapacity) {
         super(Groups.MACHINES, item, recipeType, recipe);
+
+        energyPerUseSetting = new IntRangeSetting(this, "energy-per-use", 0, energyPerUse, Integer.MAX_VALUE);
+        energyCapacitySetting = new IntRangeSetting(this, "energy-capacity", 0, energyCapacity, Integer.MAX_VALUE);
+
+        addItemSetting(energyPerUseSetting, energyCapacitySetting);
     }
 
     @Nonnull
@@ -98,8 +101,14 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         return EnergyNetComponentType.CONSUMER;
     }
 
-    // Also getCapacity() which is already defined.
-    public abstract int getEnergyPerUse();
+    public int getEnergyPerUse() {
+        return FastMachines.getConfigService().isFastMachinesUseEnergy() ? energyPerUseSetting.getValue() : 0;
+    }
+
+    @Override
+    public int getCapacity() {
+        return FastMachines.getConfigService().isFastMachinesUseEnergy() ? energyCapacitySetting.getValue() : 0;
+    }
 
     @Override
     protected void setup(@Nonnull BlockMenuPreset preset) {
@@ -112,11 +121,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
         preset.addItem(SCROLL_DOWN_SLOT, SCROLL_DOWN_ITEM, ChestMenuUtils.getEmptyClickHandler());
 
         preset.addItem(CRAFT_SLOT, getCraftItem(), ChestMenuUtils.getEmptyClickHandler());
-        preset.addItem(ENERGY_SLOT, new CustomItemStack(
-            HeadTexture.ENERGY_CONNECTOR.getAsItemStack(),
-            " ",
-            LoreBuilder.power(getEnergyPerUse(), FastMachines.getLocalization().getString("lores.per-craft"))
-        ), ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(ENERGY_SLOT, new CustomItemStack(HeadTexture.ENERGY_CONNECTOR.getAsItemStack(), " ", LoreBuilder.power(getEnergyPerUse(), FastMachines.getLocalization().getString("lores.per-craft"))), ChestMenuUtils.getEmptyClickHandler());
     }
 
     @Override
@@ -142,7 +147,6 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
 
     @Override
     public int[] getOutputSlots() {
-        // Basic machines should not support cargo access
         return new int[0];
     }
 
@@ -150,7 +154,7 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     public void register(@Nonnull SlimefunAddon addon) {
         super.register(addon);
         if (!this.isDisabled()) {
-            FastMachines.getRegistry().getAllEnabledFastMachines().add(this);
+            FastMachines.getRegistry().getEnabledFastMachines().add(this);
         }
     }
 
@@ -171,9 +175,9 @@ public abstract class AbstractFastMachine extends TickingMenuBlock implements En
     public abstract void registerRecipes();
 
     /**
-     * Get the item that shows the craft button of this machine.
+     * Get the item of the craft button of this machine.
      *
-     * @return the item that shows the craft button of this machine.
+     * @return the craft button item.
      */
     protected abstract ItemStack getCraftItem();
 }

@@ -22,11 +22,28 @@ public interface IRecipe {
     @Nonnull
     ItemStack[] getAllOutputs();
 
+    /**
+     * Get the output for the given world. Can use `isDisabledIn` check.
+     *
+     * @param world The {@link World}.
+     * @return The output in the given world.
+     */
     @Nonnull
     ItemStack getOutput(@Nonnull World world);
 
+    /**
+     * Check if every output is disabled in the given world.
+     *
+     * @param world The {@link World}.
+     * @return True if every output is disabled in the given world.
+     */
     boolean isDisabledInWorld(@Nonnull World world);
 
+    /**
+     * Get the ingredients.
+     *
+     * @return A map of ingredients. The key {@link ItemStack} should always have the amount of 1, and the value {@link Integer} should be the amount of the ingredient.
+     */
     @Nonnull
     Map<ItemStack, Integer> getInput();
 }

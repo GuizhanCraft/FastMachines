@@ -26,7 +26,7 @@ Download from:
 
 ### Item-specific config (/plugins/Slimefun/Items.yml)
 
-The following settings are available for each individual Fast Machines:
+The following settings are available for each individual Fast Machines (default settings may vary due to :
 
 - `energy-per-use`: The energy cost of each crafting operation. (default: `8`, range: `0` - `2,147,483,647` (2^31-1))
 - `energy-capacity`: The energy capacity of the machine. (default: `1024`, range: `0` - `2,147,483,647` (2^31-1))

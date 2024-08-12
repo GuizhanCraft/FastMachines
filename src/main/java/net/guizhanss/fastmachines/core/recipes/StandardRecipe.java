@@ -51,18 +51,9 @@ public class StandardRecipe implements IRecipe {
 
     @Override
     public String toString() {
-        return "StandardRecipe{" +
-            "output=" + output +
-            ", input=" + input +
-            '}';
+        return "StandardRecipe{" + "output=" + output + ", input=" + input + '}';
     }
 
-    /**
-     * Check whether the output item is disabled in the given {@link World}.
-     *
-     * @param world The world to check.
-     * @return True if output item is disabled in the given {@link World}.
-     */
     @Override
     public boolean isDisabledInWorld(@Nonnull World world) {
         SlimefunItem sfItem = SlimefunItem.getByItem(output);

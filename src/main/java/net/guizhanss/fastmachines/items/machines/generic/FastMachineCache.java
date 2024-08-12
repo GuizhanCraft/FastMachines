@@ -10,6 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.google.common.base.Preconditions;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -37,18 +38,19 @@ import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMach
 import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine.SCROLL_UP_SLOT;
 
 /**
- * A cache layer to store some of the data of a Fast Machine.
+ * A cache layer of Fast Machine.
  */
 public final class FastMachineCache {
 
     private final AbstractFastMachine machine;
     private final BlockMenu menu;
     private final BlockPosition blockPosition;
-    private int inputChecksum;
+    private int invChecksum;
+    private Inventory virtualInv;
     private Map<IRecipe, Integer> outputs;
     private int page = -1;
     private ItemStack choice;
-    private boolean crafting = false;
+    private boolean processing = false;
 
     @ParametersAreNonnullByDefault
     public FastMachineCache(AbstractFastMachine machine, BlockMenu menu) {
@@ -82,12 +84,12 @@ public final class FastMachineCache {
                     amount = 1;
                 }
             }
-            if (crafting) {
+            if (processing) {
                 return false;
             }
-            crafting = true;
+            processing = true;
             craft(player, amount);
-            crafting = false;
+            processing = false;
             return false;
         });
     }
@@ -110,10 +112,10 @@ public final class FastMachineCache {
             return;
         }
         int currentInputChecksum = MachineUtils.checksum(machineInputs);
-        if (currentInputChecksum == inputChecksum) {
+        if (currentInputChecksum == invChecksum) {
             return;
         }
-        inputChecksum = currentInputChecksum;
+        invChecksum = currentInputChecksum;
         Map<IRecipe, Integer> newOutputs = new LinkedHashMap<>();
 
         FastMachines.debug("current machine: {0}, location: {1}", machine.getClass().getSimpleName(), blockPosition);
