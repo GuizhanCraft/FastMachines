@@ -82,7 +82,7 @@ public class RandomRecipe implements IRecipe {
     @Nonnull
     @Override
     public Map<ItemStack, Integer> getInput() {
-        return RecipeUtils.calculateItems(input);
+        return RecipeUtils.countItems(input);
     }
 
     @Override

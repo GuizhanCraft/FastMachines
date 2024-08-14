@@ -3,14 +3,14 @@ package net.guizhanss.fastmachines.items.machines.generic;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.google.common.base.Preconditions;
+import net.guizhanss.fastmachines.utils.MachineUtils;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -25,7 +25,6 @@ import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.core.recipes.RandomRecipe;
 import net.guizhanss.fastmachines.utils.ItemUtils;
 import net.guizhanss.fastmachines.utils.Keys;
-import net.guizhanss.fastmachines.utils.MachineUtils;
 
 import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine.CHOICE_SLOT;
 import static net.guizhanss.fastmachines.items.machines.generic.AbstractFastMachine.CRAFT_SLOT;
@@ -45,9 +44,8 @@ public final class FastMachineCache {
     private final AbstractFastMachine machine;
     private final BlockMenu menu;
     private final BlockPosition blockPosition;
+    private final Map<IRecipe, Integer> outputs;
     private int invChecksum;
-    private Inventory virtualInv;
-    private Map<IRecipe, Integer> outputs;
     private int page = -1;
     private ItemStack choice;
     private boolean processing = false;
@@ -57,6 +55,7 @@ public final class FastMachineCache {
         this.machine = machine;
         this.menu = menu;
         this.blockPosition = new BlockPosition(menu.getLocation());
+        this.outputs = new ConcurrentHashMap<>();
         init();
     }
 
@@ -96,7 +95,7 @@ public final class FastMachineCache {
 
     public void tick() {
         if (FastMachines.getSlimefunTickCount() % 2 == 0) {
-            findAvailableOutputs();
+            generateOutputs();
         }
         if (outputs != null) {
             updateMenu();
@@ -106,17 +105,18 @@ public final class FastMachineCache {
     /**
      * Find all the available outputs based on the given inputs.
      */
-    private void findAvailableOutputs() {
-        Map<ItemStack, Integer> machineInputs = MachineUtils.getMachineInputAmount(menu, INPUT_SLOTS);
+    private void generateOutputs() {
+        Map<ItemStack, Integer> machineInputs = MachineUtils.countItems(menu, INPUT_SLOTS);
         if (machineInputs.isEmpty()) {
             return;
         }
+
+        // check the checksum of the inputs
         int currentInputChecksum = MachineUtils.checksum(machineInputs);
         if (currentInputChecksum == invChecksum) {
             return;
         }
         invChecksum = currentInputChecksum;
-        Map<IRecipe, Integer> newOutputs = new LinkedHashMap<>();
 
         FastMachines.debug("current machine: {0}, location: {1}", machine.getClass().getSimpleName(), blockPosition);
         FastMachines.debug("machine inputs: {0}", machineInputs);
@@ -155,12 +155,11 @@ public final class FastMachineCache {
             // this recipe is available
             if (outputAmount > 0) {
                 FastMachines.debug("recipe is available, output amount: {0}", outputAmount);
-                newOutputs.put(recipe, outputAmount);
+                outputs.put(recipe, outputAmount);
             }
         }
 
-        FastMachines.debug("outputs: " + newOutputs);
-        outputs = newOutputs;
+        FastMachines.debug("outputs: " + outputs);
     }
 
     private void updateMenu() {
@@ -216,24 +215,7 @@ public final class FastMachineCache {
 
     @ParametersAreNonnullByDefault
     private void craft(final Player p, final int amount) {
-        craft(p, amount, 0);
-    }
-
-    @ParametersAreNonnullByDefault
-    private void craft(final Player p, final int amount, int tries) {
-        Preconditions.checkArgument(amount > 0, "amount must greater than 0");
-
-        List<Map.Entry<IRecipe, Integer>> outputRecipes;
-        try {
-            outputRecipes = new LinkedHashMap<>(outputs).entrySet().stream().toList();
-        } catch (Exception e) {
-            // sometimes player crafts when the machine is calculating outputs,
-            // so we just delay this one tick and try again
-            if (tries < 5) {
-                FastMachines.getScheduler().run(() -> craft(p, amount, tries + 1));
-            }
-            return;
-        }
+        var outputRecipes = new LinkedHashMap<>(outputs).entrySet().stream().toList();
 
         // invalid choice, due to previous selection not available anymore
         if (choice == null) {
@@ -260,21 +242,24 @@ public final class FastMachineCache {
             machine.setCharge(blockPosition.toLocation(), currentEnergy - energyNeeded);
         }
 
-        // remove recipe inputs
+        // check if there are enough ingredients
         for (var inputEntry : recipe.getKey().getInput().entrySet()) {
             int requiredAmount = inputEntry.getValue() * actualAmount;
-            var itemAmount = MachineUtils.getItemAmount(menu, INPUT_SLOTS, inputEntry.getKey());
-            // total amount is less than required amount, usually shouldn't happen
+            var itemAmount = MachineUtils.countItem(menu, INPUT_SLOTS, inputEntry.getKey());
+
             if (itemAmount.getSecondValue() < requiredAmount) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-materials");
                 return;
             }
-            // remove items from machine
-            MachineUtils.removeItems(menu, itemAmount.getFirstValue().stream().mapToInt(Integer::intValue).toArray(),
-                inputEntry.getKey(), requiredAmount);
         }
 
-        // push the product
+        // remove ingredients
+        for (var inputEntry : recipe.getKey().getInput().entrySet()) {
+            int requiredAmount = inputEntry.getValue() * actualAmount;
+            MachineUtils.removeItem(menu, INPUT_SLOTS, inputEntry.getKey(), requiredAmount);
+        }
+
+        // add the product
         if (recipe.getKey() instanceof RandomRecipe randomRecipe) {
             boolean machineFull = false;
             for (int i = 0; i < actualAmount; i++) {

@@ -79,14 +79,14 @@ public final class RecipeUtils {
     }
 
     /**
-     * Calculate the amount of each item in the given array.
+     * Count the amount of each item in the given array.
      * Similar items will be merged by
      * {@link SlimefunUtils#isItemSimilar(ItemStack, ItemStack, boolean, boolean, boolean)}.
      *
      * @param items The array of {@link ItemStack}.
      * @return A {@link Map} that contains the amount of each item.
      */
-    public static Map<ItemStack, Integer> calculateItems(@Nonnull ItemStack... items) {
+    public static Map<ItemStack, Integer> countItems(@Nonnull ItemStack... items) {
         Preconditions.checkArgument(items != null, "items cannot be null");
         Map<ItemStack, Integer> result = new HashMap<>();
         for (var item : items) {
@@ -111,8 +111,9 @@ public final class RecipeUtils {
     }
 
     /**
-     * Find a {@link RandomRecipe} in all the recipes, with the given {@link ItemStack} input. If such recipe is
-     * found, append output to it, then return true. Otherwise, nothing happens and return false.
+     * Find a {@link RandomRecipe} in all the recipes, with the given {@link ItemStack} input.
+     * If such recipe is found, append output to it, then return true.
+     * Otherwise, nothing happens and return false.
      *
      * @param recipes The {@link List} of {@link IRecipe}.
      * @param input   The input {@link ItemStack} which will be used to find.
@@ -145,7 +146,7 @@ public final class RecipeUtils {
         ItemStack[] lastInput = new ItemStack[0];
         List<ItemStack> storedOutput = new ArrayList<>();
 
-        // put recipes that with same input together
+        // try to put recipes that with same input together
         int tries = 0;
         while (tries < 3) {
             try {
@@ -162,7 +163,6 @@ public final class RecipeUtils {
 
         FastMachines.debug("raw recipes: {0}", pendingRecipes);
 
-        // shut up, sonar
         for (var recipe : pendingRecipes) {
             ItemStack[] input = recipe.input();
             ItemStack[] output = recipe.output();

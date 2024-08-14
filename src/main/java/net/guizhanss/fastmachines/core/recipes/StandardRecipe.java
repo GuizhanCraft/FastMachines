@@ -27,7 +27,7 @@ public class StandardRecipe implements IRecipe {
 
     public StandardRecipe(ItemStack output, ItemStack... input) {
         this.output = output;
-        this.input = RecipeUtils.calculateItems(input);
+        this.input = RecipeUtils.countItems(input);
     }
 
     public StandardRecipe(ItemStack output, List<ItemStack> input) {
