@@ -121,6 +121,8 @@ public final class FastMachineCache {
         FastMachines.debug("current machine: {0}, location: {1}", machine.getClass().getSimpleName(), blockPosition);
         FastMachines.debug("machine inputs: {0}", machineInputs);
 
+        outputs.clear();
+
         // Fetch available recipes based on inputs
         for (var recipe : machine.getRecipes()) {
             if (recipe.isDisabledInWorld(blockPosition.getWorld())) {
