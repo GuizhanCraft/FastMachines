@@ -2,8 +2,8 @@
 
 [English](README.md) | [中文](README.zh_CN.md)
 
-This Slimefun addon extracts the manual machines from [FinalTECH](https://github.com/ecro-fun/FinalTECH) and made some changes to put them into a separate addon.  
-Fast machines are Slimefun basic machines, but they cost energy to run and can craft items without recipe to be in order.
+This Slimefun addon extracts the manual machines from FinalTECH and made some changes to put them into a separate addon.  
+Fast machines are manual crafters that cost energy to run and can craft items without recipe to be in order. Also supports bulk crafting.
 
 Credit: Final_Root
 
@@ -13,6 +13,8 @@ Download from:
 
 - [Blob builds](https://blob.build/project/FastMachines)
 - [Guizhan Builds![Build Status](https://builds.guizhanss.com/ybw0014/FastMachines/master/badge.svg)](https://builds.guizhanss.com/ybw0014/FastMachines/master)
+
+This plugin supports [SlimefunTranslation](https://github.com/ybw0014/SlimefunTranslation) for per-player localization.
 
 ## Configuration
 
@@ -26,7 +28,7 @@ Download from:
 
 ### Item-specific config (/plugins/Slimefun/Items.yml)
 
-The following settings are available for each individual Fast Machines (default settings may vary due to :
+The following settings are available for each individual Fast Machines (default settings may vary due to the original crafter's energy consumption):
 
 - `energy-per-use`: The energy cost of each crafting operation. (default: `8`, range: `0` - `2,147,483,647` (2^31-1))
 - `energy-capacity`: The energy capacity of the machine. (default: `1024`, range: `0` - `2,147,483,647` (2^31-1))
