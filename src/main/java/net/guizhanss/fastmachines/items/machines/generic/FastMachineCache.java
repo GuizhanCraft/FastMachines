@@ -234,6 +234,13 @@ public final class FastMachineCache {
         // check if the machine has enough energy
         if (FastMachines.getConfigService().isFastMachinesUseEnergy()) {
             int energyNeeded = machine.getEnergyPerUse() * actualAmount;
+
+            // more than the capacity, need to reduce the crafting amount
+            if (energyNeeded > machine.getCapacity()) {
+                actualAmount = (int) Math.floor(machine.getCapacity() * 1.0 / machine.getEnergyPerUse());
+                energyNeeded = machine.getEnergyPerUse() * actualAmount;
+            }
+
             int currentEnergy = machine.getCharge(blockPosition.toLocation());
             if (currentEnergy < energyNeeded) {
                 FastMachines.getLocalization().sendMessage(p, "not-enough-energy");
