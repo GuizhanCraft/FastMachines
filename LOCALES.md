@@ -11,7 +11,7 @@ This addon is available in the following languages:
 
 ## SlimefunTranslation
 
-This plugin supports [SlimefunTranslation](https://github.com/ybw0014/SlimefunTranslation).
+This plugin supports [SlimefunTranslation](https://github.com/ybw0014/SlimefunTranslation) for per-player localization.
 
 ## Contribution
 

@@ -13,6 +13,7 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings("ConstantConditions")
 @UtilityClass
 public final class Keys {
+
     public static NamespacedKey get(@Nonnull String name) {
         Preconditions.checkArgument(name != null, "name cannot be null");
 

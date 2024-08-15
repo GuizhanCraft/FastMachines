@@ -21,6 +21,7 @@ import net.guizhanss.slimefuntranslation.utils.FileUtils;
 import lombok.Getter;
 
 public final class IntegrationService {
+
     private final FastMachines plugin;
 
     @Getter

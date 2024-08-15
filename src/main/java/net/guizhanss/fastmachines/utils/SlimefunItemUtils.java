@@ -11,6 +11,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class SlimefunItemUtils {
+
     public static boolean isDisabled(@Nullable ItemStack item) {
         SlimefunItem sfItem = SlimefunItem.getByItem(item);
         return sfItem != null && sfItem.isDisabled();

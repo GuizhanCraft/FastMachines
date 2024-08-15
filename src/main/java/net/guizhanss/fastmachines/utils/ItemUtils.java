@@ -17,6 +17,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class ItemUtils {
+
     /**
      * Compare two {@link ItemStack}s and check if they are similar.
      *

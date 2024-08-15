@@ -13,13 +13,12 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.altar.AncientAlta
 
 import net.guizhanss.fastmachines.FastMachines;
 import net.guizhanss.fastmachines.core.recipes.RawRecipe;
-import net.guizhanss.fastmachines.items.machines.generic.AFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.BasicFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public final class FastAncientAltar extends AFastMachine {
+public final class FastAncientAltar extends BasicFastMachine {
 
-    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.ENCHANTING_TABLE);
+    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem("CRAFT", Material.ENCHANTING_TABLE);
 
     public FastAncientAltar(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);

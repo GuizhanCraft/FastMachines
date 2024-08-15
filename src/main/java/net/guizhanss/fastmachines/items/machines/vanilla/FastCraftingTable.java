@@ -9,13 +9,12 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
 import net.guizhanss.fastmachines.FastMachines;
-import net.guizhanss.fastmachines.items.machines.generic.AFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.BasicFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public final class FastCraftingTable extends AFastMachine {
+public final class FastCraftingTable extends BasicFastMachine {
 
-    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.CRAFTING_TABLE);
+    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem("CRAFT", Material.CRAFTING_TABLE);
 
     public FastCraftingTable(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);

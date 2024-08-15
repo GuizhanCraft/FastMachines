@@ -23,8 +23,10 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class MachineUtils {
+
     /**
-     * Get the amount map of machine inputs.
+     * Get a map that contains the amount of each {@link ItemStack} in machine slots.
+     * The key is the {@link ItemStack} with amount of 1, and the value is the amount of the {@link ItemStack}.
      *
      * @param menu  The {@link BlockMenu} of machine.
      * @param slots The slots of machine input.
@@ -32,10 +34,16 @@ public final class MachineUtils {
      */
     @Nonnull
     @ParametersAreNonnullByDefault
-    public static Map<ItemStack, Integer> getMachineInputAmount(BlockMenu menu, int[] slots) {
-        return RecipeUtils.calculateItems(getItems(menu, slots));
+    public static Map<ItemStack, Integer> countItems(BlockMenu menu, int[] slots) {
+        return RecipeUtils.countItems(getItems(menu, slots));
     }
 
+    /**
+     * Calculate the checksum of given item map.
+     *
+     * @param map The item map to calculate checksum.
+     * @return The checksum of given item map.
+     */
     @ParametersAreNonnullByDefault
     public static int checksum(Map<ItemStack, Integer> map) {
         int checksum = 0;
@@ -46,7 +54,7 @@ public final class MachineUtils {
     }
 
     /**
-     * Retrive all the {@link ItemStack} inside given machine slots.
+     * Retrieve all the {@link ItemStack} inside given machine slots.
      *
      * @param menu  The {@link BlockMenu} of machine.
      * @param slots The slots of machine.
@@ -79,7 +87,7 @@ public final class MachineUtils {
      */
     @Nonnull
     @ParametersAreNonnullByDefault
-    public static Pair<List<Integer>, Integer> getItemAmount(BlockMenu menu, int[] slots, ItemStack item) {
+    public static Pair<List<Integer>, Integer> countItem(BlockMenu menu, int[] slots, ItemStack item) {
         int amount = 0;
         List<Integer> slotList = new ArrayList<>();
         for (int slot : slots) {
@@ -104,7 +112,7 @@ public final class MachineUtils {
      * @param amount The amount of {@link ItemStack} to remove.
      * @return Whether the item is removed.
      */
-    public static boolean removeItems(BlockMenu menu, int[] slots, ItemStack item, int amount) {
+    public static boolean removeItem(BlockMenu menu, int[] slots, ItemStack item, int amount) {
         for (int slot : slots) {
             ItemStack slotItem = menu.getItemInSlot(slot);
             if (slotItem == null || slotItem.getType().isAir()) {

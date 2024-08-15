@@ -8,13 +8,12 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
 import net.guizhanss.fastmachines.FastMachines;
-import net.guizhanss.fastmachines.items.machines.generic.AFastMachine;
+import net.guizhanss.fastmachines.items.machines.generic.BasicFastMachine;
 import net.guizhanss.fastmachines.utils.RecipeUtils;
 
-public final class FastSmeltery extends AFastMachine {
+public final class FastSmeltery extends BasicFastMachine {
 
-    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem(
-        "CRAFT", Material.FURNACE);
+    private static final ItemStack CRAFT_ITEM = FastMachines.getLocalization().getItem("CRAFT", Material.FURNACE);
 
     public FastSmeltery(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(item, recipeType, recipe);

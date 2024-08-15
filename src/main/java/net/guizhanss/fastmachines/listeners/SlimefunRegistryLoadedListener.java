@@ -21,7 +21,7 @@ public class SlimefunRegistryLoadedListener implements Listener {
 
     @EventHandler
     public void onRegistryLoaded(@Nonnull SlimefunItemRegistryFinalizedEvent e) {
-        FastMachines.getRegistry().getAllEnabledFastMachines().forEach(machine -> {
+        FastMachines.getRegistry().getEnabledFastMachines().forEach(machine -> {
             FastMachines.debug("Registering recipes for {0}", machine.getClass().getSimpleName());
             try {
                 machine.registerRecipes();

@@ -10,6 +10,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class FastMachinesItems {
+
     // <editor-fold desc="Materials">
     public static final SlimefunItemStack ETERNAL_FIRE = FastMachines.getLocalization().getItem(
         "ETERNAL_FIRE",

@@ -20,13 +20,14 @@ import lombok.Getter;
  * @author ybw0014
  */
 public class StandardRecipe implements IRecipe {
+
     private final ItemStack output;
     @Getter
     private final Map<ItemStack, Integer> input;
 
     public StandardRecipe(ItemStack output, ItemStack... input) {
         this.output = output;
-        this.input = RecipeUtils.calculateItems(input);
+        this.input = RecipeUtils.countItems(input);
     }
 
     public StandardRecipe(ItemStack output, List<ItemStack> input) {
@@ -50,18 +51,9 @@ public class StandardRecipe implements IRecipe {
 
     @Override
     public String toString() {
-        return "StandardRecipe{" +
-            "output=" + output +
-            ", input=" + input +
-            '}';
+        return "StandardRecipe{" + "output=" + output + ", input=" + input + '}';
     }
 
-    /**
-     * Check whether the output item is disabled in the given {@link World}.
-     *
-     * @param world The world to check.
-     * @return True if output item is disabled in the given {@link World}.
-     */
     @Override
     public boolean isDisabledInWorld(@Nonnull World world) {
         SlimefunItem sfItem = SlimefunItem.getByItem(output);

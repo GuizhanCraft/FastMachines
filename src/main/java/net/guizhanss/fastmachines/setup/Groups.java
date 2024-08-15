@@ -13,6 +13,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class Groups {
+
     public static final NestedItemGroup MAIN = new NestedItemGroup(
         Keys.get("fast_machines"),
         FastMachines.getLocalization().getItem(
