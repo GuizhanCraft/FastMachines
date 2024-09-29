@@ -1,10 +1,14 @@
 package net.guizhanss.fastmachines;
 
+import java.io.File;
+import java.lang.reflect.Method;
 import java.util.logging.Level;
 
 import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
+
+import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
 
@@ -134,7 +138,21 @@ public final class FastMachines extends AbstractAddon {
         if (getPluginVersion().startsWith("Dev")) {
             new BlobBuildUpdater(this, getFile(), getGithubRepo()).start();
         } else if (getPluginVersion().startsWith("Build")) {
-            new GuizhanBuildsUpdater(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch()).start();
+            try {
+                // use updater in lib plugin
+
+                // this little trick because maven shade plugin will change strings
+                char[] pluginPackage = {
+                    'n', 'e', 't', '.', 'g', 'u', 'i', 'z', 'h', 'a', 'n', 's', 's', '.',
+                    'g', 'u', 'i', 'z', 'h', 'a', 'n', 'l', 'i', 'b', 'p', 'l', 'u', 'g', 'i', 'n'
+                };
+                Class<?> clazz = Class.forName(new String(pluginPackage) + ".updater.GuizhanUpdater");
+                Method updaterStart = clazz.getDeclaredMethod("start", Plugin.class, File.class, String.class, String.class, String.class);
+                updaterStart.invoke(null, this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch());
+            } catch (Exception ignored) {
+                // use updater in lib
+                new GuizhanBuildsUpdater(this, getFile(), getGithubUser(), getGithubRepo(), getGithubBranch()).start();
+            }
         }
     }
 
