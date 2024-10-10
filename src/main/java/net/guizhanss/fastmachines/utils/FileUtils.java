@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 
-import net.guizhanss.guizhanlib.utils.FileUtil;
+import net.guizhanss.guizhanlib.common.utils.FileUtil;
 
 import lombok.experimental.UtilityClass;
 
