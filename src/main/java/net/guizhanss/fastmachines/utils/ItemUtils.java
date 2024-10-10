@@ -13,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 
+import net.guizhanss.guizhanlib.minecraft.utils.MinecraftVersionUtil;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -53,18 +55,40 @@ public final class ItemUtils {
     }
 
     /**
-     * Remove the damage meta from an {@link ItemStack}.
+     * Cleanse the {@link ItemStack}. Usually these items are vanilla recipe ingredients.
      *
-     * @param item The item to remove the damage from
-     * @return A cloned item without the damage meta
+     * @param item The item to cleanse
+     * @return A cleansed item copy.
      */
     @Nonnull
     @ParametersAreNonnullByDefault
-    public static ItemStack removeDamage(ItemStack item) {
+    public static ItemStack cleanse(ItemStack item) {
         ItemStack clone = item.clone();
+        if (!clone.hasItemMeta()) {
+            return clone;
+        }
+
         ItemMeta meta = clone.getItemMeta();
+        // not a plain vanilla item
+        if (meta.hasDisplayName() || meta.hasLore() || meta.hasEnchants() || meta.hasAttributeModifiers() || meta.hasCustomModelData()) {
+            return clone;
+        }
+
+        // remove damage
         if (meta instanceof Damageable damageable) {
-            damageable.setDamage(0);
+            // after 1.20.5, it is possible to have different max damage
+            int maxDamage = 32767;
+            if (MinecraftVersionUtil.isAtLeast(20, 5) && damageable.hasMaxDamage()) {
+                maxDamage = damageable.getMaxDamage();
+            }
+
+            if (damageable.getDamage() == 0 || damageable.getDamage() == maxDamage) {
+                // just return a clean ItemStack in 1.20.5+
+                if (MinecraftVersionUtil.isAtLeast(20, 5)) {
+                    return new ItemStack(clone.getType(), clone.getAmount());
+                }
+                damageable.setDamage(0);
+            }
             clone.setItemMeta(meta);
         }
         return clone;

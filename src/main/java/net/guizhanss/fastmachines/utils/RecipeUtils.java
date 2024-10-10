@@ -419,7 +419,7 @@ public final class RecipeUtils {
                 if (ingredients.get(i) == null) {
                     continue;
                 }
-                ingredientList.add(ItemUtils.removeDamage(ingredients.get(i)));
+                ingredientList.add(ItemUtils.cleanse(ingredients.get(i)));
             }
 
             iRecipe = new StandardRecipe(shapedRecipe.getResult(), ingredientList);
@@ -427,12 +427,12 @@ public final class RecipeUtils {
         } else if (recipe instanceof ShapelessRecipe shapelessRecipe) {
             List<ItemStack> ingredientList = new ArrayList<>();
             for (var ingredient : shapelessRecipe.getIngredientList()) {
-                ingredientList.add(ItemUtils.removeDamage(ingredient));
+                ingredientList.add(ItemUtils.cleanse(ingredient));
             }
             iRecipe = new StandardRecipe(shapelessRecipe.getResult(), ingredientList);
             FastMachines.debug("registering standard recipe: {0}", iRecipe);
         } else if (recipe instanceof CookingRecipe cookingRecipe) {
-            iRecipe = new StandardRecipe(cookingRecipe.getResult(), ItemUtils.removeDamage(cookingRecipe.getInput()));
+            iRecipe = new StandardRecipe(cookingRecipe.getResult(), ItemUtils.cleanse(cookingRecipe.getInput()));
             FastMachines.debug("registering standard recipe: {0}", iRecipe);
         }
 
