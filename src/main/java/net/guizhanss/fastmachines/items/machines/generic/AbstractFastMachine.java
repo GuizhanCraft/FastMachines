@@ -30,6 +30,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 
 import net.guizhanss.fastmachines.FastMachines;
+import net.guizhanss.fastmachines.core.items.attributes.NotAHopper;
 import net.guizhanss.fastmachines.core.recipes.IRecipe;
 import net.guizhanss.fastmachines.setup.Groups;
 import net.guizhanss.fastmachines.utils.Heads;
@@ -43,7 +44,7 @@ import lombok.Getter;
  * @author ybw0014
  */
 @SuppressWarnings("ConstantConditions")
-public abstract class AbstractFastMachine extends TickingMenuBlock implements EnergyNetComponent {
+public abstract class AbstractFastMachine extends TickingMenuBlock implements EnergyNetComponent, NotAHopper {
 
     // slots
     // @formatter:off
