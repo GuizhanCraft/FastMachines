@@ -84,7 +84,7 @@ public final class FastMachinesItems {
     );
     public static final SlimefunItemStack FAST_PANNING_MACHINE = FastMachines.getLocalization().getItem(
         "FAST_PANNING_MACHINE",
-        Material.HOPPER
+        Material.LOOM
     );
     public static final SlimefunItemStack FAST_JUICER = FastMachines.getLocalization().getItem(
         "FAST_JUICER",
