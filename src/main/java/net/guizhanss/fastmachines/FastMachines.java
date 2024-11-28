@@ -8,6 +8,8 @@ import javax.annotation.Nonnull;
 
 import com.google.common.base.Preconditions;
 
+import net.guizhanss.guizhanlib.minecraft.utils.MinecraftVersionUtil;
+
 import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
@@ -79,6 +81,14 @@ public final class FastMachines extends AbstractAddon {
 
     @Override
     public void enable() {
+        if (MinecraftVersionUtil.isAtLeast(21)) {
+            getLogger().severe("FastMachines is not compatible with Minecraft 1.21 and above.");
+            getLogger().severe("We are rewriting the recipe system to handle 1.21 changes,");
+            getLogger().severe("subscribe to the Addon Community announcement channel to get the latest news.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         log(Level.INFO, "====================");
         log(Level.INFO, "     FastMachines   ");
         log(Level.INFO, "     by ybw0014     ");
