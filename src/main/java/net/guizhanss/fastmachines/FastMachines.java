@@ -82,11 +82,13 @@ public final class FastMachines extends AbstractAddon {
     @Override
     public void enable() {
         if (MinecraftVersionUtil.isAtLeast(21)) {
-            getLogger().severe("FastMachines is not compatible with Minecraft 1.21 and above.");
-            getLogger().severe("We are rewriting the recipe system to handle 1.21 changes,");
-            getLogger().severe("subscribe to the Addon Community announcement channel to get the latest news.");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
+            var sfVersion = getServer().getPluginManager().getPlugin("Slimefun").getDescription().getVersion().toLowerCase();
+            if (sfVersion.startsWith("rc") && !sfVersion.startsWith("dev")) {
+                getLogger().severe("FastMachines is not compatible with current Slimefun version on Minecraft 1.21 and above.");
+                getLogger().severe("We are rewriting the recipe system to handle 1.21 changes,");
+                getLogger().severe("subscribe to the Addon Community announcement channel to get the latest news.");
+                return;
+            }
         }
 
         log(Level.INFO, "====================");
