@@ -51,6 +51,9 @@ data class ItemWrapper private constructor(
         // now same hash, compare amount
         if (amount != other.amount) return amount - other.amount
 
+        // same hash and amount, compare item
+        if (!isSimilarTo(other.baseItem)) return baseItem.hashCode() - other.baseItem.hashCode()
+
         // should be same
         return 0
     }

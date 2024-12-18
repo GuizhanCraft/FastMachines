@@ -1,8 +1,8 @@
 package net.guizhanss.fastmachines.core.recipes.loaders
 
-import io.github.seggan.sf4k.extensions.getSlimefun
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem
 import net.guizhanss.fastmachines.FastMachines
+import net.guizhanss.fastmachines.core.recipes.RandomRecipe
+import net.guizhanss.fastmachines.core.recipes.StandardRecipe
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
 import net.guizhanss.fastmachines.utils.items.isDisabled
@@ -54,11 +54,13 @@ abstract class RecipeLoader(
             FastMachines.debug("  - Input: $input")
             FastMachines.debug("  - Outputs: $outputs")
 
-            if (outputs.size > 1) {
-                // multiple outputs, create random recipe
+            val recipe = if (outputs.size > 1) {
+                RandomRecipe(input, outputs)
             } else {
-                // single output, create standard recipe
+                StandardRecipe(mapOf(input to 1), outputs.first())
             }
+            FastMachines.debug("  - Created recipe: $recipe")
+            machine.addRecipe(recipe)
         }
     }
 
@@ -85,6 +87,9 @@ abstract class RecipeLoader(
             val input = rawRecipe.inputs.summarize()
             FastMachines.debug("  - Summarized input: $input")
 
+            val recipe = StandardRecipe(input, outputItem)
+            FastMachines.debug("  - Created recipe: $recipe")
+            machine.addRecipe(recipe)
         }
     }
 

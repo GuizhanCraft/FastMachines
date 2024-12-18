@@ -27,9 +27,10 @@ object ResearchSetup {
             FMItems.STACKED_ANCIENT_PEDESTAL,
         )
 
-        MACHINES.addItems(
-            FMItems.FAST_ENHANCED_CRAFTING_TABLE,
-            FMItems.FAST_ORE_WASHER,
-        )
+//        MACHINES.addItems(
+//            FMItems.FAST_CRAFTING_TABLE,
+//            FMItems.FAST_ENHANCED_CRAFTING_TABLE,
+//            FMItems.FAST_ORE_WASHER,
+//        )
     }
 }

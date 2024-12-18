@@ -86,7 +86,11 @@ bukkit {
         "SlimeHUD",
         "InfinityExpansion2",
     )
-    loadBefore = listOf("SlimeCustomizer", "RykenSlimeCustomizer")
+    loadBefore = listOf(
+        "SlimeCustomizer",
+        "RykenSlimeCustomizer",
+        "SlimeFunRecipe"
+    )
 }
 
 tasks.runServer {
