@@ -1,16 +1,17 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
     id("com.gradleup.shadow") version "8.3.5"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://s01.oss.sonatype.org/content/groups/public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.alessiodp.com/releases/")
     maven("https://jitpack.io")
 }
@@ -24,17 +25,14 @@ dependencies {
     compileOnly(kotlin("stdlib")) // loaded through library loader
     compileOnly(kotlin("reflect")) // loaded through library loader
     compileOnlyAndTestImpl("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnlyAndTestImpl("com.github.Slimefun:Slimefun4:d12ae8580b")
+    compileOnlyAndTestImpl("com.github.Slimefun:Slimefun4:3ea21da4fe")
     compileOnly("net.guizhanss:SlimefunTranslation:e03b01a7b7")
     compileOnly("com.github.schntgaispock:SlimeHUD:1.3.0")
     compileOnly("com.github.SlimefunGuguProject:InfinityExpansion:bebf0bd0f9")
     compileOnly("com.github.VoperAD:SlimeFrame:8af2379a01")
-    implementation("net.guizhanss:guizhanlib-all:2.2.0-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.1.0")
-    implementation("io.github.seggan:sf4k:0.8.0") {
-        exclude(group = "org.jetbrains.kotlin")
-        exclude(group = "com.github.Slimefun")
-    }
+    implementation("net.guizhanss:guizhanlib-all:2.3.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-kt-all:0.1.0-SNAPSHOT")
 
     testImplementation(kotlin("test"))
     testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.10.0")
@@ -46,14 +44,15 @@ description = "FastMachines"
 val mainPackage = "net.guizhanss.fastmachines"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    disableAutoTargetJvm()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 kotlin {
     compilerOptions {
         javaParameters = true
-        jvmTarget = JvmTarget.JVM_21
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
@@ -66,7 +65,6 @@ tasks.shadowJar {
     doRelocate("net.byteflux.libby")
     doRelocate("net.guizhanss.guizhanlib")
     doRelocate("org.bstats")
-    doRelocate("io.github.seggan.sf4k")
     doRelocate("io.papermc.lib", "paperlib")
     minimize()
     archiveClassifier = ""
@@ -103,7 +101,7 @@ tasks.runServer {
         url("https://builds.guizhanss.com/api/download/ybw0014/GuizhanCraft/master/latest")
     }
     jvmArgs("-Dcom.mojang.eula.agree=true")
-    minecraftVersion("1.20.6")
+    minecraftVersion("1.18.2")
 }
 
 tasks.test {

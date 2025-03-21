@@ -4,9 +4,7 @@ package net.guizhanss.fastmachines.utils.items
 
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun
 import net.guizhanss.fastmachines.core.items.ItemWrapper
-import net.guizhanss.guizhanlib.minecraft.utils.ChatUtil
 import net.guizhanss.guizhanlib.minecraft.utils.MinecraftVersionUtil
-import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.AxolotlBucketMeta
 import org.bukkit.inventory.meta.BannerMeta
@@ -24,38 +22,6 @@ import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.inventory.meta.SkullMeta
 import org.bukkit.inventory.meta.SuspiciousStewMeta
 import org.bukkit.inventory.meta.TropicalFishBucketMeta
-
-/**
- * Get a new [ItemStack] with the given [Material] and amount.
- */
-fun Material.toItem(amount: Int = 1) = ItemStack(this, amount)
-
-/**
- * Get a copy of this [ItemStack] with the given amount.
- *
- * There is no check for the stack size limit.
- */
-fun ItemStack.withAmount(amount: Int) =
-    clone().apply { setAmount(amount) }
-
-/**
- * Get a copy of this [ItemStack] with the given display name.
- */
-fun ItemStack.withName(name: String) =
-    clone().apply {
-        itemMeta = itemMeta.apply { setDisplayName(ChatUtil.color(name)) }
-    }
-
-/**
- * Get a copy of this [ItemStack] with the given lore.
- */
-fun ItemStack.withLore(lore: List<String>) =
-    clone().apply {
-        itemMeta = itemMeta.apply { setLore(lore.map { ChatUtil.color(it) }) }
-    }
-
-@JvmName("withLoreVararg")
-fun ItemStack.withLore(vararg lore: String) = withLore(lore.toList())
 
 /**
  * Strictly compares a [ItemWrapper] to an [ItemStack].

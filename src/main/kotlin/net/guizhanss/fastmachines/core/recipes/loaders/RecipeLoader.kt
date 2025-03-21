@@ -20,11 +20,14 @@ abstract class RecipeLoader(
 
     protected val rawRecipes: MutableList<RawRecipe> = mutableListOf()
 
+    /**
+     * Implementing classes should override this method to add recipes to [rawRecipes].
+     */
     open fun beforeLoad() {
         // there is nothing here in default loader
     }
 
-    open fun load() {
+    fun load() {
         beforeLoad()
         FastMachines.debug("Loading recipes for ${machine.id}...")
         if (enableRandomRecipes) {

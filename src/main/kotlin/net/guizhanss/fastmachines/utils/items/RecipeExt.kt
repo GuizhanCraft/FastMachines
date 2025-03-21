@@ -4,6 +4,7 @@ import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.choices.MultipleChoice
 import net.guizhanss.fastmachines.core.recipes.choices.RecipeChoice
+import net.guizhanss.guizhanlib.kt.minecraft.extensions.toItem
 import org.bukkit.inventory.RecipeChoice as BukkitRecipeChoice
 
 fun Collection<RecipeChoice>.summarize(): Map<RecipeChoice, Int> {

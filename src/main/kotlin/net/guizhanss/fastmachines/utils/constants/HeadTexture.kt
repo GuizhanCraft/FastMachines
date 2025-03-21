@@ -1,7 +1,5 @@
 package net.guizhanss.fastmachines.utils.constants
 
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils
-
 enum class HeadTexture(
     val texture: String
 ) {
@@ -19,6 +17,4 @@ enum class HeadTexture(
     INFO("16439d2e306b225516aa9a6d007a7e75edd2d5015d113b42f44be62a517e574f"),
 
     ;
-
-    fun getAsItem() = SlimefunUtils.getCustomHead(texture)
 }

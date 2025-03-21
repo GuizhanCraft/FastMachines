@@ -1,25 +1,29 @@
-package net.guizhanss.fastmachines.implementation.items.machines.slimefun
+package net.guizhanss.fastmachines.implementation.items.machines.slimeframe
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems
+import me.voper.slimeframe.implementation.SFrameStacks
+import net.guizhanss.fastmachines.FastMachines
+import net.guizhanss.fastmachines.core.items.attributes.NotAnAnvil
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.core.recipes.loaders.SlimefunMultiblockRecipeLoader
 import net.guizhanss.fastmachines.implementation.items.machines.generic.BasicFastMachine
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-class FastEnhancedCraftingTable(
+class FastSlimeFrameFoundry(
     itemGroup: ItemGroup,
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
     recipe: Array<out ItemStack?>,
-) : BasicFastMachine(itemGroup, itemStack, recipeType, recipe) {
+) : BasicFastMachine(itemGroup, itemStack, recipeType, recipe), NotAnAnvil {
 
     override val craftItemMaterial: Material
-        get() = Material.CRAFTING_TABLE
+        get() = Material.ANVIL
 
     override val recipeLoader: RecipeLoader
-        get() = SlimefunMultiblockRecipeLoader(this, SlimefunItems.ENHANCED_CRAFTING_TABLE.itemId)
+        get() = SlimefunMultiblockRecipeLoader(this, SFrameStacks.FOUNDRY.itemId)
+
+    override fun registerPrecondition() = FastMachines.integrationService.slimeFrameEnabled
 }

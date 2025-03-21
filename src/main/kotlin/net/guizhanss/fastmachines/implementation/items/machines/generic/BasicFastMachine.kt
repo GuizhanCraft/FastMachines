@@ -8,10 +8,9 @@ import org.bukkit.inventory.ItemStack
 /**
  * The basic machine level fast machine.
  */
-abstract class BaseFastMachine(
+abstract class BasicFastMachine(
     itemGroup: ItemGroup,
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
     recipe: Array<out ItemStack?>,
-) : AbstractFastMachine(itemGroup, itemStack, recipeType, recipe, 1024, 8) {
-}
+) : AbstractFastMachine(itemGroup, itemStack, recipeType, recipe, 1024, 8)

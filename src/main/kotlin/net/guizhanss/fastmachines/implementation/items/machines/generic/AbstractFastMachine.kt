@@ -1,5 +1,6 @@
 package net.guizhanss.fastmachines.implementation.items.machines.generic
 
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack
 import io.github.thebusybiscuit.slimefun4.api.items.settings.IntRangeSetting
@@ -16,8 +17,8 @@ import net.guizhanss.fastmachines.core.FMRegistry
 import net.guizhanss.fastmachines.core.recipes.Recipe
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.utils.constants.HeadTexture
-import net.guizhanss.fastmachines.utils.items.withLore
-import net.guizhanss.fastmachines.utils.items.withName
+import net.guizhanss.guizhanlib.kt.minecraft.items.edit
+import net.guizhanss.guizhanlib.kt.slimefun.items.toItem
 import net.guizhanss.guizhanlib.slimefun.machines.MenuBlock
 import org.bukkit.Material
 import org.bukkit.block.Block
@@ -41,6 +42,14 @@ abstract class AbstractFastMachine(
         get() = _recipes
     val caches: Map<BlockPosition, FastMachineCache>
         get() = _caches
+
+    abstract val craftItemMaterial: Material
+
+    // default to use a material. override to use a custom item
+    open val craftItem: ItemStack
+        get() = FastMachines.localization.getItem("CRAFT", craftItemMaterial).toItem()
+
+    abstract val recipeLoader: RecipeLoader
 
     private val _recipes = mutableListOf<Recipe>()
     private val _caches = mutableMapOf<BlockPosition, FastMachineCache>()
@@ -81,9 +90,10 @@ abstract class AbstractFastMachine(
         preset.addItem(CRAFT_SLOT, craftItem, ChestMenuUtils.getEmptyClickHandler())
         preset.addItem(
             ENERGY_SLOT,
-            SlimefunHeadTexture.ENERGY_CONNECTOR.asItemStack
-                .withName(" ")
-                .withLore(LoreBuilder.power(getEnergyPerUse(), FastMachines.localization.getString("lores.per-craft"))),
+            SlimefunHeadTexture.ENERGY_CONNECTOR.asItemStack.edit {
+                name(" ")
+                lore(LoreBuilder.power(getEnergyPerUse(), FastMachines.localization.getString("lores.per-craft")))
+            },
             ChestMenuUtils.getEmptyClickHandler()
         )
     }
@@ -92,13 +102,9 @@ abstract class AbstractFastMachine(
 
     override fun getOutputSlots() = intArrayOf()
 
-    abstract val craftItem: ItemStack
-
-    abstract val recipeLoader: RecipeLoader
-
     override fun onNewInstance(menu: BlockMenu, b: Block) {
         val pos = BlockPosition(b)
-        _caches.put(pos, FastMachineCache(this, menu))
+        _caches[pos] = FastMachineCache(this, menu)
     }
 
     override fun onBreak(e: BlockBreakEvent, menu: BlockMenu) {
@@ -106,6 +112,19 @@ abstract class AbstractFastMachine(
         val loc = menu.location
         menu.dropItems(loc, *INPUT_SLOTS)
         _caches.remove(BlockPosition(loc))
+    }
+
+    /**
+     * Override this method to add custom preconditions for registration, like check if a plugin is enabled.
+     */
+    open fun registerPrecondition(): Boolean = true
+
+    override fun register(addon: SlimefunAddon) {
+        if (!registerPrecondition()) {
+            FastMachines.debug("Skipping registration of ${this.id} due to precondition failure.")
+            return
+        }
+        super.register(addon)
     }
 
     override fun postRegister() {
@@ -142,10 +161,12 @@ abstract class AbstractFastMachine(
 
         internal val ITEMS_PER_PAGE = PREVIEW_SLOTS.size
 
-        internal val NO_ITEM = FastMachines.localization.getItem("NO_ITEM", Material.BARRIER)
-        internal val SCROLL_UP_ITEM = FastMachines.localization.getItem("SCROLL_UP", HeadTexture.ARROW_UP.texture)
-        internal val SCROLL_DOWN_ITEM = FastMachines.localization.getItem("SCROLL_DOWN", HeadTexture.ARROW_DOWN.texture)
-        internal val INFO_ITEM = FastMachines.localization.getItem("INFO", HeadTexture.INFO.texture)
+        internal val NO_ITEM = FastMachines.localization.getItem("NO_ITEM", Material.BARRIER).toItem()
+        internal val SCROLL_UP_ITEM =
+            FastMachines.localization.getItem("SCROLL_UP", HeadTexture.ARROW_UP.texture).toItem()
+        internal val SCROLL_DOWN_ITEM =
+            FastMachines.localization.getItem("SCROLL_DOWN", HeadTexture.ARROW_DOWN.texture).toItem()
+        internal val INFO_ITEM = FastMachines.localization.getItem("INFO", HeadTexture.INFO.texture).toItem()
     }
 
 }

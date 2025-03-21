@@ -14,6 +14,7 @@ import java.io.File
 class IntegrationService(private val plugin: FastMachines) {
 
     val infinityExpansionEnabled = isEnabled("InfinityExpansion")
+    val infinityExpansion2Enabled = isEnabled("InfinityExpansion2")
     val slimeFrameEnabled = isEnabled("SlimeFrame")
     val slimefunTranslationEnabled = isEnabled("SlimefunTranslation")
 

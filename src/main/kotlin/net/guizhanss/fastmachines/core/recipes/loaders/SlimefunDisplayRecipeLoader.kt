@@ -1,31 +1,31 @@
 package net.guizhanss.fastmachines.core.recipes.loaders
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem
-import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine
+import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem
+import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
-import net.guizhanss.fastmachines.utils.items.summarize
 
 /**
- * A [RecipeLoader] that loads recipes from a [MultiBlockMachine].
+ * A [RecipeLoader] that loads recipes from display recipes.
  */
-class SlimefunMultiblockRecipeLoader(
+class SlimefunDisplayRecipeLoader(
     machine: AbstractFastMachine,
     private val id: String,
     enableRandomRecipes: Boolean = false,
 ) : RecipeLoader(machine, enableRandomRecipes) {
 
     override fun beforeLoad() {
-        val mbm = SlimefunItem.getById(id)
-        require(mbm is MultiBlockMachine) { "The item $id is not MultiBlockMachine." }
+        val sfItem = SlimefunItem.getById(id)
+        require(sfItem is RecipeDisplayItem) { "The item $id is not RecipeDisplayItem." }
 
-        val recipes = mbm.recipes
-        require(recipes.size % 2 == 0) { "The multiblock machine $id has invalid recipe list." }
+        val recipes = sfItem.displayRecipes
+        require(recipes.size % 2 == 0) { "The item $id has invalid display recipe list." }
 
         for (i in recipes.indices step 2) {
-            val input = recipes[i].filterNotNull().summarize().map { ExactChoice(it) }
-            val output = recipes[i + 1].toList()
+            val input = listOf(ExactChoice(ItemWrapper.of(recipes[i])))
+            val output = listOf(recipes[i + 1])
 
             rawRecipes.add(RawRecipe(input, output))
         }

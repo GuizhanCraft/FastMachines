@@ -5,11 +5,11 @@ import org.bukkit.NamespacedKey
 
 object Keys {
 
-    val MAIN_GROUP = get("fast_machines")
-    val MATERIALS = get("materials")
-    val MACHINES = get("machines")
-    val DISPLAY_ITEM = get("display_item")
-
-    fun get(key: String) =
-        NamespacedKey(FastMachines.instance, key)
+    val MAIN_GROUP = "fast_machines".createKey()
+    val MATERIALS = "materials".createKey()
+    val MACHINES = "machines".createKey()
+    val HIDDEN = "hidden".createKey()
+    val DISPLAY_ITEM = "display_item".createKey()
 }
+
+internal fun String.createKey() = NamespacedKey(FastMachines.instance, this)

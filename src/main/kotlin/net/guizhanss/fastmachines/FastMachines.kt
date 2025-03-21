@@ -9,6 +9,7 @@ import net.guizhanss.fastmachines.core.services.LocalizationService
 import net.guizhanss.fastmachines.implementation.groups.FMItemGroups
 import net.guizhanss.fastmachines.implementation.items.FMItems
 import net.guizhanss.fastmachines.implementation.listeners.CauldronListener
+import net.guizhanss.fastmachines.implementation.listeners.GravityListener
 import net.guizhanss.fastmachines.implementation.listeners.HopperListener
 import net.guizhanss.fastmachines.implementation.listeners.SlimefunRegistryListener
 import net.guizhanss.fastmachines.implementation.setup.ResearchSetup
@@ -38,10 +39,10 @@ class FastMachines : AbstractAddon(
         val manager = BukkitLibraryManager(this)
         manager.addRepository(centralRepo)
         manager.loadLibrary(
-            Library.builder().groupId("org.jetbrains.kotlin").artifactId("kotlin-stdlib").version("2.1.0").build()
+            Library.builder().groupId("org.jetbrains.kotlin").artifactId("kotlin-stdlib").version("2.1.10").build()
         )
         manager.loadLibrary(
-            Library.builder().groupId("org.jetbrains.kotlin").artifactId("kotlin-reflect").version("2.1.0").build()
+            Library.builder().groupId("org.jetbrains.kotlin").artifactId("kotlin-reflect").version("2.1.10").build()
         )
 
         logger.info("Loaded all required libraries.")
@@ -67,6 +68,9 @@ class FastMachines : AbstractAddon(
         }
         log(Level.INFO, "Loaded language {0}.", lang)
 
+        // integrations
+        integrationService = IntegrationService(this)
+
         // item groups setup
         FMItemGroups
 
@@ -77,9 +81,6 @@ class FastMachines : AbstractAddon(
         if (configService.enableResearches) {
             ResearchSetup
         }
-
-        // integrations
-        integrationService = IntegrationService(this)
 
         // listeners & tasks
         setupListeners()
@@ -118,6 +119,7 @@ class FastMachines : AbstractAddon(
 
     private fun setupListeners() {
         CauldronListener(this)
+        GravityListener(this)
         HopperListener(this)
         SlimefunRegistryListener(this)
     }
@@ -127,7 +129,7 @@ class FastMachines : AbstractAddon(
     }
 
     private fun setupMetrics() {
-        val metrics = Metrics(this, 20046)
+        Metrics(this, 20046)
     }
 
     companion object {

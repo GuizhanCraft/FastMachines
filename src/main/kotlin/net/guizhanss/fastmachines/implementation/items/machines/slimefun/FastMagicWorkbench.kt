@@ -1,18 +1,16 @@
-package net.guizhanss.fastmachines.implementation.items.machines.vanilla
+package net.guizhanss.fastmachines.implementation.items.machines.slimefun
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType
-import net.guizhanss.fastmachines.core.recipes.loaders.MultipleLoader
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
-import net.guizhanss.fastmachines.core.recipes.loaders.VanillaRecipeLoader
+import net.guizhanss.fastmachines.core.recipes.loaders.SlimefunMultiblockRecipeLoader
 import net.guizhanss.fastmachines.implementation.items.machines.generic.BasicFastMachine
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.ShapelessRecipe
 
-class FastCraftingTable(
+class FastMagicWorkbench(
     itemGroup: ItemGroup,
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
@@ -20,12 +18,8 @@ class FastCraftingTable(
 ) : BasicFastMachine(itemGroup, itemStack, recipeType, recipe) {
 
     override val craftItemMaterial: Material
-        get() = Material.CRAFTING_TABLE
+        get() = Material.BOOKSHELF
 
     override val recipeLoader: RecipeLoader
-        get() = MultipleLoader(
-            this,
-            VanillaRecipeLoader(this, ShapedRecipe::class.java),
-            VanillaRecipeLoader(this, ShapelessRecipe::class.java),
-        )
+        get() = SlimefunMultiblockRecipeLoader(this, SlimefunItems.MAGIC_WORKBENCH.itemId)
 }

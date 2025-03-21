@@ -3,16 +3,14 @@ package net.guizhanss.fastmachines.implementation.items.machines.vanilla
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType
-import net.guizhanss.fastmachines.core.recipes.loaders.MultipleLoader
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.core.recipes.loaders.VanillaRecipeLoader
 import net.guizhanss.fastmachines.implementation.items.machines.generic.BasicFastMachine
 import org.bukkit.Material
+import org.bukkit.inventory.CookingRecipe
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.ShapelessRecipe
 
-class FastCraftingTable(
+class FastFurnace(
     itemGroup: ItemGroup,
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
@@ -20,12 +18,8 @@ class FastCraftingTable(
 ) : BasicFastMachine(itemGroup, itemStack, recipeType, recipe) {
 
     override val craftItemMaterial: Material
-        get() = Material.CRAFTING_TABLE
+        get() = Material.FURNACE
 
     override val recipeLoader: RecipeLoader
-        get() = MultipleLoader(
-            this,
-            VanillaRecipeLoader(this, ShapedRecipe::class.java),
-            VanillaRecipeLoader(this, ShapelessRecipe::class.java),
-        )
+        get() = VanillaRecipeLoader(this, CookingRecipe::class.java)
 }
