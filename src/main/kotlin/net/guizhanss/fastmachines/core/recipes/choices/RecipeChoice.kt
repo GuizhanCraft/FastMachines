@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
  */
 interface RecipeChoice {
 
-    fun getChoices(): List<ItemWrapper>
+    fun getChoices(): Map<ItemWrapper, Int>
 
     fun isValid(item: ItemStack): Boolean
 }

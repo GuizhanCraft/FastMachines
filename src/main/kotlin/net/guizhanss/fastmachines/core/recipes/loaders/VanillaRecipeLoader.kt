@@ -4,7 +4,7 @@ package net.guizhanss.fastmachines.core.recipes.loaders
 
 import net.guizhanss.fastmachines.core.recipes.choices.RecipeChoice
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
-import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 import net.guizhanss.fastmachines.utils.items.asFMRecipeChoice
 import net.guizhanss.fastmachines.utils.reflections.resultItem
 import org.bukkit.Bukkit
@@ -17,7 +17,7 @@ import org.bukkit.inventory.ShapelessRecipe
  * A [RecipeLoader] that loads recipes from vanilla registry.
  */
 class VanillaRecipeLoader<T : Recipe>(
-    machine: AbstractFastMachine,
+    machine: BaseFastMachine,
     private val recipeClass: Class<T>,
     enableRandomRecipes: Boolean = false,
 ) : RecipeLoader(machine, enableRandomRecipes) {

@@ -101,7 +101,7 @@ tasks.runServer {
         url("https://builds.guizhanss.com/api/download/ybw0014/GuizhanCraft/master/latest")
     }
     jvmArgs("-Dcom.mojang.eula.agree=true")
-    minecraftVersion("1.18.2")
+    minecraftVersion("1.20.6")
 }
 
 tasks.test {

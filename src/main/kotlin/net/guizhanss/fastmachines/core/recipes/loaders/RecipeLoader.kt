@@ -4,17 +4,17 @@ import net.guizhanss.fastmachines.FastMachines
 import net.guizhanss.fastmachines.core.recipes.RandomRecipe
 import net.guizhanss.fastmachines.core.recipes.StandardRecipe
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
-import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 import net.guizhanss.fastmachines.utils.items.isDisabled
-import net.guizhanss.fastmachines.utils.items.summarize
+import net.guizhanss.fastmachines.utils.items.countItems
 
 /**
- * A [RecipeLoader] is responsible for loading recipes for a specific [AbstractFastMachine].
+ * A [RecipeLoader] is responsible for loading recipes for a specific [BaseFastMachine].
  *
  * Check the subclasses of this class for different implementations.
  */
 abstract class RecipeLoader(
-    val machine: AbstractFastMachine,
+    val machine: BaseFastMachine,
     val enableRandomRecipes: Boolean = false,
 ) {
 
@@ -27,7 +27,7 @@ abstract class RecipeLoader(
         // there is nothing here in default loader
     }
 
-    fun load() {
+    open fun load() {
         beforeLoad()
         FastMachines.debug("Loading recipes for ${machine.id}...")
         if (enableRandomRecipes) {
@@ -87,7 +87,7 @@ abstract class RecipeLoader(
                 return@forEachIndexed
             }
 
-            val input = rawRecipe.inputs.summarize()
+            val input = rawRecipe.inputs.countItems()
             FastMachines.debug("  - Summarized input: $input")
 
             val recipe = StandardRecipe(input, outputItem)
@@ -106,7 +106,9 @@ abstract class RecipeLoader(
 
     private fun RawRecipe.inputKey(): String {
         val sortedInputChoices = inputs.map { choice ->
-            choice.getChoices().sorted().joinToString(",") { it.toString() }
+            choice.getChoices().entries
+                .sortedWith(compareBy({ it.key }, { it.value }))
+                .joinToString(",") { "${it.key}x${it.value}" }
         }.sorted()
         return sortedInputChoices.joinToString("||")
     }

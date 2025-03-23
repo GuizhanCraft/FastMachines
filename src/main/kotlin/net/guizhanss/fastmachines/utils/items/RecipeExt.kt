@@ -7,7 +7,7 @@ import net.guizhanss.fastmachines.core.recipes.choices.RecipeChoice
 import net.guizhanss.guizhanlib.kt.minecraft.extensions.toItem
 import org.bukkit.inventory.RecipeChoice as BukkitRecipeChoice
 
-fun Collection<RecipeChoice>.summarize(): Map<RecipeChoice, Int> {
+fun Collection<RecipeChoice>.countItems(): Map<RecipeChoice, Int> {
     val map = mutableMapOf<RecipeChoice, Int>()
 
     for (choice in this) {
@@ -23,7 +23,7 @@ fun BukkitRecipeChoice.asFMRecipeChoice() =
             if (choices.size == 1) {
                 ExactChoice(ItemWrapper.of(choices.first().toItem()))
             } else {
-                MultipleChoice(choices.map { ItemWrapper.of(it.toItem()) })
+                MultipleChoice(choices.associate { ItemWrapper.of(it.toItem()) to 1 })
             }
         }
 
@@ -31,7 +31,7 @@ fun BukkitRecipeChoice.asFMRecipeChoice() =
             if (choices.size == 1) {
                 ExactChoice(ItemWrapper.of(choices.first()))
             } else {
-                MultipleChoice(choices.map { ItemWrapper.of(it) })
+                MultipleChoice(choices.associate { ItemWrapper.of(it) to 1 })
             }
         }
 

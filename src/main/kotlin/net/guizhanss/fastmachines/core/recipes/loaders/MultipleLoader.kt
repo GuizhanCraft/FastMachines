@@ -1,12 +1,12 @@
 package net.guizhanss.fastmachines.core.recipes.loaders
 
-import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 
 /**
  * A [RecipeLoader] that loads recipes from multiple [RecipeLoader]s.
  */
 class MultipleLoader(
-    machine: AbstractFastMachine,
+    machine: BaseFastMachine,
     vararg loaders: RecipeLoader,
 ) : RecipeLoader(machine) {
 

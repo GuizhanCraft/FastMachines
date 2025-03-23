@@ -1,4 +1,4 @@
-package net.guizhanss.fastmachines.implementation.items.machines.generic
+package net.guizhanss.fastmachines.implementation.items.machines.base
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack
@@ -13,4 +13,4 @@ abstract class BasicFastMachine(
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
     recipe: Array<out ItemStack?>,
-) : AbstractFastMachine(itemGroup, itemStack, recipeType, recipe, 1024, 8)
+) : BaseFastMachine(itemGroup, itemStack, recipeType, recipe, 1024, 8)

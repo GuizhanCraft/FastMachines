@@ -6,7 +6,7 @@ import net.guizhanss.fastmachines.FastMachines
 import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
-import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 import java.util.logging.Level
 
 /**
@@ -14,7 +14,7 @@ import java.util.logging.Level
  * The item must have a static `MachineRecipeType` field `TYPE`.
  */
 class InfinityExpansionRecipeLoader(
-    machine: AbstractFastMachine,
+    machine: BaseFastMachine,
     private val clazz: Class<out SlimefunItem>,
     enableRandomRecipes: Boolean = false,
 ) : RecipeLoader(machine, enableRandomRecipes) {

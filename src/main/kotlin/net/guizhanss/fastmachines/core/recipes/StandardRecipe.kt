@@ -5,14 +5,16 @@ import net.guizhanss.fastmachines.utils.items.isDisabledIn
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 
+/**
+ * The standard recipe that has fixed inputs and outputs.
+ */
 data class StandardRecipe(
-    private val inputs: Map<RecipeChoice, Int>,
+    override val inputs: Map<RecipeChoice, Int>,
     private val output: ItemStack,
 ) : Recipe {
 
-    override fun getInputs() = inputs
-
-    override fun getOutputs() = listOf(output)
+    override val outputs: List<ItemStack>
+        get() = listOf(output)
 
     override fun getOutput(world: World) = output
 

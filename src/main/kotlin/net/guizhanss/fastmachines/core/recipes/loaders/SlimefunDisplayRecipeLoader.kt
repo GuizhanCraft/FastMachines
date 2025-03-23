@@ -5,13 +5,13 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem
 import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
-import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 
 /**
  * A [RecipeLoader] that loads recipes from display recipes.
  */
 class SlimefunDisplayRecipeLoader(
-    machine: AbstractFastMachine,
+    machine: BaseFastMachine,
     private val id: String,
     enableRandomRecipes: Boolean = false,
 ) : RecipeLoader(machine, enableRandomRecipes) {

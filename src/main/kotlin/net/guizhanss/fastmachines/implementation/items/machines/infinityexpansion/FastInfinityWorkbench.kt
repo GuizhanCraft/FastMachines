@@ -7,7 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType
 import net.guizhanss.fastmachines.FastMachines
 import net.guizhanss.fastmachines.core.recipes.loaders.InfinityExpansionRecipeLoader
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
-import net.guizhanss.fastmachines.implementation.items.machines.generic.AbstractFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -16,7 +16,7 @@ class FastInfinityWorkbench(
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
     recipe: Array<out ItemStack?>,
-) : AbstractFastMachine(itemGroup, itemStack, recipeType, recipe, 100_000_000, 10_000_000) {
+) : BaseFastMachine(itemGroup, itemStack, recipeType, recipe, 100_000_000, 10_000_000) {
 
     override val craftItemMaterial: Material
         get() = Material.RESPAWN_ANCHOR

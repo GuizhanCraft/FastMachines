@@ -344,6 +344,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
     }
 
     val FAST_MOB_DATA_INFUSER by buildSlimefunItem<FastMobDataInfuser> {
+        material = Material.LODESTONE.asMaterialType()
         itemGroup = FMItemGroups.MACHINES
         recipeType = RecipeType.ENHANCED_CRAFTING_TABLE
         recipe = buildRecipe {

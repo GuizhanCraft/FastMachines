@@ -151,6 +151,9 @@ class FastMachines : AbstractAddon(
 
         fun scheduler() = getScheduler()
 
+        val slimefunTickCount: Int
+            get() = getSlimefunTickCount()
+
         fun log(level: Level, message: String) {
             instance.logger.log(level, message)
         }

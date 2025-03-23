@@ -5,14 +5,15 @@ import net.guizhanss.fastmachines.utils.items.isDisabledIn
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 
+/**
+ * A random recipe accepts a single input and returns a random output from the list of outputs.
+ */
 data class RandomRecipe(
     private val input: RecipeChoice,
-    private val outputs: List<ItemStack>,
+    override val outputs: List<ItemStack>,
 ) : Recipe {
 
-    override fun getInputs() = mapOf(input to 1)
-
-    override fun getOutputs() = outputs
+    override val inputs = mapOf(input to 1)
 
     override fun getOutput(world: World) = outputs.filter { !it.isDisabledIn(world) }.random()
 

@@ -25,7 +25,6 @@ class ItemWrapperTest {
     fun testConstructor() {
         val wrapper1 = ItemWrapper.of(ItemStack(Material.DIAMOND, 32))
 
-        assertEquals(32, wrapper1.amount)
         assertEquals(1, wrapper1.baseItem.amount)
     }
 
@@ -35,5 +34,10 @@ class ItemWrapperTest {
         val wrapper2 = ItemWrapper.of(ItemStack(Material.DIAMOND, 32))
 
         assertTrue(wrapper1 == wrapper2)
+
+        val wrapper3 = ItemWrapper.of(ItemStack(Material.GOLD_INGOT, 32))
+        val wrapper4 = ItemWrapper.of(ItemStack(Material.GOLD_INGOT, 16))
+
+        assertTrue(wrapper3 == wrapper4)
     }
 }

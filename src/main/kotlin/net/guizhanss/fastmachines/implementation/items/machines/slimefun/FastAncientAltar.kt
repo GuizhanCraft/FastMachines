@@ -9,7 +9,7 @@ import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
-import net.guizhanss.fastmachines.implementation.items.machines.generic.BasicFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BasicFastMachine
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

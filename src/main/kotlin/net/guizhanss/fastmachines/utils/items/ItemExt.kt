@@ -28,16 +28,13 @@ import org.bukkit.inventory.meta.TropicalFishBucketMeta
  *
  * Modified from [Networks by Sefiraat](https://github.com/Sefiraat/Networks/blob/master/src/main/java/io/github/sefiraat/networks/utils/StackUtils.java).
  */
-fun ItemWrapper?.isSimilarTo(other: ItemStack?, checkAmount: Boolean = false, checkLore: Boolean = false): Boolean {
+fun ItemWrapper?.isSimilarTo(other: ItemStack?, checkLore: Boolean = false): Boolean {
     // null check
     if (this == null || other == null) return false
 
     // type check
     if (baseItem.type != other.type) return false
     if (baseItem.type.isAir || other.type.isAir) return false
-
-    // optional amount check
-    if (checkAmount && amount != other.amount) return false
 
     // meta check
     if (!baseItem.hasItemMeta() || !other.hasItemMeta()) {
@@ -182,20 +179,16 @@ private fun ItemMeta.quickNotEquals(other: ItemMeta): Boolean {
 /**
  * Returns a list of [ItemWrapper]s that all similar items are merged into one wrapper.
  */
-fun Collection<ItemStack?>.summarize(): List<ItemWrapper> {
-    val result = mutableListOf<ItemWrapper>()
+fun Collection<ItemStack?>.countItems(): Map<ItemWrapper, Int> {
+    val result = mutableMapOf<ItemWrapper, Int>()
 
     for (item in this) {
         if (item == null || item.type.isAir) continue
 
-        val existingIdx = result.indexOfFirst { it.isSimilarTo(item) }
-        if (existingIdx != -1) {
-            result[existingIdx] = result[existingIdx].withExtraAmount(item.amount)
-        } else {
-            result.add(ItemWrapper.of(item))
-        }
+        val wrapper = ItemWrapper.of(item)
+        result[wrapper] = (result[wrapper] ?: 0) + item.amount
     }
 
-    return result.sorted()
+    return result.toSortedMap()
 }
 

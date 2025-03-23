@@ -7,7 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems
 import net.guizhanss.fastmachines.core.items.attributes.NotACauldron
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.core.recipes.loaders.SlimefunMultiblockRecipeLoader
-import net.guizhanss.fastmachines.implementation.items.machines.generic.BasicFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BasicFastMachine
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

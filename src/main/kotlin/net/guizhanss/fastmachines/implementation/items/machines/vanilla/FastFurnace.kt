@@ -5,7 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.core.recipes.loaders.VanillaRecipeLoader
-import net.guizhanss.fastmachines.implementation.items.machines.generic.BasicFastMachine
+import net.guizhanss.fastmachines.implementation.items.machines.base.BasicFastMachine
 import org.bukkit.Material
 import org.bukkit.inventory.CookingRecipe
 import org.bukkit.inventory.ItemStack
