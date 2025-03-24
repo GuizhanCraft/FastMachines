@@ -11,6 +11,7 @@ import net.guizhanss.fastmachines.implementation.items.FMItems
 import net.guizhanss.fastmachines.implementation.listeners.CauldronListener
 import net.guizhanss.fastmachines.implementation.listeners.GravityListener
 import net.guizhanss.fastmachines.implementation.listeners.HopperListener
+import net.guizhanss.fastmachines.implementation.listeners.PlayerProfileListener
 import net.guizhanss.fastmachines.implementation.listeners.SlimefunRegistryListener
 import net.guizhanss.fastmachines.implementation.setup.ResearchSetup
 import net.guizhanss.fastmachines.implementation.tasks.FastMachineTickingTask
@@ -121,6 +122,7 @@ class FastMachines : AbstractAddon(
         CauldronListener(this)
         GravityListener(this)
         HopperListener(this)
+        PlayerProfileListener(this)
         SlimefunRegistryListener(this)
     }
 

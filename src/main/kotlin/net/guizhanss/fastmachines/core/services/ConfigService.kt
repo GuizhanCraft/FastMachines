@@ -19,6 +19,8 @@ class ConfigService(plugin: FastMachines) {
         private set
     var fmUseEnergy = true
         private set
+    var fmRequireSfResearch = false
+        private set
 
     private val config = AddonConfig(plugin, "config.yml")
 
@@ -35,6 +37,7 @@ class ConfigService(plugin: FastMachines) {
         enableResearches = config.getBoolean("enable-researches", true)
         fmTickRate = config.getInt("fast-machines.tick-rate", 10).coerceIn(5, 600)
         fmUseEnergy = config.getBoolean("fast-machines.use-energy", true)
+        fmRequireSfResearch = config.getBoolean("fast-machines.require-sf-research", false)
 
         config.save()
     }

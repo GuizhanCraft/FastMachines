@@ -188,3 +188,5 @@ messages:
   not-enough-energy: "&cNot enough energy!"
   not-enough-materials: "&cNot enough materials!"
   not-enough-space: "&cNot enough space in the machine! The items will be sent to your inventory. If your inventory is full, the items will be dropped on the ground."
+  profile-not-loaded: "&cYour profile is not loaded, please try again later."
+  no-research: "&cYou have not unlocked one or more output items of this recipe."

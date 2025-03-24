@@ -1,5 +1,6 @@
 package net.guizhanss.fastmachines.implementation.items.machines.base
 
+import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu
 import net.guizhanss.fastmachines.FastMachines
@@ -7,6 +8,8 @@ import net.guizhanss.fastmachines.core.recipes.Recipe
 import net.guizhanss.fastmachines.utils.consumeChoice
 import net.guizhanss.fastmachines.utils.countItems
 import net.guizhanss.fastmachines.utils.items.toDisplayItem
+import net.guizhanss.guizhanlib.kt.slimefun.extensions.getSlimefunItem
+import net.guizhanss.guizhanlib.kt.slimefun.extensions.isSlimefunItem
 import net.guizhanss.guizhanlib.kt.slimefun.extensions.location
 import net.guizhanss.guizhanlib.kt.slimefun.extensions.position
 import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil
@@ -134,7 +137,7 @@ class FastMachineCache(
         // check if a recipe is selected
         val recipe = selectedRecipe ?: return
 
-        // calculate craftable times
+        // calculate and check craftable times
         val maxCraftable = recipe.inputs.minOfOrNull { choice ->
             choice.maxCraftableAmount(inputs)
         } ?: 0
@@ -143,6 +146,30 @@ class FastMachineCache(
         if (actualCrafts <= 0) {
             FastMachines.localization.sendMessage(p, "not-enough-materials")
             return
+        }
+
+        // check if recipe is available for the player
+        if (FastMachines.configService.fmRequireSfResearch) {
+            val researches = recipe.outputs
+                .filter { it.isSlimefunItem() }
+                .map { it.getSlimefunItem() }
+                .mapNotNull { it.research }
+                .toSet()
+
+            if (researches.isNotEmpty()) {
+                val pp = PlayerProfile.find(p)
+                if (pp.isEmpty) {
+                    FastMachines.localization.sendMessage(p, "profile-not-loaded")
+                    PlayerProfile.request(p)
+                    return
+                }
+
+                val profile = pp.get()
+                if (researches.any { !profile.hasUnlocked(it) }) {
+                    FastMachines.localization.sendMessage(p, "no-research")
+                    return
+                }
+            }
         }
 
         // check if the machine has enough energy

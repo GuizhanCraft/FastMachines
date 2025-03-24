@@ -17,9 +17,12 @@ fast-machines:
   tick-rate: 10
 
   # Whether to use energy on crafting.
-  # Disabling this option will change the recipes of fast machines.
+  # Disabling this option will change the recipes of fast machines. (Fast Machine Core is removed)
   # The energy per craft / capacity is defined per machine in /plugins/Slimefun/Items.yml
   use-energy: true
+
+  # Whether crafting a Slimefun item needs it to be unlocked first.
+  require-sf-research: false
 
 # Print debug messages.
 debug: false
