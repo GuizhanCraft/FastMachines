@@ -34,6 +34,6 @@ jobs:
         uses: WalshyDev/blob-builds/gh-action@main
         with:
           project: FastMachines
-          file: ./build/libs/InfinityExpansion2.jar
+          file: ./build/libs/FastMachines.jar
           apiToken: ${{ secrets.BLOB_BUILDS_API_TOKEN }}
           releaseNotes: ${{ github.event.head_commit.message }}
