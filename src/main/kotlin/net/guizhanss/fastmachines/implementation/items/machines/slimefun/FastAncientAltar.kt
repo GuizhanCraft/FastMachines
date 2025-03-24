@@ -10,6 +10,7 @@ import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.loaders.RecipeLoader
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.base.BasicFastMachine
+import net.guizhanss.fastmachines.utils.items.countItems
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -34,7 +35,10 @@ class FastAncientAltar(
 
                     val input = recipe.input.toMutableList()
                     input.add(recipe.catalyst)
-                    val rawRecipe = RawRecipe(input.map { ExactChoice(ItemWrapper.of(it)) }, listOf(recipe.output))
+                    val rawRecipe = RawRecipe(
+                        input.countItems().map { (item, amount) -> ExactChoice(item, amount) },
+                        listOf(recipe.output)
+                    )
                     rawRecipes.add(rawRecipe)
                 }
             }

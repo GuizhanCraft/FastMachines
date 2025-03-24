@@ -3,10 +3,10 @@ package net.guizhanss.fastmachines.core.recipes.loaders
 import io.github.mooy1.infinityexpansion.infinitylib.machines.MachineRecipeType
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem
 import net.guizhanss.fastmachines.FastMachines
-import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.fastmachines.core.recipes.choices.ExactChoice
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
+import net.guizhanss.fastmachines.utils.items.countItems
 import java.util.logging.Level
 
 /**
@@ -31,7 +31,12 @@ class InfinityExpansionRecipeLoader(
         }
 
         for ((input, output) in type.recipes()) {
-            rawRecipes.add(RawRecipe(input.map { ExactChoice(ItemWrapper.of(it)) }, listOf(output)))
+            rawRecipes.add(
+                RawRecipe(
+                    input.toList().countItems().map { (item, amount) -> ExactChoice(item, amount) },
+                    listOf(output)
+                )
+            )
         }
     }
 
