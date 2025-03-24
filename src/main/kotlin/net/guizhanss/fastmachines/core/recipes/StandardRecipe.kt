@@ -9,12 +9,11 @@ import org.bukkit.inventory.ItemStack
  * The standard recipe that has fixed inputs and outputs.
  */
 data class StandardRecipe(
-    override val inputs: Map<RecipeChoice, Int>,
+    override val inputs: List<RecipeChoice>,
     private val output: ItemStack,
 ) : Recipe {
 
-    override val outputs: List<ItemStack>
-        get() = listOf(output)
+    override val outputs = listOf(output)
 
     override fun getOutput(world: World) = output
 

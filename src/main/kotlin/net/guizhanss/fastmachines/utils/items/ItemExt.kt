@@ -37,18 +37,18 @@ fun ItemWrapper?.isSimilarTo(other: ItemStack?, checkLore: Boolean = false): Boo
     if (baseItem.type.isAir || other.type.isAir) return false
 
     // meta check
-    if (!baseItem.hasItemMeta() || !other.hasItemMeta()) {
-        return baseItem.hasItemMeta() == other.hasItemMeta()
+    if (baseItemMeta == null || !other.hasItemMeta()) {
+        return (baseItemMeta != null) == other.hasItemMeta()
     }
 
-    val thisMeta = baseItemMeta!!
+    val thisMeta = baseItemMeta
     val otherMeta = other.itemMeta
 
     if (thisMeta.javaClass != otherMeta.javaClass) return false
 
     if (thisMeta.quickNotEquals(otherMeta)) return false
 
-    // display name check
+    // has display name check
     if (thisMeta.hasDisplayName() != otherMeta.hasDisplayName()) return false
 
     // custom model data check
@@ -67,9 +67,6 @@ fun ItemWrapper?.isSimilarTo(other: ItemStack?, checkLore: Boolean = false): Boo
     // item flags check
     if (thisMeta.itemFlags != otherMeta.itemFlags) return false
 
-    // lore check
-    if (checkLore && thisMeta.lore != otherMeta.lore) return false
-
     // sf id check (distinction is covered with pdc and lore)
     if (Slimefun.instance() != null) {
         val sfIdThis = Slimefun.getItemDataService().getItemData(thisMeta)
@@ -83,6 +80,9 @@ fun ItemWrapper?.isSimilarTo(other: ItemStack?, checkLore: Boolean = false): Boo
     if (thisMeta.hasDisplayName() && (thisMeta.displayName != otherMeta.displayName)) {
         return false
     }
+
+    // lore check
+    if (checkLore && thisMeta.lore != otherMeta.lore) return false
 
     return true
 }

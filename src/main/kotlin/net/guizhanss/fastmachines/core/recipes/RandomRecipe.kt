@@ -13,7 +13,7 @@ data class RandomRecipe(
     override val outputs: List<ItemStack>,
 ) : Recipe {
 
-    override val inputs = mapOf(input to 1)
+    override val inputs = listOf(input)
 
     override fun getOutput(world: World) = outputs.filter { !it.isDisabledIn(world) }.random()
 

@@ -12,7 +12,7 @@ interface Recipe {
     /**
      * The recipe inputs.
      */
-    val inputs: Map<RecipeChoice, Int>
+    val inputs: List<RecipeChoice>
 
     /**
      * The recipe outputs.
@@ -20,12 +20,12 @@ interface Recipe {
     val outputs: List<ItemStack>
 
     /**
-     * Get the output [ItemStack] in the given [World].
+     * Get the output [ItemStack] in the given [World]. This is called when crafting the recipe.
      */
     fun getOutput(world: World): ItemStack
 
     /**
-     * Check if the all the recipes are fully disabled in the given [World].
+     * Quickly check if the all the recipes are fully disabled in the given [World].
      */
     fun isDisabledIn(world: World): Boolean
 }

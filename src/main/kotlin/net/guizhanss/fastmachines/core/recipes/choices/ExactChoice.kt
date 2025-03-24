@@ -12,7 +12,12 @@ data class ExactChoice(
     val amount: Int = 1,
 ) : RecipeChoice {
 
-    override fun getChoices() = mapOf(item to amount)
+    override val choices = mapOf(item to amount)
 
-    override fun isValid(item: ItemStack) = this.item.isSimilarTo(item)
+    override fun isValidItem(item: ItemStack) = this.item.isSimilarTo(item)
+
+    override fun maxCraftableAmount(availableItems: Map<ItemWrapper, Int>): Int {
+        val available = availableItems.getOrDefault(item, 0)
+        return available / amount
+    }
 }

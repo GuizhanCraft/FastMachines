@@ -6,7 +6,6 @@ import net.guizhanss.fastmachines.core.recipes.StandardRecipe
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 import net.guizhanss.fastmachines.utils.items.isDisabled
-import net.guizhanss.fastmachines.utils.items.countItems
 
 /**
  * A [RecipeLoader] is responsible for loading recipes for a specific [BaseFastMachine].
@@ -60,7 +59,7 @@ abstract class RecipeLoader(
             val recipe = if (outputs.size > 1) {
                 RandomRecipe(input, outputs)
             } else {
-                StandardRecipe(mapOf(input to 1), outputs.first())
+                StandardRecipe(listOf(input), outputs.first())
             }
             FastMachines.debug("  - Created recipe: $recipe")
             machine.addRecipe(recipe)
@@ -87,10 +86,7 @@ abstract class RecipeLoader(
                 return@forEachIndexed
             }
 
-            val input = rawRecipe.inputs.countItems()
-            FastMachines.debug("  - Summarized input: $input")
-
-            val recipe = StandardRecipe(input, outputItem)
+            val recipe = StandardRecipe(rawRecipe.inputs, outputItem)
             FastMachines.debug("  - Created recipe: $recipe")
             machine.addRecipe(recipe)
         }
@@ -106,7 +102,7 @@ abstract class RecipeLoader(
 
     private fun RawRecipe.inputKey(): String {
         val sortedInputChoices = inputs.map { choice ->
-            choice.getChoices().entries
+            choice.choices.entries
                 .sortedWith(compareBy({ it.key }, { it.value }))
                 .joinToString(",") { "${it.key}x${it.value}" }
         }.sorted()

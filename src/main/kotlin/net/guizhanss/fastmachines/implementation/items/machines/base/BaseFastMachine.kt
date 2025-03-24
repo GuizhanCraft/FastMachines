@@ -74,7 +74,7 @@ abstract class BaseFastMachine(
 
     override fun getEnergyComponentType() = EnergyNetComponentType.CONSUMER
 
-    fun getEnergyPerUse() = if (FastMachines.configService.fmUseEnergy) energyConsumptionSetting.value else 0
+    val energyPerUse: Int get() = if (FastMachines.configService.fmUseEnergy) energyConsumptionSetting.value else 0
 
     final override fun getCapacity() = if (FastMachines.configService.fmUseEnergy) energyCapacitySetting.value else 0
 
@@ -92,7 +92,7 @@ abstract class BaseFastMachine(
             ENERGY_SLOT,
             SlimefunHeadTexture.ENERGY_CONNECTOR.asItemStack.edit {
                 name(" ")
-                lore(LoreBuilder.power(getEnergyPerUse(), FastMachines.localization.getString("lores.per-craft")))
+                lore(LoreBuilder.power(energyPerUse, FastMachines.localization.getString("lores.per-craft")))
             },
             ChestMenuUtils.getEmptyClickHandler()
         )

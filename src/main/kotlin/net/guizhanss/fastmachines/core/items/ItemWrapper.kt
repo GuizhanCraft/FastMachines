@@ -3,6 +3,7 @@ package net.guizhanss.fastmachines.core.items
 import net.guizhanss.fastmachines.utils.items.isSimilarTo
 import net.guizhanss.guizhanlib.kt.slimefun.extensions.getSlimefunItem
 import net.guizhanss.guizhanlib.kt.slimefun.extensions.isSlimefunItem
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 /**
@@ -16,10 +17,19 @@ data class ItemWrapper private constructor(
     companion object {
 
         /**
-         * Creates a new [ItemWrapper] with the given [ItemStack] and amount.
+         * Creates a new [ItemWrapper] with the given [ItemStack].
          */
         fun of(item: ItemStack): ItemWrapper {
             val baseItem = item.clone().apply { amount = 1 }
+
+            return ItemWrapper(baseItem)
+        }
+
+        /**
+         * Creates a new [ItemWrapper] with the given [Material].
+         */
+        fun of(material: Material): ItemWrapper {
+            val baseItem = ItemStack(material)
 
             return ItemWrapper(baseItem)
         }
@@ -53,7 +63,7 @@ data class ItemWrapper private constructor(
     override fun toString() = if (baseItem.isSlimefunItem()) {
         "ItemWrapper(slimefunId=${baseItem.getSlimefunItem().id})"
     } else {
-        "ItemWrapper(type=${baseItem.type}, meta=${baseItemMeta})"
+        "ItemWrapper(type=${baseItem.type}${if (baseItemMeta != null) ", meta=${baseItemMeta}" else ""})"
     }
 
 }

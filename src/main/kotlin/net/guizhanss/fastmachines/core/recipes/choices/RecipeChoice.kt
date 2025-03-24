@@ -8,7 +8,18 @@ import org.bukkit.inventory.ItemStack
  */
 interface RecipeChoice {
 
-    fun getChoices(): Map<ItemWrapper, Int>
+    /**
+     * Get the choices, with the item [ItemWrapper] and its amount.
+     */
+    val choices: Map<ItemWrapper, Int>
 
-    fun isValid(item: ItemStack): Boolean
+    /**
+     * Only check if the item is valid, without checking the amount.
+     */
+    fun isValidItem(item: ItemStack): Boolean
+
+    /**
+     * Calculate the maximum craftable amount based on the given available items.
+     */
+    fun maxCraftableAmount(availableItems: Map<ItemWrapper, Int>): Int
 }
