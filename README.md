@@ -3,35 +3,23 @@
 [English](README.md) | [中文](README.zh_CN.md)
 
 This Slimefun addon extracts the manual machines from FinalTECH and made some changes to put them into a separate addon.  
-Fast machines are manual crafters that cost energy to run and can craft items without recipe to be in order. Also supports bulk crafting.
+Fast machines are manual crafters that cost energy to run and can craft items with all shapeless recipes and support bulk crafting.
 
 Credit: Final_Root
 
 ## Download
 
-Download from:
+Download from (either one is fine):
 
 - [Blob builds](https://blob.build/project/FastMachines)
 - [Guizhan Builds![Build Status](https://builds.guizhanss.com/ybw0014/FastMachines/master/badge.svg)](https://builds.guizhanss.com/ybw0014/FastMachines/master)
 
-This plugin supports [SlimefunTranslation](https://github.com/ybw0014/SlimefunTranslation) for per-player localization.
+## Supported plugins
 
-## Configuration
-
-### General Config (config.yml)
-
-- `auto-update`: Whether to enable auto update from builds page. (default: `true`)
-- `lang`: The language of the addon, check available languages [here](LOCALES.md). (default: `en-US`)
-- `enable-researches`: Whether to enable researches for fast machines. (default: `true`)
-- `debug`: Whether to enable debug mode. (default: `false`)
-- `fast-machines.use-energy`: Whether to enable energy cost of Fast Machines' crafting. (default: `true`)
-
-### Item-specific config (/plugins/Slimefun/Items.yml)
-
-The following settings are available for each individual Fast Machines (default settings may vary due to the original crafter's energy consumption):
-
-- `energy-per-use`: The energy cost of each crafting operation. (default: `8`, range: `0` - `2,147,483,647` (2^31-1))
-- `energy-capacity`: The energy capacity of the machine. (default: `1024`, range: `0` - `2,147,483,647` (2^31-1))
+- [SlimefunTranslation](https://github.com/ybw0014/SlimefunTranslation): per player localization.
+- [InfinityExpansion](https://github.com/Mooy1/InfinityExpansion): extra fast machines for Infinity Expansion.
+- [SlimeFrame](https://github.com/VoperAD/SlimeFrame): extra fast machines for SlimeFrame.
+- [InfinityExpansion2](https://github.com/ybw0014/InfinityExpansion2): extra fast machines for Infinity Expansion 2.
 
 ## Thanks
 
