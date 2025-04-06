@@ -10,14 +10,14 @@ object ResearchSetup {
 
     val MATERIALS = Research(
         Keys.MATERIALS,
-        Keys.MATERIALS.hashCode(),
+        1145141,
         "Fast Machine Materials",
         4
     )
 
     val MACHINES = Research(
         Keys.MACHINES,
-        Keys.MACHINES.hashCode(),
+        1145142,
         "Fast Machines",
         40
     )
@@ -27,7 +27,7 @@ object ResearchSetup {
             FMItems.ETERNAL_FIRE,
             FMItems.FAST_CORE,
             FMItems.STACKED_ANCIENT_PEDESTAL,
-        )
+        ).register()
 
         MACHINES.addItems(
             // vanilla
@@ -53,12 +53,13 @@ object ResearchSetup {
             FMItems.FAST_MOB_DATA_INFUSER,
             // slimeframe
             FMItems.FAST_SLIMEFRAME_FOUNDRY,
-        )
+        ).register()
     }
 
-    private fun Research.addItems(vararg items: SlimefunItemStack) {
+    private fun Research.addItems(vararg items: SlimefunItemStack): Research {
         items.forEach { item ->
             addItems(item.toItem())
         }
+        return this
     }
 }
