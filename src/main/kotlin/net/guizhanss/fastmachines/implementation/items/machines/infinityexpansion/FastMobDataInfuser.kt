@@ -16,7 +16,7 @@ class FastMobDataInfuser(
     itemStack: SlimefunItemStack,
     recipeType: RecipeType,
     recipe: Array<out ItemStack?>,
-) : BaseFastMachine(itemGroup, itemStack, recipeType, recipe, 100_000_000, 10_000_000) {
+) : BaseFastMachine(itemGroup, itemStack, recipeType, recipe, 200_000, 20_000) {
 
     override val craftItemMaterial: Material
         get() = Material.LODESTONE
