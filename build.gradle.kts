@@ -31,8 +31,8 @@ dependencies {
     compileOnly("com.github.SlimefunGuguProject:InfinityExpansion:bebf0bd0f9")
     compileOnly("com.github.VoperAD:SlimeFrame:8af2379a01")
     implementation("org.bstats:bstats-bukkit:3.1.0")
-    implementation("net.guizhanss:guizhanlib-all:2.3.0-SNAPSHOT")
-    implementation("net.guizhanss:guizhanlib-kt-all:0.1.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-all:2.4.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-kt-all:0.2.0-SNAPSHOT")
 
     testImplementation(kotlin("test"))
     testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.10.0")
