@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinaliz
 import net.guizhanss.fastmachines.FastMachines
 import net.guizhanss.fastmachines.core.FMRegistry
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import java.util.logging.Level
 
@@ -13,7 +14,7 @@ class SlimefunRegistryListener(plugin: FastMachines) : Listener {
         plugin.server.pluginManager.registerEvents(this, plugin)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onRegistryLoaded(e: SlimefunItemRegistryFinalizedEvent) {
         for (machine in FMRegistry.enabledFastMachines) {
             FastMachines.debug("Registering recipes for ${machine.javaClass.simpleName}")

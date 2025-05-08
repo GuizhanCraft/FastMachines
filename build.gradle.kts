@@ -25,14 +25,14 @@ dependencies {
     compileOnly(kotlin("stdlib")) // loaded through library loader
     compileOnly(kotlin("reflect")) // loaded through library loader
     compileOnlyAndTestImpl("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnlyAndTestImpl("com.github.Slimefun:Slimefun4:3ea21da4fe")
+    compileOnlyAndTestImpl("com.github.Slimefun:Slimefun4:5374034c87")
     compileOnly("net.guizhanss:SlimefunTranslation:e03b01a7b7")
     compileOnly("com.github.schntgaispock:SlimeHUD:1.3.0")
     compileOnly("com.github.SlimefunGuguProject:InfinityExpansion:bebf0bd0f9")
     compileOnly("com.github.VoperAD:SlimeFrame:8af2379a01")
     implementation("org.bstats:bstats-bukkit:3.1.0")
-    implementation("net.guizhanss:guizhanlib-all:2.3.0-SNAPSHOT")
-    implementation("net.guizhanss:guizhanlib-kt-all:0.1.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-all:2.4.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-kt-all:0.2.0-SNAPSHOT")
 
     testImplementation(kotlin("test"))
     testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.10.0")
