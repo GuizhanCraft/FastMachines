@@ -6,6 +6,7 @@ import net.guizhanss.fastmachines.core.recipes.StandardRecipe
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
 import net.guizhanss.fastmachines.utils.items.isDisabled
+import java.util.logging.Level
 
 /**
  * A [RecipeLoader] is responsible for loading recipes for a specific [BaseFastMachine].
@@ -43,27 +44,39 @@ abstract class RecipeLoader(
         val groupedRecipes = rawRecipes.groupBy { it.inputKey() }
 
         groupedRecipes.forEach { (inputKey, recipes) ->
-            FastMachines.debug("===============")
-            FastMachines.debug("Processing recipes with input key: $inputKey")
+            try {
+                FastMachines.debug("===============")
+                FastMachines.debug("Processing recipes with input key: $inputKey")
 
-            val input = recipes.first().inputs.first()
-            val outputs = recipes.map { it.output }.flatten().filter { !it.isDisabled() }
+                val input = recipes.first().inputs.first()
+                val outputs = recipes.map { it.output }.flatten().filter { !it.isDisabled() }
 
-            // all disabled, no recipe
-            if (outputs.isEmpty()) {
-                return@forEach
+                // all disabled, no recipe
+                if (outputs.isEmpty()) {
+                    return@forEach
+                }
+
+                FastMachines.debug("  - Input: $input")
+                FastMachines.debug("  - Outputs: $outputs")
+
+                val recipe = if (outputs.size > 1) {
+                    RandomRecipe(input, outputs)
+                } else {
+                    StandardRecipe(listOf(input), outputs.first())
+                }
+                FastMachines.debug("  - Created recipe: $recipe")
+                machine.addRecipe(recipe)
+            } catch (e: Exception) {
+                FastMachines.log(
+                    Level.SEVERE,
+                    e,
+                    """
+                    An unexpected error has occurred while loading grouped recipes.
+                    Please enable debug mode first and restart the server,
+                    report this issue with FULL debug log only.
+                    """.trimIndent().replace("\n", "")
+                )
             }
-
-            FastMachines.debug("  - Input: $input")
-            FastMachines.debug("  - Outputs: $outputs")
-
-            val recipe = if (outputs.size > 1) {
-                RandomRecipe(input, outputs)
-            } else {
-                StandardRecipe(listOf(input), outputs.first())
-            }
-            FastMachines.debug("  - Created recipe: $recipe")
-            machine.addRecipe(recipe)
         }
     }
 
@@ -71,25 +84,38 @@ abstract class RecipeLoader(
         sortRecipes()
 
         rawRecipes.forEachIndexed { index, rawRecipe ->
-            FastMachines.debug("===============")
-            FastMachines.debug("Processing raw recipe (${index + 1}/${rawRecipes.size}): $rawRecipe")
+            try {
 
-            if (rawRecipe.output.size > 1) {
-                FastMachines.debug("  - Unexpected multiple outputs, skipping")
-                return@forEachIndexed
+                FastMachines.debug("===============")
+                FastMachines.debug("Processing raw recipe (${index + 1}/${rawRecipes.size}): $rawRecipe")
+
+                if (rawRecipe.output.size > 1) {
+                    FastMachines.debug("  - Unexpected multiple outputs, skipping")
+                    return@forEachIndexed
+                }
+
+                val outputItem = rawRecipe.output.first()
+
+                // no need to load recipe if the output item is disabled
+                if (outputItem.isDisabled()) {
+                    FastMachines.debug("  - Output item is a disabled Slimefun item, skipping")
+                    return@forEachIndexed
+                }
+
+                val recipe = StandardRecipe(rawRecipe.inputs, outputItem)
+                FastMachines.debug("  - Created recipe: $recipe")
+                machine.addRecipe(recipe)
+            } catch (e: Exception) {
+                FastMachines.log(
+                    Level.SEVERE,
+                    e,
+                    """
+                    An unexpected error has occurred while loading recipes.
+                    Please enable debug mode first and restart the server,
+                    report this issue with FULL debug log only.
+                    """.trimIndent().replace("\n", "")
+                )
             }
-
-            val outputItem = rawRecipe.output.first()
-
-            // no need to load recipe if the output item is disabled
-            if (outputItem.isDisabled()) {
-                FastMachines.debug("  - Output item is a disabled Slimefun item, skipping")
-                return@forEachIndexed
-            }
-
-            val recipe = StandardRecipe(rawRecipe.inputs, outputItem)
-            FastMachines.debug("  - Created recipe: $recipe")
-            machine.addRecipe(recipe)
         }
     }
 
