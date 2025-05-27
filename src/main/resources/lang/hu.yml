@@ -167,6 +167,15 @@ items:
     lore:
       - "&7Hasznosabb SlimeFrame öntöde."
       - "&7A tárgyak sorbarendezése nélkül barkácsol."
+  FAST_INFINITY_WORKBENCH_2:
+    name: "&aGyors Infinity Barkácsasztal"
+    lore:
+      - "&7Hasznosabb mint az alap Infinity Barkácsasztal."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
+  FAST_MOB_DATA_INFUSER_2:
+    lore:
+      - ""
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
 lores:
   per-craft: " &7barkácsolásonként"
 messages:
