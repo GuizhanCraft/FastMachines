@@ -180,6 +180,16 @@ items:
     lore:
       - "&7More useful SlimeFrame Foundry."
       - "&7Craft without need to put items in order."
+  FAST_INFINITY_WORKBENCH_2:
+    name: "&aFast Infinity Workbench"
+    lore:
+      - "&7More useful Infinity Workbench."
+      - "&7Craft without need to put items in order."
+  FAST_MOB_DATA_INFUSER_2:
+    name: "&aFast Mob Data Infuser"
+    lore:
+      - "&7More useful Mob Data Infuser."
+      - "&7Craft without need to put items in order."
 
 lores:
   per-craft: " &7per craft"

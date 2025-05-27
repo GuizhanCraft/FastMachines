@@ -8,7 +8,7 @@ class FastMachineTickingTask {
 
     init {
         FMRegistry.enabledFastMachines.forEach { fm ->
-            FastMachines.scheduler().repeatAsync(FastMachines.configService.fmTickRate) {
+            FastMachines.scheduler().repeatAsync(FastMachines.configService.fmTickRate.value) {
                 for ((pos, cache) in fm.caches) {
                     try {
                         cache.tick()

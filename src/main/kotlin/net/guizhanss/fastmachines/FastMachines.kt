@@ -60,7 +60,7 @@ class FastMachines : AbstractAddon(
 
         // localization
         log(Level.INFO, "Loading language...")
-        val lang = configService.lang
+        val lang = configService.lang.value
         localization = LocalizationService(this, file)
         localization.idPrefix = "FM_"
         localization.addLanguage(lang)
@@ -79,7 +79,7 @@ class FastMachines : AbstractAddon(
         FMItems
 
         // researches setup
-        if (configService.enableResearches) {
+        if (configService.enableResearches.value) {
             ResearchSetup
         }
 
@@ -162,7 +162,7 @@ class FastMachines : AbstractAddon(
         }
 
         fun debug(message: String) {
-            if (!Companion::configService.isInitialized || !configService.debug) return
+            if (!Companion::configService.isInitialized || !configService.debug.value) return
             log(Level.INFO, "[DEBUG] $message")
         }
     }

@@ -149,7 +149,7 @@ class FastMachineCache(
         }
 
         // check if recipe is available for the player
-        if (FastMachines.configService.fmRequireSfResearch) {
+        if (FastMachines.configService.fmRequireSfResearch.value) {
             val researches = recipe.outputs
                 .filter { it.isSlimefunItem() }
                 .map { it.getSlimefunItem() }
@@ -173,7 +173,7 @@ class FastMachineCache(
         }
 
         // check if the machine has enough energy
-        if (FastMachines.configService.fmUseEnergy) {
+        if (FastMachines.configService.fmUseEnergy.value) {
             val maxCraftByEnergy = machine.capacity / machine.energyPerUse
             actualCrafts = actualCrafts.coerceAtMost(maxCraftByEnergy)
             val energyNeeded = actualCrafts * machine.energyPerUse

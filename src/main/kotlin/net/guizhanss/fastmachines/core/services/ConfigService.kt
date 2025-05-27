@@ -1,28 +1,30 @@
 package net.guizhanss.fastmachines.core.services
 
 import net.guizhanss.fastmachines.FastMachines
-import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig
+import net.guizhanss.guizhanlib.kt.slimefun.config.ConfigField
+import net.guizhanss.guizhanlib.kt.slimefun.config.addonConfig
 
 class ConfigService(plugin: FastMachines) {
 
-    var autoUpdate = true
-        private set
-    var debug = false
-        private set
-    var lang = "en"
-        private set
-    var enableResearches = true
-        private set
+    lateinit var autoUpdate: ConfigField<Boolean>
+    lateinit var debug: ConfigField<Boolean>
+    lateinit var lang: ConfigField<String>
+    lateinit var enableResearches: ConfigField<Boolean>
 
     // fast machines options
-    var fmTickRate = 10
-        private set
-    var fmUseEnergy = true
-        private set
-    var fmRequireSfResearch = false
-        private set
+    lateinit var fmTickRate: ConfigField<Int>
+    lateinit var fmUseEnergy: ConfigField<Boolean>
+    lateinit var fmRequireSfResearch: ConfigField<Boolean>
 
-    private val config = AddonConfig(plugin, "config.yml")
+    private val config = addonConfig(plugin, "config.yml") {
+        autoUpdate = boolean("auto-update", true)
+        debug = boolean("debug", false)
+        lang = string("lang", FastMachines.DEFAULT_LANG)
+        enableResearches = boolean("enable-researches", false)
+        fmTickRate = int("fast-machines.tick-rate", 10, 5, 600)
+        fmUseEnergy = boolean("fast-machines.use-energy", true)
+        fmRequireSfResearch = boolean("fast-machines.require-sf-research", false)
+    }
 
     init {
         reload()
@@ -30,15 +32,5 @@ class ConfigService(plugin: FastMachines) {
 
     fun reload() {
         config.reload()
-
-        autoUpdate = config.getBoolean("auto-update", true)
-        debug = config.getBoolean("debug", false)
-        lang = config.getString("lang") ?: "en"
-        enableResearches = config.getBoolean("enable-researches", true)
-        fmTickRate = config.getInt("fast-machines.tick-rate", 10).coerceIn(5, 600)
-        fmUseEnergy = config.getBoolean("fast-machines.use-energy", true)
-        fmRequireSfResearch = config.getBoolean("fast-machines.require-sf-research", false)
-
-        config.save()
     }
 }

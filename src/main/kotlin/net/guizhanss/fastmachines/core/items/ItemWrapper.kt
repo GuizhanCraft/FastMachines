@@ -1,5 +1,6 @@
 package net.guizhanss.fastmachines.core.items
 
+import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper
 import net.guizhanss.fastmachines.utils.items.isSimilarTo
 import net.guizhanss.guizhanlib.kt.slimefun.extensions.getSlimefunItem
 import net.guizhanss.guizhanlib.kt.slimefun.extensions.isSlimefunItem
@@ -20,7 +21,16 @@ data class ItemWrapper private constructor(
          * Creates a new [ItemWrapper] with the given [ItemStack].
          */
         fun of(item: ItemStack): ItemWrapper {
-            val baseItem = item.clone().apply { amount = 1 }
+            val baseItem = if (item is ItemStackWrapper) {
+                // Slimefun's ItemStackWrapper, construct a new ItemStack
+                ItemStack(item.type).apply {
+                    if (item.hasItemMeta()) {
+                        itemMeta = item.itemMeta
+                    }
+                }
+            } else {
+                item.clone().apply { amount = 1 }
+            }
 
             return ItemWrapper(baseItem)
         }

@@ -74,9 +74,9 @@ abstract class BaseFastMachine(
 
     override fun getEnergyComponentType() = EnergyNetComponentType.CONSUMER
 
-    val energyPerUse: Int get() = if (FastMachines.configService.fmUseEnergy) energyConsumptionSetting.value else 0
+    val energyPerUse: Int get() = if (FastMachines.configService.fmUseEnergy.value) energyConsumptionSetting.value else 0
 
-    final override fun getCapacity() = if (FastMachines.configService.fmUseEnergy) energyCapacitySetting.value else 0
+    final override fun getCapacity() = if (FastMachines.configService.fmUseEnergy.value) energyCapacitySetting.value else 0
 
     final override fun setup(preset: BlockMenuPreset) {
         for (slot in PREVIEW_SLOTS) {
@@ -124,6 +124,7 @@ abstract class BaseFastMachine(
             FastMachines.debug("Skipping registration of ${this.id} due to precondition failure.")
             return
         }
+        FastMachines.debug("Registering ${this.id}...")
         super.register(addon)
     }
 

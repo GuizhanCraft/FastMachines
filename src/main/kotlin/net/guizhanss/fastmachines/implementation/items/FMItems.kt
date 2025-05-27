@@ -9,6 +9,8 @@ import net.guizhanss.fastmachines.FastMachines
 import net.guizhanss.fastmachines.implementation.groups.FMItemGroups
 import net.guizhanss.fastmachines.implementation.items.machines.infinityexpansion.FastInfinityWorkbench
 import net.guizhanss.fastmachines.implementation.items.machines.infinityexpansion.FastMobDataInfuser
+import net.guizhanss.fastmachines.implementation.items.machines.infinityexpansion2.FastInfinityWorkbench2
+import net.guizhanss.fastmachines.implementation.items.machines.infinityexpansion2.FastMobDataInfuser2
 import net.guizhanss.fastmachines.implementation.items.machines.slimeframe.FastSlimeFrameFoundry
 import net.guizhanss.fastmachines.implementation.items.machines.slimefun.FastAncientAltar
 import net.guizhanss.fastmachines.implementation.items.machines.slimefun.FastArmorForge
@@ -88,7 +90,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +" o "
             'c' means Material.CHEST
             'C' means Material.CRAFTING_TABLE
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -102,7 +104,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +" o "
             'c' means Material.CHEST
             'F' means Material.FURNACE
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
     //</editor-fold>
@@ -119,7 +121,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'C' means Material.CRAFTING_TABLE
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -134,7 +136,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'F' means Material.OAK_FENCE
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -149,7 +151,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'A' means Material.ANVIL
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -165,7 +167,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'B' means Material.IRON_BARS
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -181,7 +183,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'O' means SlimefunItems.OUTPUT_CHEST
             'P' means Material.PISTON
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -198,7 +200,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'D' means Material.DISPENSER
             'f' means ETERNAL_FIRE
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -212,7 +214,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +"PCP"
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
             'P' means Material.PISTON
             'G' means Material.GLASS
             'C' means Material.CAULDRON
@@ -231,7 +233,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'C' means Material.CRAFTING_TABLE
             'D' means Material.DISPENSER
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -247,7 +249,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'F' means Material.OAK_FENCE
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -263,7 +265,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'C' means Material.STONECUTTER
             'I' means Material.IRON_BLOCK
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -277,7 +279,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +"SCS"
             'S' means Material.OAK_SLAB
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
             'C' means Material.CAULDRON
         }
     }
@@ -293,7 +295,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'T' means Material.OAK_TRAPDOOR
             'C' means Material.CAULDRON
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -309,7 +311,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'F' means Material.NETHER_BRICK_FENCE
             'D' means Material.DISPENSER
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
         }
     }
 
@@ -321,7 +323,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +"   "
             +" o "
             +"PAP"
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
             'P' means STACKED_ANCIENT_PEDESTAL
             'A' means SlimefunItems.ANCIENT_ALTAR
         }
@@ -338,7 +340,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +"   "
             +"Omo"
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
             'm' means "INFINITY_FORGE".getSfItem()?.item
         }
     }
@@ -352,7 +354,7 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             +"   "
             +"Omo"
             'O' means SlimefunItems.OUTPUT_CHEST
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
             'm' means "DATA_INFUSER".getSfItem()?.item
         }
     }
@@ -371,7 +373,37 @@ object FMItems : ItemRegistry(FastMachines.instance, FastMachines.localization.i
             'C' means Material.CRAFTING_TABLE
             'O' means SlimefunItems.OUTPUT_CHEST
             'D' means Material.DISPENSER
-            'o' means if (FastMachines.configService.fmUseEnergy) FAST_CORE else null
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
+        }
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="Machines - InfinityExpansion2" collapsed="true">
+    val FAST_INFINITY_WORKBENCH_2 by buildSlimefunItem<FastInfinityWorkbench2> {
+        material = Material.RESPAWN_ANCHOR.asMaterialType()
+        itemGroup = FMItemGroups.MACHINES
+        recipeType = RecipeType.ENHANCED_CRAFTING_TABLE
+        recipe = buildRecipe {
+            +"   "
+            +"   "
+            +"Omo"
+            'O' means SlimefunItems.OUTPUT_CHEST
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
+            'm' means "IE_INFINITY_WORKBENCH".getSfItem()?.item
+        }
+    }
+
+    val FAST_MOB_DATA_INFUSER_2 by buildSlimefunItem<FastMobDataInfuser2> {
+        material = Material.LODESTONE.asMaterialType()
+        itemGroup = FMItemGroups.MACHINES
+        recipeType = RecipeType.ENHANCED_CRAFTING_TABLE
+        recipe = buildRecipe {
+            +"   "
+            +"   "
+            +"Omo"
+            'O' means SlimefunItems.OUTPUT_CHEST
+            'o' means if (FastMachines.configService.fmUseEnergy.value) FAST_CORE else null
+            'm' means "IE_MOB_DATA_INFUSER".getSfItem()?.item
         }
     }
     //</editor-fold>

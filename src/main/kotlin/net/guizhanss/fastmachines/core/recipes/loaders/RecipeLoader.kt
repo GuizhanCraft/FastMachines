@@ -27,6 +27,7 @@ abstract class RecipeLoader(
     }
 
     open fun load() {
+        FastMachines.debug("Pre-processing recipes for ${machine.id}...")
         beforeLoad()
         FastMachines.debug("Loading recipes for ${machine.id}...")
         if (enableRandomRecipes) {
