@@ -36,7 +36,7 @@ dependencies {
     implementation("net.guizhanss:guizhanlib-kt-all:0.2.0")
 
     testImplementation(kotlin("test"))
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.10.0")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.72.2")
 }
 
 group = "net.guizhanss"
