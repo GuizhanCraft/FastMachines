@@ -4,6 +4,7 @@ package net.guizhanss.fastmachines.core.recipes.loaders
 
 import net.guizhanss.fastmachines.core.recipes.raw.RawRecipe
 import net.guizhanss.fastmachines.implementation.items.machines.base.BaseFastMachine
+import net.guizhanss.fastmachines.utils.consolidate
 import net.guizhanss.fastmachines.utils.items.asFMRecipeChoice
 import net.guizhanss.fastmachines.utils.reflections.resultItem
 import org.bukkit.Bukkit
@@ -52,7 +53,8 @@ class VanillaRecipeLoader<T : Recipe>(
             }
 
             is ShapelessRecipe -> {
-                rawRecipes.add(RawRecipe(recipe.choiceList.map { it.asFMRecipeChoice() }, listOf(recipe.resultItem)))
+                val ingredients = recipe.choiceList.map { it.asFMRecipeChoice() }.consolidate()
+                rawRecipes.add(RawRecipe(ingredients, listOf(recipe.resultItem)))
             }
 
             is CookingRecipe<*> -> {
@@ -60,5 +62,4 @@ class VanillaRecipeLoader<T : Recipe>(
             }
         }
     }
-
 }
