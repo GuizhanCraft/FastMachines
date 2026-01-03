@@ -149,15 +149,32 @@ items:
     lore:
       - "&7Hasznosabb mint az alap Facsarógép."
       - "&7A tárgyak sorbarendezése nélkül barkácsol."
+  FAST_ANCIENT_ALTAR:
+    lore:
+      - ""
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_INFINITY_WORKBENCH:
     name: "&aGyors Infinity Barkácsasztal"
     lore:
       - "&7Hasznosabb mint az alap Infinity Barkácsasztal."
       - "&7A tárgyak sorbarendezése nélkül barkácsol."
+  FAST_MOB_DATA_INFUSER:
+    lore:
+      - ""
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
   FAST_SLIMEFRAME_FOUNDRY:
     name: "&aGyors SlimeFrame öntöde"
     lore:
       - "&7Hasznosabb SlimeFrame öntöde."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
+  FAST_INFINITY_WORKBENCH_2:
+    name: "&aGyors Infinity Barkácsasztal"
+    lore:
+      - "&7Hasznosabb mint az alap Infinity Barkácsasztal."
+      - "&7A tárgyak sorbarendezése nélkül barkácsol."
+  FAST_MOB_DATA_INFUSER_2:
+    lore:
+      - ""
       - "&7A tárgyak sorbarendezése nélkül barkácsol."
 lores:
   per-craft: " &7barkácsolásonként"
