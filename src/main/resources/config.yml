@@ -24,5 +24,8 @@ fast-machines:
   # Whether crafting a Slimefun item needs it to be unlocked first.
   require-sf-research: false
 
+  # Whether to use ItemStack's own isSimilar to compare items.
+  use-bukkit-item-comparison: false
+
 # Print debug messages.
 debug: false

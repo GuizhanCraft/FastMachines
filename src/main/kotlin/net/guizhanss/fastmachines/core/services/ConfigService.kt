@@ -15,6 +15,7 @@ class ConfigService(plugin: FastMachines) {
     lateinit var fmTickRate: ConfigField<Int>
     lateinit var fmUseEnergy: ConfigField<Boolean>
     lateinit var fmRequireSfResearch: ConfigField<Boolean>
+    lateinit var fmUseBukkitItemComparison: ConfigField<Boolean>
 
     private val config = addonConfig(plugin, "config.yml") {
         autoUpdate = boolean("auto-update", true)
@@ -24,6 +25,7 @@ class ConfigService(plugin: FastMachines) {
         fmTickRate = int("fast-machines.tick-rate", 10, 5, 600)
         fmUseEnergy = boolean("fast-machines.use-energy", true)
         fmRequireSfResearch = boolean("fast-machines.require-sf-research", false)
+        fmUseBukkitItemComparison = boolean("fast-machines.use-bukkit-items", false)
     }
 
     init {

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.mockbukkit.mockbukkit.MockBukkit
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class ItemWrapperTest {
 
@@ -33,11 +32,11 @@ class ItemWrapperTest {
         val wrapper1 = ItemWrapper.of(ItemStack(Material.DIAMOND, 32))
         val wrapper2 = ItemWrapper.of(ItemStack(Material.DIAMOND, 32))
 
-        assertTrue(wrapper1 == wrapper2)
+        assertEquals(wrapper1, wrapper2)
 
         val wrapper3 = ItemWrapper.of(ItemStack(Material.GOLD_INGOT, 32))
         val wrapper4 = ItemWrapper.of(ItemStack(Material.GOLD_INGOT, 16))
 
-        assertTrue(wrapper3 == wrapper4)
+        assertEquals(wrapper3, wrapper4)
     }
 }

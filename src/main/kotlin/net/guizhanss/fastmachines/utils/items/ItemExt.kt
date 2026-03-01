@@ -3,6 +3,7 @@
 package net.guizhanss.fastmachines.utils.items
 
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun
+import net.guizhanss.fastmachines.FastMachines
 import net.guizhanss.fastmachines.core.items.ItemWrapper
 import net.guizhanss.guizhanlib.minecraft.utils.MinecraftVersionUtil
 import org.bukkit.inventory.ItemStack
@@ -32,11 +33,16 @@ fun ItemWrapper?.isSimilarTo(other: ItemStack?, checkLore: Boolean = false): Boo
     // null check
     if (this == null || other == null) return false
 
+    // bukkit item comparison
+    if (FastMachines.configService.fmUseBukkitItemComparison.value) {
+        return baseItem.isSimilar(other)
+    }
+
     // type check
     if (baseItem.type != other.type) return false
     if (baseItem.type.isAir || other.type.isAir) return false
 
-    // meta check
+    // has meta check
     if (baseItemMeta == null || !other.hasItemMeta()) {
         return (baseItemMeta != null) == other.hasItemMeta()
     }
@@ -146,7 +152,7 @@ private fun ItemMeta.quickNotEquals(other: ItemMeta): Boolean {
     }
 
     if (this is PotionMeta && other is PotionMeta) {
-        if (MinecraftVersionUtil.isAtLeast(20, 5)) {
+        if (MinecraftVersionUtil.isAtLeast(1, 20, 5)) {
             if (this.basePotionType != other.basePotionType) return true
         } else {
             if (this.basePotionData != other.basePotionData) return true
