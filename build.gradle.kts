@@ -31,7 +31,7 @@ dependencies {
     compileOnly("com.github.SlimefunGuguProject:InfinityExpansion:bebf0bd0f9")
     compileOnly("com.github.VoperAD:SlimeFrame:8af2379a01")
     compileOnly("net.guizhanss:InfinityExpansion2:8d3e6c40f6")
-    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("net.guizhanss:guizhanlib-all:2.5.0")
     implementation("net.guizhanss:guizhanlib-kt-all:0.2.0")
 
